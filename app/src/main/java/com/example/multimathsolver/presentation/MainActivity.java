@@ -1,20 +1,21 @@
 package com.example.multimathsolver.presentation;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.multimathsolver.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btn;
+    private Button buttonActivity;
     private TextView textView;
     private MainViewModel viewModel;
 
@@ -37,10 +38,19 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(String.valueOf(integer));
             }
         });
+
+        buttonActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = MainActivity2.newIntent(MainActivity.this);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void initViews(){
+    private void initViews() {
         btn = findViewById(R.id.button);
         textView = findViewById(R.id.tv);
+        buttonActivity = findViewById(R.id.buttonActivity);
     }
 }

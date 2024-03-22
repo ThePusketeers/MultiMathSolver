@@ -1,5 +1,6 @@
 package com.example.multimathsolver.presentation;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -11,7 +12,7 @@ public class MainViewModel extends ViewModel {
 
     private MutableLiveData<Integer> a = new MutableLiveData<>(0);
 
-    public MutableLiveData<Integer> getA() {
+    public LiveData<Integer> getA() {
         if (a == null) {
             a = new MutableLiveData<>(0);
         }
