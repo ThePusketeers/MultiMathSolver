@@ -19,7 +19,6 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
     }
-
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, MainActivity2.class);
         return intent;
