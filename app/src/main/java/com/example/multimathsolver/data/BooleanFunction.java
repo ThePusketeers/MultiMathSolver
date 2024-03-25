@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BooleanFunction {
     HashSet<String> parameters = new HashSet<>();
+    int[][] table;
     public BooleanFunction(String expression) {
         LinkedList<String> list = new LinkedList<>();
         String temp = "";
@@ -30,6 +31,7 @@ public class BooleanFunction {
                 }
             }
         }
+        table = fillTheTable();
         list = processingOfUnaryOperation(list);
         List<String> operations = new ArrayList<>();
         operations.add("∧");
@@ -103,5 +105,62 @@ public class BooleanFunction {
             list = copy;
         }
         return list;
+    }
+
+    private int[][] fillTheTable() {
+        int[][] table = new int[(int) Math.pow(2, parameters.size())][parameters.size() + 1];
+        int x = (int) Math.pow(2, parameters.size());
+        for(int col = 0; x != 1; ++col) {
+            x /= 2;
+            boolean res = true;
+
+            for(int i = 0; i < this.table.length; ++i) {
+                if (i % x == 0) {
+                    res = !res;
+                }
+
+                table[i][col] = res ? 1 : 0;
+            }
+        }
+        return table;
+    }
+
+    private void fillTableWithValueOfFunction(List<String> subdivision) {
+        for (int i = 0; i < Math.pow(2, parameters.size()); ++i) {
+            List<String> params = new ArrayList<>(parameters);
+            Deque<String> staples = new LinkedList<>();
+            Deque<Integer> values = new LinkedList<>();
+            Deque<String> operations = new LinkedList<>();
+            for (int j = 0; j < subdivision.size(); ++j) {
+                String value = subdivision.get(i);
+                if (value.equals("(")) {
+                    staples.add("(");
+                } else if (value.equals(")")) {
+                    String operation = operations.pop();
+                    if (operation.equals("¬")) {
+                        Integer value1 = values.pop();
+                        values.add(unaryFunction(value1));
+                    } else {
+                        Integer value1 = values.pop();
+                        Integer value2 = values.pop();
+                        values.add(binaryFunction(operation, value2, value1));
+                    }
+                    staples.pop();
+                } else if (params.contains(value)) {
+                    values.add(table[i][params.indexOf(value)]);
+                } else
+                    operations.add(value);
+                table[i][parameters.size()] = values.pop();
+            }
+        }
+    }
+
+    private int unaryFunction(int value) {
+        if (value == 0) return 1;
+        else return 0;
+    }
+
+    private int binaryFunction(String operation, int value1, int value2) {
+        return 0;
     }
 }
