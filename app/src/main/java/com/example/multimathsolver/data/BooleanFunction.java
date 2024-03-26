@@ -213,6 +213,23 @@ public class BooleanFunction {
     }
 
     private int binaryFunction(String operation, int value1, int value2) {
+        switch (operation) {
+            case "∧":
+                return value1 * value2;
+            case "∨":
+                if (value1 + value2 == 0) return 0;
+                else return 1;
+            case "→":
+                if (value1 == 1 && value2 == 0) return 0;
+                else return 1;
+            case "⇔":
+                if (value1 == value2) return 1;
+                else return 0;
+            case "⊕":
+                return (value1 + value2) % 2;
+        }
         return 0;
     }
 }
+
+// сделать enum для операций.
