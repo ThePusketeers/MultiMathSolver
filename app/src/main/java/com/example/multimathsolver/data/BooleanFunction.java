@@ -9,6 +9,7 @@ import java.util.List;
 public class BooleanFunction {
     HashSet<String> parameters = new HashSet<>();
     int[][] table;
+    List<String> operations;
     public BooleanFunction(String expression) {
         LinkedList<String> list = new LinkedList<>();
         String temp = "";
@@ -33,7 +34,7 @@ public class BooleanFunction {
         }
         table = fillTheTable();
         list = processingOfUnaryOperation(list);
-        List<String> operations = new ArrayList<>();
+        operations = new ArrayList<>();
         operations.add("∧");
         operations.add("∨");
         operations.add("→");
@@ -41,6 +42,11 @@ public class BooleanFunction {
         operations.add("⊕");
         for (String operation : operations) {
             list = processingOfBinaryOperation(list, operation);
+        }
+        list = removeExtraBrackets(list);
+        boolean isException = fillTableWithValueOfFunction(list);
+        if (isException) {
+            System.out.println("Функция введена неверно");
         }
     }
 
@@ -85,7 +91,7 @@ public class BooleanFunction {
                     }
                     copy.add(k, "(");
                 } else {
-                    copy.add(i - 2, "(");
+                    copy.add(Math.max(i - 1, 0), "(");
                 }
                 if (i + 1 < list.size() && list.get(i + 1).equals("(")) {
                     Deque<String> deque = new LinkedList<>();
@@ -98,7 +104,7 @@ public class BooleanFunction {
                     }
                     copy.add(k, ")");
                 } else {
-                    copy.add(i + 2, ")" );
+                    copy.add(i + 3, ")" );
                 }
                 i++;
             }
@@ -114,7 +120,7 @@ public class BooleanFunction {
             x /= 2;
             boolean res = true;
 
-            for(int i = 0; i < this.table.length; ++i) {
+            for(int i = 0; i < table.length; ++i) {
                 if (i % x == 0) {
                     res = !res;
                 }
@@ -125,34 +131,80 @@ public class BooleanFunction {
         return table;
     }
 
-    private void fillTableWithValueOfFunction(List<String> subdivision) {
+    private LinkedList<String> removeExtraBrackets(LinkedList<String> list) {
+        for (int i = 0; i < list.size(); ++i) {
+            String value = list.get(i);
+            if (value.equals("(")) {
+                Deque<String> staples = new LinkedList<>();
+                staples.add("(");
+                int r = i + 1;
+                while (!staples.isEmpty() && r < list.size()) {
+                    if (list.get(r).equals(")")) staples.pop();
+                    else if (list.get(r).equals("(")) staples.add("(");
+                    r++;
+                }
+                if (r >= list.size()) r--;
+                int l = i + 1;
+                boolean flag = false;
+                while (l < list.size() && !list.get(l).equals("(")) {
+                    if (operations.contains(list.get(l))) {
+                        flag = true;
+                        break;
+                    }
+                    l++;
+                }
+                r--;
+                while (r >= 0 && !list.get(r).equals(")") && !flag) {
+                    if (operations.contains(list.get(r))) {
+                        flag = true;
+                        break;
+                    }
+                    r--;
+                }
+                if (!flag) {
+                    LinkedList<String> copy = new LinkedList<>(list);
+                    copy.remove(r);
+                    copy.remove(l);
+                    list = copy;
+                }
+            }
+        }
+        return list;
+    }
+
+    private boolean fillTableWithValueOfFunction(List<String> subdivision) {
         for (int i = 0; i < Math.pow(2, parameters.size()); ++i) {
             List<String> params = new ArrayList<>(parameters);
             Deque<String> staples = new LinkedList<>();
             Deque<Integer> values = new LinkedList<>();
             Deque<String> operations = new LinkedList<>();
-            for (int j = 0; j < subdivision.size(); ++j) {
-                String value = subdivision.get(i);
-                if (value.equals("(")) {
-                    staples.add("(");
-                } else if (value.equals(")")) {
-                    String operation = operations.pop();
-                    if (operation.equals("¬")) {
-                        Integer value1 = values.pop();
-                        values.add(unaryFunction(value1));
-                    } else {
-                        Integer value1 = values.pop();
-                        Integer value2 = values.pop();
-                        values.add(binaryFunction(operation, value2, value1));
-                    }
-                    staples.pop();
-                } else if (params.contains(value)) {
-                    values.add(table[i][params.indexOf(value)]);
-                } else
-                    operations.add(value);
+            try {
+                for (int j = 0; j < subdivision.size(); ++j) {
+                    String value = subdivision.get(j);
+                    if (value.equals("(")) {
+                        staples.add("(");
+                    } else if (value.equals(")")) {
+                        String operation = operations.pop();
+                        if (operation.equals("¬")) {
+                            Integer value1 = values.pop();
+                            values.add(unaryFunction(value1));
+                        } else {
+                            Integer value1 = values.pop();
+                            Integer value2 = values.pop();
+                            values.add(binaryFunction(operation, value2, value1));
+                        }
+                        staples.pop();
+                    } else if (params.contains(value)) {
+                        values.add(table[i][params.indexOf(value)]);
+                    } else
+                        operations.add(value);
+                }
                 table[i][parameters.size()] = values.pop();
+            } catch (Exception ex) {
+                return true;
             }
         }
+        return false;
     }
 
     private int unaryFunction(int value) {
