@@ -1,6 +1,6 @@
-package com.example.multimathsolver;
+package com.example.multimathsolver.booleanalgebra;
 
-import com.example.multimathsolver.data.BooleanFunction;
+import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,7 +32,8 @@ public class BooleanFunctionTest {
                 {"(((X1⊕X2)→X3)⇔X2)", new int[]{0, 0, 0, 1, 1, 0, 1, 1}},
                 {"(((X1⊕X2)→(X3))⇔X2)", new int[]{0, 0, 0, 1, 1, 0, 1, 1}},
                 {"(X2→X3)∧¬(X1⇔X3)", new int[]{0, 1, 0, 1, 1, 0, 0, 0}},
-                {"(X1⊕X2)∧(¬X1⊕(¬X3))", new int[]{0, 0, 0, 1, 1, 0, 0, 0}}
+                {"(X1⊕X2)∧(¬X1⊕(¬X3))", new int[]{0, 0, 0, 1, 1, 0, 0, 0}},
+                {"(X1⊕X2)∨¬X3∧X1", new int[]{0, 0, 1, 1, 1, 1, 1, 0}}
         });
     }
 

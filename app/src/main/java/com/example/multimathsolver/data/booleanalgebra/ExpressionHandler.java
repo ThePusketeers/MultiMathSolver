@@ -1,16 +1,25 @@
-package com.example.multimathsolver.data;
+package com.example.multimathsolver.data.booleanalgebra;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BooleanFunction {
-    HashSet<String> parameters = new HashSet<>();
-    public int[][] table;
-    List<String> operations;
-    public BooleanFunction(String expression) {
+public class ExpressionHandler {
+    HashSet<String> expressionParameters = new HashSet<>();
+    List<String> listOfExpression;
+    public ExpressionHandler(String expression) {
+        List<String> listOfExpression = expressionToList(expression);
+        deleteStaplesAroundParameters(listOfExpression);
+        listOfExpression = processingOfUnaryOperation(listOfExpression,
+                UnaryOperation.NEGATION.charOfOperation);
+        for (BinaryOperation operation : BinaryOperation.values()) {
+            listOfExpression = processingOfBinaryOperation(listOfExpression, operation.charOfOperation);
+        }
+        this.listOfExpression = removeExtraBrackets(listOfExpression);
+    }
+
+    private List<String> expressionToList(String expression) {
         LinkedList<String> list = new LinkedList<>();
         String temp = "";
         for (int i = 0; i < expression.length(); ++i) {
@@ -19,12 +28,12 @@ public class BooleanFunction {
                 temp += value;
                 if (i == expression.length() - 1) {
                     list.add(temp);
-                    parameters.add(temp);
+                    expressionParameters.add(temp);
                 }
             } else {
                 if (!temp.isEmpty()) {
                     list.add(temp);
-                    parameters.add(temp);
+                    expressionParameters.add(temp);
                     temp = "";
                 }
                 if (value != ' ') {
@@ -32,30 +41,28 @@ public class BooleanFunction {
                 }
             }
         }
-        deleteStaplesAroundParameters(list);
-        table = fillTheTable();
-        list = processingOfUnaryOperation(list);
-        operations = new ArrayList<>();
-        operations.add("∧");
-        operations.add("∨");
-        operations.add("→");
-        operations.add("⇔");
-        operations.add("⊕");
-        for (String operation : operations) {
-            list = processingOfBinaryOperation(list, operation);
-        }
-        list = removeExtraBrackets(list);
-        boolean isException = fillTableWithValueOfFunction(list);
-        if (isException) {
-            System.out.println("Функция введена неверно");
+        return list;
+    }
+    public List<String> getExpressionParameters() {
+        List<String> parameters = new LinkedList<>(expressionParameters);
+        parameters.sort(String::compareTo);
+        return parameters;
+    }
+
+    private void deleteStaplesAroundParameters(List<String> list) {
+        for (int i = 1; i < list.size() - 1; ++i) {
+            if (expressionParameters.contains(list.get(i)) &&  list.get(i-1).equals("(") && list.get(i+1).equals(")")) {
+                list.remove(i+1);
+                list.remove(i-1);
+            }
         }
     }
 
-    private LinkedList<String> processingOfUnaryOperation(LinkedList<String> list) {
+    private List<String> processingOfUnaryOperation(List<String> list, String operation) {
         for (int i = 0; i < list.size(); ++i) {
             String value = list.get(i);
             LinkedList<String> copy = new LinkedList<>(list);
-            if (value.equals("¬")) {
+            if (value.equals(operation)) {
                 copy.add(Math.max(i, 0), "(");
                 i++;
                 if (i < list.size() && list.get(i).equals("(")) {
@@ -77,7 +84,7 @@ public class BooleanFunction {
         return list;
     }
 
-    private LinkedList<String> processingOfBinaryOperation(LinkedList<String> list, String operation) {
+    private List<String> processingOfBinaryOperation(List<String> list, String operation) {
         for (int i = 0; i < list.size(); ++i) {
             String value = list.get(i);
             LinkedList<String> copy = new LinkedList<>(list);
@@ -115,25 +122,7 @@ public class BooleanFunction {
         return list;
     }
 
-    private int[][] fillTheTable() {
-        int[][] table = new int[(int) Math.pow(2, parameters.size())][parameters.size() + 1];
-        int x = (int) Math.pow(2, parameters.size());
-        for(int col = 0; x != 1; ++col) {
-            x /= 2;
-            boolean res = true;
-
-            for(int i = 0; i < table.length; ++i) {
-                if (i % x == 0) {
-                    res = !res;
-                }
-
-                table[i][col] = res ? 1 : 0;
-            }
-        }
-        return table;
-    }
-
-    private LinkedList<String> removeExtraBrackets(LinkedList<String> list) {
+    private List<String> removeExtraBrackets(List<String> list) {
         int i = 0;
         while (i < list.size()){
             String value = list.get(i);
@@ -150,7 +139,7 @@ public class BooleanFunction {
                 int l = i + 1;
                 boolean flag = false;
                 while (l < list.size() && !list.get(l).equals("(") && l < r) {
-                    if (operations.contains(list.get(l)) || list.get(l).equals("¬")) {
+                    if (BinaryOperation.contains(list.get(l)) || UnaryOperation.contains(list.get(l))) {
                         flag = true;
                         break;
                     }
@@ -158,24 +147,16 @@ public class BooleanFunction {
                 }
                 r--;
                 while (r >= 0 && !list.get(r).equals(")") && !flag) {
-                    if (operations.contains(list.get(r)) || list.get(r).equals("¬")) {
+                    if (BinaryOperation.contains(list.get(r)) || UnaryOperation.contains(list.get(r))) {
                         flag = true;
-                        break;
-                    } else if (parameters.contains(list.get(r)) && l > r) {
-                        r--;
                         break;
                     }
                     r--;
                 }
                 if (!flag) {
                     LinkedList<String> copy = new LinkedList<>(list);
-                    if (r > l) {
-                        copy.remove(r);
-                        copy.remove(l);
-                    } else {
-                        copy.remove(l);
-                        copy.remove(r);
-                    }
+                    copy.remove(r);
+                    copy.remove(l);
                     list = copy;
                     i = 0;
                 }
@@ -189,85 +170,48 @@ public class BooleanFunction {
         return list;
     }
 
-    private boolean fillTableWithValueOfFunction(List<String> subdivision) {
-        for (int i = 0; i < Math.pow(2, parameters.size()); ++i) {
-            List<String> params = new ArrayList<>(parameters);
-            params.sort(String::compareTo);
-            Deque<String> staples = new LinkedList<>();
+    public boolean fillTableWithValueOfFunction(int[][] table) {
+        for (int i = 0; i < Math.pow(2, expressionParameters.size()); ++i) {
+            int staples = 0;
             Deque<Integer> values = new LinkedList<>();
             Deque<String> operations = new LinkedList<>();
             try {
-                for (int j = 0; j < subdivision.size(); ++j) {
-                    String value = subdivision.get(j);
+                for (int j = 0; j < listOfExpression.size(); ++j) {
+                    String value = listOfExpression.get(j);
                     if (value.equals("(")) {
-                        staples.push("(");
+                        staples++;
                     } else if (value.equals(")")) {
                         String operation = operations.pop();
-                        if (operation.equals("¬")) {
-                            Integer value1 = values.pop();
-                            values.push(unaryFunction(value1));
+                        Integer value1 = values.pop();
+                        if (UnaryOperation.NEGATION.charOfOperation.equals(operation)) {
+                            values.push(UnaryOperation.resultOfOperation(value1));
                         } else {
-                            Integer value1 = values.pop();
                             Integer value2 = values.pop();
-                            values.push(binaryFunction(operation, value2, value1));
+                            values.push(BinaryOperation.valueOfString(operation).resultOfOperation(value2, value1));
                         }
-                        staples.pop();
-                    } else if (params.contains(value)) {
-                        values.push(table[i][params.indexOf(value)]);
+                        staples--;
+                    } else if (expressionParameters.contains(value)) {
+                        values.push(table[i][getExpressionParameters().indexOf(value)]);
                     } else
                         operations.push(value);
                 }
                 while (!operations.isEmpty()) {
                     String operation = operations.pop();
-                    if (operation.equals("¬")) {
+                    if (UnaryOperation.NEGATION.charOfOperation.equals(operation)) {
                         Integer value1 = values.pop();
-                        values.push(unaryFunction(value1));
+                        values.push(UnaryOperation.resultOfOperation(value1));
                     } else {
                         Integer value1 = values.pop();
                         Integer value2 = values.pop();
-                        values.push(binaryFunction(operation, value2, value1));
+                        values.push(BinaryOperation.valueOfString(operation).resultOfOperation(value2, value1));
                     }
                 }
-                table[i][parameters.size()] = values.pop();
+                table[i][expressionParameters.size()] = values.pop();
+                if (staples < 0) throw new Exception();
             } catch (Exception ex) {
                 return true;
             }
         }
         return false;
     }
-
-    private void deleteStaplesAroundParameters(LinkedList<String> list) {
-        for (int i = 1; i < list.size() - 1; ++i) {
-            if (parameters.contains(list.get(i)) &&  list.get(i-1).equals("(") && list.get(i+1).equals(")")) {
-                list.remove(i+1);
-                list.remove(i-1);
-            }
-        }
-    }
-
-    private int unaryFunction(int value) {
-        if (value == 0) return 1;
-        else return 0;
-    }
-
-    private int binaryFunction(String operation, int value1, int value2) {
-        switch (operation) {
-            case "∧":
-                return value1 * value2;
-            case "∨":
-                if (value1 + value2 == 0) return 0;
-                else return 1;
-            case "→":
-                if (value1 == 1 && value2 == 0) return 0;
-                else return 1;
-            case "⇔":
-                if (value1 == value2) return 1;
-                else return 0;
-            case "⊕":
-                return (value1 + value2) % 2;
-        }
-        return 0;
-    }
 }
-
-// сделать enum для операций.
