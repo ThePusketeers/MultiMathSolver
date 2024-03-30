@@ -3,9 +3,9 @@ package com.example.multimathsolver.data.booleanalgebra;
 public enum BinaryOperation {
     CONJUNCTION("∧"),
     DISJUNCTION("∨"),
+    XOR("⊕"),
     IMPLICATION("→"),
-    EQUIVALENCE("⇔"),
-    XOR("⊕")
+    EQUIVALENCE("⇔")
     ;
     final String charOfOperation;
     BinaryOperation(String charOfOperation) {
