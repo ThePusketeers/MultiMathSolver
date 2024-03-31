@@ -1,7 +1,12 @@
+import java.io.FileInputStream
+import java.util.Properties
+val localPropertiesFile = rootProject.file("local.properties")
+val localProperties = Properties()
+localProperties.load(FileInputStream(localPropertiesFile))
+
 plugins {
     id("com.android.application")
 }
-
 android {
     namespace = "com.example.multimathsolver"
     compileSdk = 34
@@ -12,7 +17,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String", "API_KEY", localProperties.getProperty("apiKey"))
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

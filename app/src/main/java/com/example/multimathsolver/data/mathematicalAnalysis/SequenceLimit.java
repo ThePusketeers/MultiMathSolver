@@ -2,7 +2,6 @@ package com.example.multimathsolver.data.mathematicalAnalysis;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,12 +9,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import com.example.multimathsolver.BuildConfig;
 
-import kotlin.Suppress;
+
 
 public class SequenceLimit {
     // Идентификатор приложения Wolfram Alpha API
-    private String appId = "9Y8GHJ-EPPQTKW4V7";
+    private String appId = BuildConfig.API_KEY;
 
     public void solve(String sequence) {
         // Формируем URL запроса к Wolfram Alpha API
