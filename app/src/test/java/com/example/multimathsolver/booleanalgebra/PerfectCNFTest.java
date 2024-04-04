@@ -32,6 +32,6 @@ public class PerfectCNFTest {
 
     @Test
     public void testPerfectCNF() {
-        Assert.assertEquals(expectedPerfectCNF, function.perfectCNF());
+        Assert.assertEquals(expectedPerfectCNF, function.getPerfectCNF());
     }
 }

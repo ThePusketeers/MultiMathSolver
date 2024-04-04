@@ -10,4 +10,5 @@ public interface Repository {
 
     public String perfectDNF(BooleanFunction b);
 
+    public String perfectCNF(BooleanFunction b);
 }

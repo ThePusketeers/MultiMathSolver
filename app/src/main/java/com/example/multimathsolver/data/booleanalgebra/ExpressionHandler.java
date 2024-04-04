@@ -98,14 +98,14 @@ public class ExpressionHandler {
                         else if (list.get(k).equals("(")) deque.pop();
                         k--;
                     }
-                    copy.add(k, "(");
+                    copy.add(k+1, "(");
                 } else {
                     copy.add(Math.max(i - 1, 0), "(");
                 }
                 if (i + 1 < list.size() && list.get(i + 1).equals("(")) {
                     Deque<String> deque = new LinkedList<>();
                     deque.push("(");
-                    int k = i + 1;
+                    int k = i + 2;
                     while (!deque.isEmpty() && k < list.size()) {
                         if (list.get(k).equals(")")) deque.pop();
                         else if (list.get(k).equals("(")) deque.push("(");

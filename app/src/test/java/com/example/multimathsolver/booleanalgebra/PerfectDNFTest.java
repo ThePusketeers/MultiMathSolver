@@ -32,6 +32,6 @@ public class PerfectDNFTest {
 
     @Test
     public void testPerfectDNF() {
-        Assert.assertEquals(expectedPerfectDNF, function.perfectDNF());
+        Assert.assertEquals(expectedPerfectDNF, function.getPerfectDNF());
     }
 }

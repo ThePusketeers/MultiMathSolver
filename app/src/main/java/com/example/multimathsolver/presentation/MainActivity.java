@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        BooleanFunction func = new BooleanFunction("a↓b↑c");
-        Log.println(Log.WARN, "SDNF", func.perfectDNF());
-        Log.println(Log.WARN, "SCNF", func.perfectCNF());
-        System.out.println(func.perfectCNF());
+        BooleanFunction func = new BooleanFunction("(X1⊕X2)∨¬X3∧X1");
+        Log.println(Log.WARN, "SDNF", func.getPerfectDNF());
+        Log.println(Log.WARN, "SCNF", func.getPerfectCNF());
+        Log.println(Log.WARN, "AbbrDNF", func.getAbbreviatedDNF());
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
