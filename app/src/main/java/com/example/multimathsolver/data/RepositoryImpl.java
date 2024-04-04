@@ -1,5 +1,6 @@
 package com.example.multimathsolver.data;
 
+import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
 import com.example.multimathsolver.domain.Repository;
 
 public class RepositoryImpl implements Repository {
@@ -8,5 +9,10 @@ public class RepositoryImpl implements Repository {
     public int incrementByOne(int a) {
         a++;
         return a;
+    }
+
+    @Override
+    public String perfectDNF(BooleanFunction b) {
+        return b.perfectDNF();
     }
 }
