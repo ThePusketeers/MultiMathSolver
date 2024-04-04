@@ -4,6 +4,8 @@ public enum BinaryOperation {
     CONJUNCTION("∧"),
     DISJUNCTION("∨"),
     XOR("⊕"),
+    PIERCE_ARROW("↓"),
+    SHEFFER_STROKE("↑"),
     IMPLICATION("→"),
     EQUIVALENCE("⇔")
     ;
@@ -41,6 +43,12 @@ public enum BinaryOperation {
                 else return 0;
             case XOR:
                 return (value1 + value2) % 2;
+            case PIERCE_ARROW:
+                if (value1 + value2 == 0) return 1;
+                else return 0;
+            case SHEFFER_STROKE:
+                if (value1 * value2 == 0) return 1;
+                else  return 0;
         }
         return 0;
     }
