@@ -194,17 +194,6 @@ public class ExpressionHandler {
                     } else
                         operations.push(value);
                 }
-                while (!operations.isEmpty()) {
-                    String operation = operations.pop();
-                    if (UnaryOperation.NEGATION.charOfOperation.equals(operation)) {
-                        Integer value1 = values.pop();
-                        values.push(UnaryOperation.resultOfOperation(value1));
-                    } else {
-                        Integer value1 = values.pop();
-                        Integer value2 = values.pop();
-                        values.push(BinaryOperation.valueOfString(operation).resultOfOperation(value2, value1));
-                    }
-                }
                 table[i][expressionParameters.size()] = values.pop();
                 if (staples < 0) throw new Exception();
             } catch (Exception ex) {

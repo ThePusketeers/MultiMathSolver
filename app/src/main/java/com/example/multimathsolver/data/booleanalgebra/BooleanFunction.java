@@ -252,4 +252,48 @@ public class BooleanFunction {
         if (output.length() >= 1) output = new StringBuilder(output.substring(0, output.length()-1));
         return output.toString();
     }
+
+    private List<List<List<Integer>>> getListOfMinimalDNF() {
+        int minimum = Integer.MAX_VALUE;
+        List<List<List<Integer>>> listOfMinimalDNF = new ArrayList<>();
+        List<List<List<Integer>>> deadLockedDNF = getListOfDeadLockedDNF();
+        for (List<List<Integer>> dnf : deadLockedDNF) {
+            int counter = 0;
+            for (List<Integer> conjunction : dnf) {
+                for (Integer literal : conjunction) {
+                    if (literal != -1) ++counter;
+                }
+            }
+            minimum = Math.min(counter, minimum);
+        }
+        for (List<List<Integer>> dnf : deadLockedDNF) {
+            int counter = 0;
+            for (List<Integer> conjunction : dnf) {
+                for (Integer literal : conjunction) {
+                    if (literal != -1) ++counter;
+                }
+            }
+            if (counter == minimum) listOfMinimalDNF.add(dnf);
+        }
+        return listOfMinimalDNF;
+    }
+
+    public String getMinimalDNF() {
+        StringBuilder output = new StringBuilder();
+        for (List<List<Integer>> dnf : getListOfMinimalDNF()) {
+            for (List<Integer> conjunction : dnf) {
+                output.append("(");
+                for (int i = 0; i < conjunction.size(); ++i) {
+                    if (conjunction.get(i) != -1)
+                        output.append((conjunction.get(i) == 1 ? parameters.get(i) : UnaryOperation.NEGATION.charOfOperation + parameters.get(i))).append(" ").append(BinaryOperation.CONJUNCTION.charOfOperation).append(" ");
+                }
+                if (output.length() >= 3) output = new StringBuilder(output.substring(0, output.length() - 3));
+                output.append(") ").append(BinaryOperation.DISJUNCTION.charOfOperation).append(" ");
+            }
+            if (output.length() >= 3) output = new StringBuilder(output.substring(0, output.length() - 3));
+            output.append("\n");
+        }
+        if (output.length() >= 1) output = new StringBuilder(output.substring(0, output.length() - 1));
+        return output.toString();
+    }
 }
