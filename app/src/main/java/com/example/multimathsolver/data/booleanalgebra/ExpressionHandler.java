@@ -18,7 +18,6 @@ public class ExpressionHandler {
         for (BinaryOperation operation : BinaryOperation.values()) {
             listOfExpression = processingOfBinaryOperation(listOfExpression, operation.charOfOperation);
         }
-        String out = String.join("", listOfExpression);
         this.listOfExpression = removeExtraBrackets(listOfExpression);
     }
 
@@ -125,6 +124,7 @@ public class ExpressionHandler {
         return list;
     }
 
+    /** @noinspection DataFlowIssue*/
     private List<String> removeExtraBrackets(List<String> list) {
         HashMap<Integer, Integer> map = new HashMap<>();
         int counter = -1;
