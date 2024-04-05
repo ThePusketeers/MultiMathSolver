@@ -304,4 +304,43 @@ public class BooleanFunction {
         if (output.length() >= 1) output = new StringBuilder(output.substring(0, output.length() - 1));
         return output.toString();
     }
+
+    private List<Integer> mergeLists(List<Integer> arr1, List<Integer> arr2) {
+        List<Integer> res = new ArrayList<>(arr1);
+        for (int i = 0; i < arr2.size(); ++i) {
+            res.add((arr1.get(i) + arr2.get(i)) % 2);
+        }
+        return res;
+    }
+
+    public String getPolynomial() {
+        StringBuilder output = new StringBuilder();
+        List<List<Integer>> entry = new ArrayList<>();
+        for (int[] ints : table) {
+            List<Integer> valueOfFunction = new ArrayList<>();
+            valueOfFunction.add(ints[parameters.size()]);
+            entry.add(valueOfFunction);
+        }
+        while (entry.size() != 1) {
+            List<List<Integer>> clone = new ArrayList<>();
+            for (int i = 0; i < entry.size() - 1; i += 2) {
+                clone.add(mergeLists(entry.get(i), entry.get(i + 1)));
+            }
+            entry = clone;
+        }
+        List<Integer> result = entry.get(0);
+        for (int i = table.length - 1; i > 0; --i) {
+            if (result.get(i) == 1) {
+                for (int j = 0; j < table[i].length - 1; ++j) {
+                    if (table[i][j] == 1) output.append(parameters.get(j));
+                }
+                output.append(" ").append(BinaryOperation.XOR.charOfOperation).append(" ");
+            }
+        }
+        if (result.get(0) == 1) output.append(1);
+        else {
+            if (output.length() >= 3) output = new StringBuilder(output.substring(0, output.length() - 3));
+        }
+        return output.toString();
+    }
 }
