@@ -6,14 +6,14 @@ public class ParseXML {
         this.xml = xml;
     }
 
-    public Double parse() {
+    public String parse() {
         return getResult(getPlainText());
     }
 
     //lim_(n->∞) ... = ...
-    private Double getResult(String plainText) {
-        int startIndex = plainText.indexOf("=");
-        return Double.parseDouble(plainText.substring(startIndex));
+    private String getResult(String plainText) {
+        int startIndex = plainText.indexOf("=") + 2;
+        return plainText.substring(startIndex);
     }
 
 

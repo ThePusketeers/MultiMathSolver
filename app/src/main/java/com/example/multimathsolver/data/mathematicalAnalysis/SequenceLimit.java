@@ -7,7 +7,7 @@ public class SequenceLimit {
         thread.start();
         try {
             thread.join();
-            return thread.getXmlText();
+            return new ParseXML(thread.getXmlText()).parse();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
