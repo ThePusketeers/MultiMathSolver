@@ -12,7 +12,7 @@ import java.net.URL;
 
 public class SequenceLimitThread extends Thread{
     public SequenceLimitThread(String sequence) {
-        this.sequence = sequence;
+        wolfram_url = "https://api.wolframalpha.com/v2/query?input=lim n->inf (" + sequence + ")&appid=" + BuildConfig.API_KEY;
     }
 
     public String getXmlText() {
@@ -21,37 +21,26 @@ public class SequenceLimitThread extends Thread{
 
     private String xmlText;
     private String sequence;
-    private final String wolfram_url = "http://api.wolframalpha.com/v2/query?input=lim n->inf " + sequence + "&appid=" + BuildConfig.API_KEY;
+    private final String wolfram_url;
     public void run() {
-        HttpURLConnection connection = null;
-        BufferedReader reader = null;
+        final URL url;
         try {
-            URL url = new URL(wolfram_url);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.connect();
-            InputStream stream = connection.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(stream));
-            StringBuffer buffer = new StringBuffer();
-            String line = "";
-
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line).append("\n");
+            url = new URL(wolfram_url);
+            final HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            try (final BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                String inputLine;
+                final StringBuilder content = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine);
+                }
+                xmlText = content.toString();
+            } catch (final Exception ex) {
+                ex.printStackTrace();
+                xmlText = "";
             }
-
-            xmlText = buffer.toString();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (connection != null)
-                connection.disconnect();
-            try {
-                if (reader != null)
-                    reader.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

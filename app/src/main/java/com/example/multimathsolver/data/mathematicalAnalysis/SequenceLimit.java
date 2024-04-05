@@ -19,7 +19,6 @@ public class SequenceLimit {
 
     public static String solve(String sequence) {
         // Формируем URL запроса к Wolfram Alpha API
-        String url = "http://api.wolframalpha.com/v2/query?input=lim n->inf " + sequence + "&appid=" + BuildConfig.API_KEY;
         SequenceLimitThread thread = new SequenceLimitThread(sequence);
         thread.start();
         try {
@@ -28,6 +27,6 @@ public class SequenceLimit {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return null;
+        return "Error";
     }
 }

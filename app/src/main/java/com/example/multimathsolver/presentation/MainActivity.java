@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 viewModel.incrementA();
 
-                String res =  SequenceLimit.solve("1/n");
-                Log.d("1", res);
+                Log.d("LIMITRESULT", SequenceLimit.solve("1/n + 1"));
             }
         });
 
