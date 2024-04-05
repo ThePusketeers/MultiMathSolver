@@ -1,6 +1,7 @@
 package com.example.multimathsolver.data.booleanalgebra;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -140,17 +141,115 @@ public class BooleanFunction {
                 Integer el = conjunction.get(j);
                 if (el != -1) output
                         .append(el == 1 ? parameters.get(j) : UnaryOperation.NEGATION.charOfOperation + parameters.get(j))
-                        .append(" ∧ ");
+                        .append(" ").append(BinaryOperation.CONJUNCTION.charOfOperation)
+                        .append(" ");
             }
             if (output.length() >= 3) {
                 output = new StringBuilder(output.substring(0, output.length() - 3));
             }
-            output.append(") ∨ ");
+            output.append(") ")
+                    .append(BinaryOperation.DISJUNCTION.charOfOperation)
+                    .append(" ");
 
         }
         if (output.length() >= 3) {
             output = new StringBuilder(output.substring(0, output.length() - 3));
         }
+        return output.toString();
+    }
+
+    private List<List<List<Integer>>> getListOfDeadLockedDNF() {
+        List<List<List<Integer>>> tupic = new ArrayList<>();
+        tupic.add(getListOfAbbreviatedDNF());
+        int j = 0;
+        while (j != tupic.size()) {
+            List<List<Integer>> list = tupic.get(j);
+            for (int i = 0; i < list.size(); ++i) {
+                List<List<Integer>> copy = new ArrayList<>(list);
+                //noinspection SuspiciousListRemoveInLoop
+                copy.remove(i);
+                if (isDNF(copy)) tupic.add(copy);
+            }
+            ++j;
+        }
+        tupic = cleanDeadLockedDNF(tupic);
+        return tupic;
+    }
+
+    private boolean isDNF(List<List<Integer>> list) {
+        for (int[] row : table) {
+            if (row[row.length - 1] == 1) {
+                int result = 0;
+                for (List<Integer> integers : list) {
+                    boolean flag = true;
+                    for (int j = 0; j < integers.size(); ++j) {
+                        if (integers.get(j) != -1) {
+                            if (integers.get(j) != row[j]) {
+                                flag = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (flag) ++result;
+                }
+                if (result == 0) return false;
+            }
+        }
+        return true;
+    }
+
+    private List<List<List<Integer>>> cleanDeadLockedDNF(List<List<List<Integer>>> list) {
+        List<List<List<Integer>>> copy = new ArrayList<>(list);
+        List<Integer> removable = new ArrayList<>();
+        for (int i = list.size() - 1; i > 0; --i) {
+            for (int j = 0; j < i; j++) {
+                List<List<Integer>> lst1 = list.get(i);
+                List<List<Integer>> lst2 = list.get(j);
+                boolean res = true;
+                for (List<Integer> vars : lst1) {
+                    if (!lst2.contains(vars)) {
+                        res = false;
+                        break;
+                    }
+                }
+                if (res) {
+                    removable.add(j);
+                }
+            }
+        }
+        Set<Integer> set = new HashSet<>(removable);
+        removable.clear();
+        removable.addAll(set);
+        Collections.sort(removable);
+        Collections.reverse(removable);
+        for (Integer index : removable) copy.remove((int) index);
+        return copy;
+    }
+
+    public String getDeadLockedDNF() {
+        StringBuilder output = new StringBuilder();
+        for (List<List<Integer>> dnf : getListOfDeadLockedDNF()) {
+            for (List<Integer> conjunction : dnf) {
+                output.append("(");
+                for (int i = 0; i < conjunction.size(); ++i) {
+                    if (conjunction.get(i) != -1)
+                        output.append(conjunction.get(i) == 1
+                                ? parameters.get(i)
+                                : UnaryOperation.NEGATION.charOfOperation + parameters.get(i))
+                                .append(" ").append(BinaryOperation.CONJUNCTION.charOfOperation)
+                                .append(" ");
+                }
+                if (output.length() >= 3) {
+                    output = new StringBuilder(output.substring(0, output.length() - 3));
+                }
+                output.append(") ").append(BinaryOperation.DISJUNCTION.charOfOperation).append(" ");
+            }
+            if (output.length() >= 3) {
+                output = new StringBuilder(output.substring(0, output.length() - 3));
+            }
+            output.append("\n");
+        }
+        if (output.length() >= 1) output = new StringBuilder(output.substring(0, output.length()-1));
         return output.toString();
     }
 }

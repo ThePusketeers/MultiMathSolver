@@ -1,6 +1,8 @@
 package com.example.multimathsolver.data.booleanalgebra;
 
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +18,7 @@ public class ExpressionHandler {
         for (BinaryOperation operation : BinaryOperation.values()) {
             listOfExpression = processingOfBinaryOperation(listOfExpression, operation.charOfOperation);
         }
+        String out = String.join("", listOfExpression);
         this.listOfExpression = removeExtraBrackets(listOfExpression);
     }
 
@@ -123,49 +126,45 @@ public class ExpressionHandler {
     }
 
     private List<String> removeExtraBrackets(List<String> list) {
-        int i = 0;
-        while (i < list.size()){
-            String value = list.get(i);
-            if (value.equals("(")) {
-                Deque<String> staples = new LinkedList<>();
-                staples.push("(");
-                int r = i + 1;
-                while (!staples.isEmpty() && r < list.size()) {
-                    if (list.get(r).equals(")")) staples.pop();
-                    else if (list.get(r).equals("(")) staples.push("(");
-                    r++;
-                }
-                r--;
-                int l = i + 1;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int counter = -1;
+        for (int i = 0; i < list.size(); ++i) {
+            if (list.get(i).equals("(")) {
+                counter++;
+                map.put(i, counter);
+
+            }
+            if (list.get(i).equals(")")) {
+                counter--;
+                map.put(i, counter);
+
+            }
+        }
+        HashSet<Integer> removable = new HashSet<>();
+        for (int i = 0; i < list.size(); ++i) {
+            if (list.get(i).equals("(")) {
+                int count = map.get(i);
+                int j = i + 1;
                 boolean flag = false;
-                while (l < list.size() && !list.get(l).equals("(") && l < r) {
-                    if (BinaryOperation.contains(list.get(l)) || UnaryOperation.contains(list.get(l))) {
+                while (j < list.size() && count != map.get(i) - 1) {
+                    if (list.get(j).equals("(")) count++;
+                    if (list.get(j).equals(")")) count--;
+                    if (count == map.get(i) && (UnaryOperation.contains(list.get(j)) || BinaryOperation.contains((list.get(j))))) {
                         flag = true;
                         break;
                     }
-                    l++;
-                }
-                r--;
-                while (r >= 0 && !list.get(r).equals(")") && !flag) {
-                    if (BinaryOperation.contains(list.get(r)) || UnaryOperation.contains(list.get(r))) {
-                        flag = true;
-                        break;
-                    }
-                    r--;
+                    j++;
                 }
                 if (!flag) {
-                    LinkedList<String> copy = new LinkedList<>(list);
-                    copy.remove(r);
-                    copy.remove(l);
-                    list = copy;
-                    i = 0;
+                    removable.add(i);
+                    removable.add(j-1);
                 }
-                else {
-                    i++;
-                }
-            } else {
-                i++;
             }
+        }
+        List<Integer> remove = new ArrayList<>(removable);
+        remove.sort(((o1, o2) -> (-1) * (o1 - o2)));
+        for (int i = 0; i < remove.size(); ++i) {
+            list.remove((int) remove.get(i));
         }
         return list;
     }
