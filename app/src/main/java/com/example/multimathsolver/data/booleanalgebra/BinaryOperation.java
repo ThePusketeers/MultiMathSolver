@@ -1,6 +1,6 @@
 package com.example.multimathsolver.data.booleanalgebra;
 
-public enum BinaryOperation {
+enum BinaryOperation {
     CONJUNCTION("∧"),
     DISJUNCTION("∨"),
     XOR("⊕"),

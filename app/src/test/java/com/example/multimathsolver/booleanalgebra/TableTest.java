@@ -42,7 +42,7 @@ public class TableTest {
     @Test
     public void testTableResult() {
         for (int i = 0; i < expectedTableResult.length; ++i) {
-            if (function.table[i][function.table[0].length-1] != expectedTableResult[i]) Assert.fail();
+            if (function.getTable()[i][function.getTable()[0].length-1] != expectedTableResult[i]) Assert.fail();
         }
     }
 }

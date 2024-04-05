@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ExpressionHandler {
-    HashSet<String> expressionParameters = new HashSet<>();
-    List<String> listOfExpression;
+    private final HashSet<String> expressionParameters = new HashSet<>();
+    private final List<String> listOfExpression;
     public ExpressionHandler(String expression) {
         List<String> listOfExpression = expressionToList(expression);
         deleteStaplesAroundParameters(listOfExpression);

@@ -1,6 +1,6 @@
 package com.example.multimathsolver.data.booleanalgebra;
 
-public enum UnaryOperation {
+enum UnaryOperation {
     NEGATION("¬"),
     ;
     final String charOfOperation;

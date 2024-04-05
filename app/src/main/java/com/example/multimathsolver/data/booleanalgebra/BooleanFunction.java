@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 public class BooleanFunction {
-    List<String> parameters;
-    public int[][] table;
+    private final List<String> parameters;
+    private final int[][] table;
     public BooleanFunction(String expression) {
         ExpressionHandler expressionHandler = new ExpressionHandler(expression);
         this.parameters = expressionHandler.getExpressionParameters();
@@ -34,6 +34,11 @@ public class BooleanFunction {
         }
         return table;
     }
+
+    public int[][] getTable() {
+        return table;
+    }
+
 
     public String getPerfectDNF() {
         StringBuilder output = new StringBuilder();
@@ -285,7 +290,10 @@ public class BooleanFunction {
                 output.append("(");
                 for (int i = 0; i < conjunction.size(); ++i) {
                     if (conjunction.get(i) != -1)
-                        output.append((conjunction.get(i) == 1 ? parameters.get(i) : UnaryOperation.NEGATION.charOfOperation + parameters.get(i))).append(" ").append(BinaryOperation.CONJUNCTION.charOfOperation).append(" ");
+                        output.append((conjunction.get(i) == 1 ? parameters.get(i) :
+                                UnaryOperation.NEGATION.charOfOperation + parameters.get(i)))
+                                .append(" ").append(BinaryOperation.CONJUNCTION.charOfOperation)
+                                .append(" ");
                 }
                 if (output.length() >= 3) output = new StringBuilder(output.substring(0, output.length() - 3));
                 output.append(") ").append(BinaryOperation.DISJUNCTION.charOfOperation).append(" ");
