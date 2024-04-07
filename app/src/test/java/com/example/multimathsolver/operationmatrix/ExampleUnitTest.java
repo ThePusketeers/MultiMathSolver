@@ -1,4 +1,4 @@
-package com.example.multimathsolver;
+package com.example.multimathsolver.operationmatrix;
 
 import org.junit.Test;
 
