@@ -5,6 +5,8 @@ public class MatrixOperations {
     int rows;
     int columns;
 
+    double coef;
+
     public double[][] getMatrix() {
         return matrix;
     }
@@ -107,7 +109,8 @@ public class MatrixOperations {
 
     public MatrixOperations gauss() {
         MatrixOperations gauss_matrix = new MatrixOperations(this.matrix);
-
+        double mult_deter = 1;
+        this.coef = 1;
         for (int i = 0; i < Math.min(gauss_matrix.rows, gauss_matrix.columns); i++) {
             double maxNumber = Math.abs(gauss_matrix.matrix[i][i]);
             int maxRow = i;
@@ -131,6 +134,9 @@ public class MatrixOperations {
                     for (int j = 0; j < gauss_matrix.columns; j++) {
                         gauss_matrix.matrix[i][j] *= gauss_matrix.matrix[k][i];
                     }
+
+                    mult_deter *= (gauss_matrix.matrix[i][i] * -1);
+
                     for (int j = 0; j < gauss_matrix.columns; j++) {
                         gauss_matrix.matrix[k][j] *= temp;
                     }
@@ -146,6 +152,9 @@ public class MatrixOperations {
                 }
             }
         }
+
+        this.coef = mult_deter;
+
         return gauss_matrix;
     }
 
@@ -166,12 +175,19 @@ public class MatrixOperations {
         return gauss_matrix.rows - count;
     }
 
-//    public double search_determinant() {
-//        MatrixOperations gauss_matrix = this.gauss();
-//
-//        return 1;
-//
-//    }
+    public double search_determinant() throws Exception {
+        if (this.columns == this.rows) {
+            MatrixOperations gauss_matrix = this.gauss();
 
+            double multiply = 1;
+
+            for (int i = 0; i < gauss_matrix.columns; i++) {
+                multiply *= gauss_matrix.matrix[i][i];
+            }
+
+            return multiply / coef;
+        } else {
+            throw new Exception("Операция невозможна.");
+        }
+    }
 }
-
