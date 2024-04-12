@@ -1,22 +1,28 @@
 package com.example.multimathsolver.data.booleanalgebra;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class BooleanFunction {
     private final List<String> parameters;
     private final int[][] table;
-    public BooleanFunction(String expression) {
-        ExpressionHandler expressionHandler = new ExpressionHandler(expression);
+    public BooleanFunction(ExpressionHandlerInterface expressionHandler) throws IncorrectFunctionInput {
         this.parameters = expressionHandler.getExpressionParameters();
         this.table = fillTheTable();
         boolean isException = expressionHandler.fillTableWithValueOfFunction(this.table);
         if (isException) {
-            System.out.println("Функция введена неверно");
+            throw new IncorrectFunctionInput("Неверно введена функция");
         }
+    }
+
+    public List<String> getListOfParameters() {
+        return new ArrayList<>(parameters);
     }
 
     private int[][] fillTheTable() {
@@ -36,7 +42,11 @@ public class BooleanFunction {
     }
 
     public int[][] getTable() {
-        return table;
+        int[][] output = new int[table.length][table[0].length];
+        for (int i = 0; i < table.length; ++i) {
+            System.arraycopy(table[i], 0, output[i], 0, table[0].length);
+        }
+        return output;
     }
 
 
@@ -342,5 +352,49 @@ public class BooleanFunction {
             if (output.length() >= 3) output = new StringBuilder(output.substring(0, output.length() - 3));
         }
         return output.toString();
+    }
+
+    private boolean belongsToT0() {
+        return table[0][parameters.size()] == 0;
+    }
+
+    private boolean belongsToT1() {
+        return table[table.length-1][parameters.size()] == 1;
+    }
+
+    private boolean belongsToL() {
+        for (String string : getPolynomial().split(" ")) {
+            if (!string.equals(BinaryOperation.XOR.charOfOperation)) {
+                if (!parameters.contains(string)) return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean belongsToS() {
+        for (int i = 0; i < table.length / 2; ++i) {
+            if (table[i][parameters.size()] == table[table.length - 1 - i][parameters.size()]) return false;
+        }
+        return true;
+    }
+
+    private boolean belongsToM(int[] arr) {
+        if (arr.length <= 1) return true;
+        for (int i = 0; i < arr.length / 2; ++i) {
+            if (arr[i] > arr[i + (arr.length / 2)]) return false;
+        }
+        return belongsToM(Arrays.copyOfRange(arr, 0, arr.length / 2)) && belongsToM(Arrays.copyOfRange(arr, arr.length / 2, arr.length));
+    }
+
+    public Map<PostClass, Boolean> getBelongingToPostClasses() {
+        int[] functionValue = new int[table.length];
+        for (int i = 0 ; i < table.length; ++i) functionValue[i] = table[i][parameters.size()];
+        Map<PostClass, Boolean> map = new HashMap<>();
+        map.put(PostClass.T0, belongsToT0());
+        map.put(PostClass.T1, belongsToT1());
+        map.put(PostClass.L, belongsToL());
+        map.put(PostClass.M, belongsToM(functionValue));
+        map.put(PostClass.S, belongsToS());
+        return map;
     }
 }

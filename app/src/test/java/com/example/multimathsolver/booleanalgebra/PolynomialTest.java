@@ -1,6 +1,8 @@
 package com.example.multimathsolver.booleanalgebra;
 
 import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
+import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
+import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,8 +18,8 @@ public class PolynomialTest {
     BooleanFunction function;
     String expectedPolynomial;
 
-    public PolynomialTest(String expression, String expectedPolynomial) {
-        this.function = new BooleanFunction(expression);
+    public PolynomialTest(String expression, String expectedPolynomial) throws IncorrectFunctionInput {
+        this.function = new BooleanFunction(new StringExpressionHandler(expression));
         this.expectedPolynomial = expectedPolynomial;
     }
     @Parameterized.Parameters

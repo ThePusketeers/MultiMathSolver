@@ -1,14 +1,26 @@
 package com.example.multimathsolver.domain;
 
 import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
+import com.example.multimathsolver.data.booleanalgebra.PostClass;
+import com.example.multimathsolver.data.booleanalgebra.ExpressionHandlerInterface;
+import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
+
+import java.util.Map;
 
 public interface Repository {
+    BooleanFunction getBooleanFunction(ExpressionHandlerInterface expressionHandler) throws IncorrectFunctionInput;
 
-    public int incrementByOne(int a);
+    String getPerfectDNF(BooleanFunction function);
 
-    public BooleanFunction getBooleanFunction(String s);
+    String getPerfectCNF(BooleanFunction function);
 
-    public String perfectDNF(BooleanFunction b);
+    String getAbbreviatedDNF(BooleanFunction function);
 
-    public String perfectCNF(BooleanFunction b);
+    String getDeadLockedDNF(BooleanFunction function);
+
+    String getMinimalDNF(BooleanFunction function);
+
+    String getPolynomial(BooleanFunction function);
+
+    Map<PostClass, Boolean> getBelongingToPostClasses(BooleanFunction function);
 }

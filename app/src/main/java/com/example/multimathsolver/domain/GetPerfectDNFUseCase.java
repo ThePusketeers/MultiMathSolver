@@ -10,6 +10,6 @@ public class GetPerfectDNFUseCase {
     }
 
     public String getPerfectDNFUseCase(BooleanFunction b) {
-        return repository.perfectDNF(b);
+        return repository.getPerfectDNF(b);
     }
 }

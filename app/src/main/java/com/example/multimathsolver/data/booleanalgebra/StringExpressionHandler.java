@@ -7,10 +7,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ExpressionHandler {
+public class StringExpressionHandler implements ExpressionHandlerInterface{
     private final HashSet<String> expressionParameters = new HashSet<>();
     private final List<String> listOfExpression;
-    public ExpressionHandler(String expression) {
+    public StringExpressionHandler(String expression) {
         List<String> listOfExpression = expressionToList(expression);
         deleteStaplesAroundParameters(listOfExpression);
         listOfExpression = processingOfUnaryOperation(listOfExpression,
@@ -45,6 +45,8 @@ public class ExpressionHandler {
         }
         return list;
     }
+
+    @Override
     public List<String> getExpressionParameters() {
         List<String> parameters = new LinkedList<>(expressionParameters);
         parameters.sort(String::compareTo);
@@ -169,6 +171,7 @@ public class ExpressionHandler {
         return list;
     }
 
+    @Override
     public boolean fillTableWithValueOfFunction(int[][] table) {
         for (int i = 0; i < Math.pow(2, expressionParameters.size()); ++i) {
             int staples = 0;

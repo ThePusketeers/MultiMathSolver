@@ -2,14 +2,15 @@ package com.example.multimathsolver.domain;
 
 import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
 
-public class GetPerfectCNFUseCase {
+public class GetDeadLockedDNFUseCase {
     private final Repository repository;
 
-    public GetPerfectCNFUseCase(Repository repository) {
+    public GetDeadLockedDNFUseCase(Repository repository) {
         this.repository = repository;
     }
 
-    public String getPerfectCNFUseCase(BooleanFunction b) {
-        return repository.getPerfectCNF(b);
+    public String getDeadLockedDNFUseCase(BooleanFunction b) {
+        return repository.getDeadLockedDNF(b);
     }
 }
+

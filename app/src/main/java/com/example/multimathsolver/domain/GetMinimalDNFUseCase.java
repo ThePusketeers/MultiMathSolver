@@ -2,14 +2,15 @@ package com.example.multimathsolver.domain;
 
 import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
 
-public class GetPerfectCNFUseCase {
+public class GetMinimalDNFUseCase {
     private final Repository repository;
 
-    public GetPerfectCNFUseCase(Repository repository) {
+    public GetMinimalDNFUseCase(Repository repository) {
         this.repository = repository;
     }
 
-    public String getPerfectCNFUseCase(BooleanFunction b) {
-        return repository.getPerfectCNF(b);
+    public String getMinimalDNFUseCase(BooleanFunction b) {
+        return repository.getMinimalDNF(b);
     }
 }
+

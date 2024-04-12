@@ -1,6 +1,8 @@
 package com.example.multimathsolver.booleanalgebra;
 
 import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
+import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
+import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,8 +18,8 @@ public class DeadLockedDNFTest {
     BooleanFunction function;
     String expectedDeadLockedDNF;
 
-    public DeadLockedDNFTest(String expression, String expectedDeadLockedDNF) {
-        this.function = new BooleanFunction(expression);
+    public DeadLockedDNFTest(String expression, String expectedDeadLockedDNF) throws IncorrectFunctionInput {
+        this.function = new BooleanFunction(new StringExpressionHandler(expression));
         this.expectedDeadLockedDNF = expectedDeadLockedDNF;
     }
     @Parameterized.Parameters

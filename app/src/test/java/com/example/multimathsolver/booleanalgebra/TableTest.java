@@ -1,6 +1,8 @@
 package com.example.multimathsolver.booleanalgebra;
 
 import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
+import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
+import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,8 +17,8 @@ public class TableTest {
     private final BooleanFunction function;
     private final int[] expectedTableResult;
 
-    public TableTest(String expression, int[] list) {
-        this.function = new BooleanFunction(expression);
+    public TableTest(String expression, int[] list) throws IncorrectFunctionInput {
+        this.function = new BooleanFunction(new StringExpressionHandler(expression));
         this.expectedTableResult = list;
     }
 

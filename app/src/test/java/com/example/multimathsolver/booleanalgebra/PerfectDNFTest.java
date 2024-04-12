@@ -1,6 +1,8 @@
 package com.example.multimathsolver.booleanalgebra;
 
 import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
+import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
+import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,8 +18,8 @@ public class PerfectDNFTest {
     BooleanFunction function;
     String expectedPerfectDNF;
 
-    public PerfectDNFTest(String expression, String expectedPerfectDNF) {
-        this.function = new BooleanFunction(expression);
+    public PerfectDNFTest(String expression, String expectedPerfectDNF) throws IncorrectFunctionInput {
+        this.function = new BooleanFunction(new StringExpressionHandler(expression));
         this.expectedPerfectDNF = expectedPerfectDNF;
     }
     @Parameterized.Parameters
