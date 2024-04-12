@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.multimathsolver.R;
+import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
 
 public class MainActivity extends AppCompatActivity {
 

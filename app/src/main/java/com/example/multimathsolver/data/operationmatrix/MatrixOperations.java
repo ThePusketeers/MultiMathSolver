@@ -106,7 +106,7 @@ public class MatrixOperations {
 
 
     public MatrixOperations gauss() {
-        MatrixOperations gauss_matrix = new MatrixOperations(this.rows, this.columns);
+        MatrixOperations gauss_matrix = new MatrixOperations(this.matrix);
 
         for (int i = 0; i < Math.min(gauss_matrix.rows, gauss_matrix.columns); i++) {
             double maxNumber = Math.abs(gauss_matrix.matrix[i][i]);
@@ -165,6 +165,13 @@ public class MatrixOperations {
         }
         return gauss_matrix.rows - count;
     }
+
+//    public double search_determinant() {
+//        MatrixOperations gauss_matrix = this.gauss();
+//
+//        return 1;
+//
+//    }
 
 }
 
