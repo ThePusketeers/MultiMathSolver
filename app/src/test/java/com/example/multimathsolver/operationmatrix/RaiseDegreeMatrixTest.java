@@ -27,11 +27,12 @@ public class RaiseDegreeMatrixTest {
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {new double[][] {{8, 2, 6}, {1, 11, 8}, {5, 1, 8}}, 2, new double[][] {{96, 44, 112}, {59, 131, 158}, {81, 29, 102}}},
+                {new double[][] {{8, 2}, {1, 8}}, 7, new double[][] {{66, 32}, {16, 66}}},
         });
     }
 
     @Test
     public void testMultiplyTwoMatrix() throws Exception {
-        Assert.assertEquals(expectedMatrix.getMatrix(), firstMatrix.raise_to_degree(degree).getMatrix());
+        Assert.assertArrayEquals(expectedMatrix.getMatrix(), firstMatrix.raise_to_degree(degree).getMatrix());
     }
 }

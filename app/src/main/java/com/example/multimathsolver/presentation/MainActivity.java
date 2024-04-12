@@ -25,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+
+        MatrixOperations first = new MatrixOperations(new double[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}});
+        try {
+            System.out.println(first.search_determinant());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

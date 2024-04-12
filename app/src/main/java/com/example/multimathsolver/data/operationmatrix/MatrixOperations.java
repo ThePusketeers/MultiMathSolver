@@ -5,7 +5,7 @@ public class MatrixOperations {
     int rows;
     int columns;
 
-    double coef;
+    double main_coef;
 
     public double[][] getMatrix() {
         return matrix;
@@ -28,7 +28,7 @@ public class MatrixOperations {
         }
     }
 
-    public MatrixOperations add_or_minus(MatrixOperations other_matrix, char operation) throws Exception {
+    public MatrixOperations add_or_minus(MatrixOperations other_matrix, char operation) throws IncorrectMatrixSize {
         if (this.columns == other_matrix.columns && this.rows == other_matrix.rows) {
             MatrixOperations summary_matrix = new MatrixOperations(this.rows, this.columns);
 
@@ -43,7 +43,10 @@ public class MatrixOperations {
             }
             return summary_matrix;
         } else {
-            throw new Exception("Операция невозможна.");
+            if (operation == '+') {
+                throw new IncorrectMatrixSize("Сложение матриц невозможно. Матрицы должны быть одинакового размера!");
+            }
+            throw new IncorrectMatrixSize("Вычитание матриц невозможно. Матрицы должны быть одинакового размера!");
         }
     }
 
@@ -57,11 +60,11 @@ public class MatrixOperations {
         return multiply_num_matrix;
     }
 
-    public MatrixOperations multiplication(MatrixOperations other_matrix) throws Exception {
+    public MatrixOperations multiplication(MatrixOperations other_matrix) throws IncorrectMatrixSize {
         MatrixOperations multiplication_matrix;
 
         if (this.columns == other_matrix.rows) {
-            multiplication_matrix = new MatrixOperations(this.columns, other_matrix.rows);
+            multiplication_matrix = new MatrixOperations(this.rows, other_matrix.columns);
 
             for (int i = 0; i < this.rows; i++) {
                 for (int w = 0; w < other_matrix.columns; w++) {
@@ -73,27 +76,29 @@ public class MatrixOperations {
                 }
             }
             return multiplication_matrix;
-        } else if (this.rows == other_matrix.columns) {
-            // Если прямое умножение невозможно, то проверяем на возможность умножения в обратном порядке
-
-            multiplication_matrix = new MatrixOperations(this.rows, other_matrix.columns);
-
-            for (int i = 0; i < other_matrix.rows; i++) {
-                for (int w = 0; w < this.columns; w++) {
-                    double summary = 0;
-                    for (int j = 0; j < this.rows; j++) {
-                        summary = summary + (other_matrix.matrix[i][j] * this.matrix[j][w]);
-                    }
-                    multiplication_matrix.matrix[i][w] = summary;
-                }
-            }
-            return multiplication_matrix;
-        } else {
-            throw new Exception("Операция невозможна.");
+        }
+//        else if (this.rows == other_matrix.columns) {
+//            Если прямое умножение невозможно, то проверяем на возможность умножения в обратном порядке
+//
+//            multiplication_matrix = new MatrixOperations(this.rows, other_matrix.columns);
+//
+//            for (int i = 0; i < other_matrix.rows; i++) {
+//                for (int w = 0; w < this.columns; w++) {
+//                    double summary = 0;
+//                    for (int j = 0; j < this.rows; j++) {
+//                        summary = summary + (other_matrix.matrix[i][j] * this.matrix[j][w]);
+//                    }
+//                    multiplication_matrix.matrix[i][w] = summary;
+//                }
+//            }
+//            return multiplication_matrix;
+//        }
+        else {
+            throw new IncorrectMatrixSize("Умножение матриц невозможно. Количество столбцов в первой матрице не равно количеству строк во второй матрице!");
         }
     }
 
-    public MatrixOperations raise_to_degree(int degree) throws Exception {
+    public MatrixOperations raise_to_degree(int degree) throws IncorrectMatrixSize {
         if (this.rows == this.columns && degree > 0) {
             MatrixOperations degree_matrix = new MatrixOperations(this.rows, this.columns);
 
@@ -102,15 +107,15 @@ public class MatrixOperations {
             }
             return degree_matrix;
         } else {
-            throw new Exception("Операция невозможна.");
+            throw new IncorrectMatrixSize("Возведение в степень невозможно. Матрица должна быть квадратной!");
         }
     }
 
 
     public MatrixOperations gauss() {
         MatrixOperations gauss_matrix = new MatrixOperations(this.matrix);
-        double mult_deter = 1;
-        this.coef = 1;
+        double mult_deter = -1;
+        this.main_coef = 1;
         for (int i = 0; i < Math.min(gauss_matrix.rows, gauss_matrix.columns); i++) {
             double maxNumber = Math.abs(gauss_matrix.matrix[i][i]);
             int maxRow = i;
@@ -143,6 +148,11 @@ public class MatrixOperations {
                     coef = -(gauss_matrix.matrix[k][i] / gauss_matrix.matrix[i][i]);
                 }
 
+                if (Double.isNaN(coef)) {
+                    this.main_coef = 1;
+                    return gauss_matrix;
+                }
+
                 for (int j = i; j < gauss_matrix.columns; j++) {
                     if (i == j) {
                         gauss_matrix.matrix[k][j] = 0;
@@ -153,7 +163,7 @@ public class MatrixOperations {
             }
         }
 
-        this.coef = mult_deter;
+        this.main_coef = mult_deter;
 
         return gauss_matrix;
     }
@@ -168,14 +178,14 @@ public class MatrixOperations {
                     flag = true;
                 }
             }
-            if (flag) {
+            if (!flag) {
                 count++;
             }
         }
         return gauss_matrix.rows - count;
     }
 
-    public double search_determinant() throws Exception {
+    public double search_determinant() throws IncorrectMatrixSize {
         if (this.columns == this.rows) {
             MatrixOperations gauss_matrix = this.gauss();
 
@@ -185,9 +195,9 @@ public class MatrixOperations {
                 multiply *= gauss_matrix.matrix[i][i];
             }
 
-            return multiply / coef;
+            return multiply / (main_coef != 0 ? main_coef : 1);
         } else {
-            throw new Exception("Операция невозможна.");
+            throw new IncorrectMatrixSize("Не получится найти определитель, матрица должна быть квадратной!");
         }
     }
 }
