@@ -8,7 +8,7 @@ public class GaussianElimination {
      * Конструктор создание объекта для метода Гаусса
      * @param precision точность, т.е. числа, меньшие этого будут приниматься за ноль
      */
-    GaussianElimination(double precision) {
+    public GaussianElimination(double precision) {
         this.precision = precision;
     };
 
@@ -17,7 +17,7 @@ public class GaussianElimination {
      * @param coeffSLAY матрица коэффициентов
      * @param additionalSLAY матрица свободных членов, если она равна null, то игнорируется
      */
-    void forward(SLAY coeffSLAY, SLAY additionalSLAY) {
+    public void forward(SLAY coeffSLAY, SLAY additionalSLAY) {
         int row = 0; //номер строки элемента, под которым мы обнуляем
         int col = 0; //номер столбца элемента, под которым мы обнуляем
 

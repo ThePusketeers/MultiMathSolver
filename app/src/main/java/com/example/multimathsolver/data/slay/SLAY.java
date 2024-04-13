@@ -55,6 +55,7 @@ public class SLAY {
         this(matrix.rowsCount, matrix.colsCount, getDeepCopyOfArray(matrix.array), matrix.outputAccuracy);
     }
 
+
     /**
      * Метод для решения системы линейных уравнений. Метод изменяет текущую матрицу коэффициентов (this),
      * но не изменяет матрицу-столбец свободных членов.
