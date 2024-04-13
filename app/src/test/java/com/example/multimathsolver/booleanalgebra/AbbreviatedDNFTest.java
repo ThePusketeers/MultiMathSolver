@@ -1,8 +1,9 @@
 package com.example.multimathsolver.booleanalgebra;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
-import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.BooleanFunction;
+import com.example.multimathsolver.domain.IncorrectFunctionInput;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,10 +17,11 @@ import java.util.Collection;
 public class AbbreviatedDNFTest {
 
     BooleanFunction function;
+    Repository repository = new RepositoryImpl();
     String expectedAbbreviatedDNF;
 
     public AbbreviatedDNFTest(String expression, String expectedAbbreviatedDNF) throws IncorrectFunctionInput {
-        this.function = new BooleanFunction(new StringExpressionHandler(expression));
+        this.function = repository.getBooleanFunction(expression);
         this.expectedAbbreviatedDNF = expectedAbbreviatedDNF;
     }
     @Parameterized.Parameters
@@ -34,6 +36,6 @@ public class AbbreviatedDNFTest {
 
     @Test
     public void testAbbreviatedDNF() {
-        Assert.assertEquals(expectedAbbreviatedDNF, function.getAbbreviatedDNF());
+        Assert.assertEquals(expectedAbbreviatedDNF, repository.getAbbreviatedDNF(function));
     }
 }

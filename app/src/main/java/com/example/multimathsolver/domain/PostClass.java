@@ -1,4 +1,4 @@
-package com.example.multimathsolver.data.booleanalgebra;
+package com.example.multimathsolver.domain;
 
 public enum PostClass {
     T0,

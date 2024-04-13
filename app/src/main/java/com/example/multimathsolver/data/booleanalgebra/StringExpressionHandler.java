@@ -1,5 +1,7 @@
 package com.example.multimathsolver.data.booleanalgebra;
 
+import com.example.multimathsolver.domain.IncorrectFunctionInput;
+
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
@@ -7,9 +9,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class StringExpressionHandler implements ExpressionHandlerInterface{
+public class StringExpressionHandler implements ExpressionHandler {
     private final HashSet<String> expressionParameters = new HashSet<>();
     private final List<String> listOfExpression;
+    private final int[][] table;
     public StringExpressionHandler(String expression) {
         List<String> listOfExpression = expressionToList(expression);
         deleteStaplesAroundParameters(listOfExpression);
@@ -19,6 +22,23 @@ public class StringExpressionHandler implements ExpressionHandlerInterface{
             listOfExpression = processingOfBinaryOperation(listOfExpression, operation.charOfOperation);
         }
         this.listOfExpression = removeExtraBrackets(listOfExpression);
+        table = fillTheTable();
+    }
+
+    private int[][] fillTheTable() {
+        int[][] table = new int[(int) Math.pow(2, expressionParameters.size())][expressionParameters.size() + 1];
+        int x = (int) Math.pow(2, expressionParameters.size());
+        for(int col = 0; x != 1; ++col) {
+            x /= 2;
+            boolean res = true;
+            for(int i = 0; i < table.length; ++i) {
+                if (i % x == 0) {
+                    res = !res;
+                }
+                table[i][col] = res ? 1 : 0;
+            }
+        }
+        return table;
     }
 
     private List<String> expressionToList(String expression) {
@@ -172,7 +192,7 @@ public class StringExpressionHandler implements ExpressionHandlerInterface{
     }
 
     @Override
-    public boolean fillTableWithValueOfFunction(int[][] table) {
+    public int[][] getTableWithValueOfFunction() throws IncorrectFunctionInput {
         for (int i = 0; i < Math.pow(2, expressionParameters.size()); ++i) {
             int staples = 0;
             Deque<Integer> values = new LinkedList<>();
@@ -200,9 +220,9 @@ public class StringExpressionHandler implements ExpressionHandlerInterface{
                 table[i][expressionParameters.size()] = values.pop();
                 if (staples < 0) throw new Exception();
             } catch (Exception ex) {
-                return true;
+                throw new IncorrectFunctionInput("Неправильный ввод функции");
             }
         }
-        return false;
+        return table;
     }
 }

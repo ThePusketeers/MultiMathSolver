@@ -1,4 +1,4 @@
-package com.example.multimathsolver.data.booleanalgebra;
+package com.example.multimathsolver.domain;
 
 import java.io.IOException;
 

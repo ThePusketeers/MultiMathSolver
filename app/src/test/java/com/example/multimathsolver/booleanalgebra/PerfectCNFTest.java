@@ -1,8 +1,9 @@
 package com.example.multimathsolver.booleanalgebra;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
-import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.BooleanFunction;
+import com.example.multimathsolver.domain.IncorrectFunctionInput;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,12 +15,12 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class PerfectCNFTest {
-
+    Repository repository = new RepositoryImpl();
     BooleanFunction function;
     String expectedPerfectCNF;
 
     public PerfectCNFTest(String expression, String expectedPerfectCNF) throws IncorrectFunctionInput {
-        this.function = new BooleanFunction(new StringExpressionHandler(expression));
+        this.function = repository.getBooleanFunction(expression);
         this.expectedPerfectCNF = expectedPerfectCNF;
     }
     @Parameterized.Parameters
@@ -34,6 +35,6 @@ public class PerfectCNFTest {
 
     @Test
     public void testPerfectCNF() {
-        Assert.assertEquals(expectedPerfectCNF, function.getPerfectCNF());
+        Assert.assertEquals(expectedPerfectCNF, repository.getPerfectCNF(function));
     }
 }

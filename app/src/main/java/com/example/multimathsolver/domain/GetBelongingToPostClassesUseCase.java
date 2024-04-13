@@ -1,8 +1,5 @@
 package com.example.multimathsolver.domain;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-import com.example.multimathsolver.data.booleanalgebra.PostClass;
-
 import java.util.Map;
 
 public class GetBelongingToPostClassesUseCase {
@@ -12,7 +9,7 @@ public class GetBelongingToPostClassesUseCase {
         this.repository = repository;
     }
 
-    public Map<PostClass, Boolean> getBelongingToPostClasses(BooleanFunction b) {
-        return repository.getBelongingToPostClasses(b);
+    public Map<PostClass, Boolean> getBelongingToPostClasses(BooleanFunction function) {
+        return repository.getBelongingToPostClasses(function);
     }
 }

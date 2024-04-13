@@ -1,7 +1,5 @@
 package com.example.multimathsolver.domain;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-
 public class GetPerfectDNFUseCase {
     private final Repository repository;
 
@@ -9,7 +7,7 @@ public class GetPerfectDNFUseCase {
         this.repository = repository;
     }
 
-    public String getPerfectDNFUseCase(BooleanFunction b) {
-        return repository.getPerfectDNF(b);
+    public String getPerfectDNFUseCase(BooleanFunction function) {
+        return repository.getPerfectDNF(function);
     }
 }

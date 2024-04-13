@@ -1,8 +1,9 @@
 package com.example.multimathsolver.booleanalgebra;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
-import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.BooleanFunction;
+import com.example.multimathsolver.domain.IncorrectFunctionInput;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,12 +15,12 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class PolynomialTest {
-
+    Repository repository = new RepositoryImpl();
     BooleanFunction function;
     String expectedPolynomial;
 
     public PolynomialTest(String expression, String expectedPolynomial) throws IncorrectFunctionInput {
-        this.function = new BooleanFunction(new StringExpressionHandler(expression));
+        this.function = repository.getBooleanFunction(expression);
         this.expectedPolynomial = expectedPolynomial;
     }
     @Parameterized.Parameters
@@ -36,6 +37,6 @@ public class PolynomialTest {
 
     @Test
     public void testPolynomial() {
-        Assert.assertEquals(expectedPolynomial, function.getPolynomial());
+        Assert.assertEquals(expectedPolynomial, repository.getPolynomial(function));
     }
 }

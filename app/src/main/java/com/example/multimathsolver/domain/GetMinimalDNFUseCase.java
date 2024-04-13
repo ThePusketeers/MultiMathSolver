@@ -1,7 +1,5 @@
 package com.example.multimathsolver.domain;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-
 public class GetMinimalDNFUseCase {
     private final Repository repository;
 
@@ -9,8 +7,8 @@ public class GetMinimalDNFUseCase {
         this.repository = repository;
     }
 
-    public String getMinimalDNFUseCase(BooleanFunction b) {
-        return repository.getMinimalDNF(b);
+    public String getMinimalDNFUseCase(BooleanFunction function) {
+        return repository.getMinimalDNF(function);
     }
 }
 

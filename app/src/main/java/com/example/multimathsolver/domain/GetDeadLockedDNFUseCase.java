@@ -1,7 +1,5 @@
 package com.example.multimathsolver.domain;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-
 public class GetDeadLockedDNFUseCase {
     private final Repository repository;
 
@@ -9,8 +7,8 @@ public class GetDeadLockedDNFUseCase {
         this.repository = repository;
     }
 
-    public String getDeadLockedDNFUseCase(BooleanFunction b) {
-        return repository.getDeadLockedDNF(b);
+    public String getDeadLockedDNFUseCase(BooleanFunction function) {
+        return repository.getDeadLockedDNF(function);
     }
 }
 

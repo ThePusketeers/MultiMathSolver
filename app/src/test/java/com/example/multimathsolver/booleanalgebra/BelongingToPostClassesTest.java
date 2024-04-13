@@ -1,9 +1,10 @@
 package com.example.multimathsolver.booleanalgebra;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
-import com.example.multimathsolver.data.booleanalgebra.PostClass;
-import com.example.multimathsolver.data.booleanalgebra.VectorExpressionHandler;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.BooleanFunction;
+import com.example.multimathsolver.domain.IncorrectFunctionInput;
+import com.example.multimathsolver.domain.PostClass;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,12 +18,12 @@ import java.util.Map;
 
 @RunWith(Parameterized.class)
 public class BelongingToPostClassesTest {
-
+    Repository repository = new RepositoryImpl();
     BooleanFunction function;
     Map<PostClass, Boolean> expectedMap;
 
     public BelongingToPostClassesTest(String expression, boolean[] map) throws IncorrectFunctionInput {
-        this.function = new BooleanFunction(new VectorExpressionHandler(expression));
+        this.function = repository.getBooleanFunction(expression);
         Map<PostClass, Boolean> expectedMap = new HashMap<>();
         for (int i = 0; i < PostClass.values().length; ++i) {
             expectedMap.put(PostClass.values()[i], map[i]);
@@ -41,6 +42,6 @@ public class BelongingToPostClassesTest {
 
     @Test
     public void testBelongingToPostClassesF() {
-        Assert.assertEquals(expectedMap, function.getBelongingToPostClasses());
+        Assert.assertEquals(expectedMap, repository.getBelongingToPostClasses(function));
     }
 }

@@ -1,8 +1,9 @@
 package com.example.multimathsolver.booleanalgebra;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
-import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.BooleanFunction;
+import com.example.multimathsolver.domain.IncorrectFunctionInput;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,12 +15,12 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class MinimalDNFTest {
-
+    Repository repository = new RepositoryImpl();
     BooleanFunction function;
     String expectedMinimalDNF;
 
     public MinimalDNFTest(String expression, String expectedMinimalDNF) throws IncorrectFunctionInput {
-        this.function = new BooleanFunction(new StringExpressionHandler(expression));
+        this.function = repository.getBooleanFunction(expression);
         this.expectedMinimalDNF = expectedMinimalDNF;
     }
     @Parameterized.Parameters
@@ -40,6 +41,6 @@ public class MinimalDNFTest {
 
     @Test
     public void testMinimalDNF() {
-        Assert.assertEquals(expectedMinimalDNF, function.getMinimalDNF());
+        Assert.assertEquals(expectedMinimalDNF, repository.getMinimalDNF(function));
     }
 }

@@ -1,8 +1,8 @@
 package com.example.multimathsolver.booleanalgebra;
 
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
-import com.example.multimathsolver.data.booleanalgebra.IncorrectFunctionInput;
-import com.example.multimathsolver.data.booleanalgebra.StringExpressionHandler;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.IncorrectFunctionInput;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class IncorrectInputTest {
-
+    Repository repository = new RepositoryImpl();
     String expression;
 
     public IncorrectInputTest(String expression) {
@@ -31,6 +31,6 @@ public class IncorrectInputTest {
 
     @Test
     public void testMinimalDNF() {
-        Assert.assertThrows(IncorrectFunctionInput.class, () -> new BooleanFunction(new StringExpressionHandler(expression)));
+        Assert.assertThrows(IncorrectFunctionInput.class, () -> repository.getBooleanFunction(expression));
     }
 }
