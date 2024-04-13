@@ -2,7 +2,6 @@ package com.example.multimathsolver.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,30 +11,22 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.multimathsolver.R;
-import com.example.multimathsolver.data.booleanalgebra.BooleanFunction;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button btn;
     private Button buttonActivity;
     private TextView textView;
-    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        BooleanFunction func = new BooleanFunction("(¬X1∧¬X2∧¬X3)∨(X2∧¬X3∧X4)∨(¬X1∧X3∧¬X4)∨(X1∧X3∧X4)");
-        Log.println(Log.WARN, "SDNF", func.getPerfectDNF());
-        Log.println(Log.WARN, "SCNF", func.getPerfectCNF());
-        Log.println(Log.WARN, "AbbrDNF", func.getAbbreviatedDNF());
-        Log.println(Log.WARN, "TupicDNF", func.getDeadLockedDNF());
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+        MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.incrementA();
             }
         });
 

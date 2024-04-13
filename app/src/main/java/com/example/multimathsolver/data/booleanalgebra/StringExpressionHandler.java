@@ -218,7 +218,7 @@ public class StringExpressionHandler implements ExpressionHandler {
                         operations.push(value);
                 }
                 table[i][expressionParameters.size()] = values.pop();
-                if (staples < 0) throw new Exception();
+                if (staples < 0 || !values.isEmpty() || !operations.isEmpty()) throw new Exception();
             } catch (Exception ex) {
                 throw new IncorrectFunctionInput("Неправильный ввод функции");
             }

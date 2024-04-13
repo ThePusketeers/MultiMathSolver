@@ -25,12 +25,13 @@ public class IncorrectInputTest {
         return Arrays.asList(new Object[][]{
                 {"(>)"},
                 {"(X1∧X2))"},
-                {"X1∧X2)(→X3"}
+                {"X1∧X2)(→X3"},
+                {")abab( "},
         });
     }
 
     @Test
-    public void testMinimalDNF() {
+    public void testIncorrectInput() {
         Assert.assertThrows(IncorrectFunctionInput.class, () -> repository.getBooleanFunction(expression));
     }
 }
