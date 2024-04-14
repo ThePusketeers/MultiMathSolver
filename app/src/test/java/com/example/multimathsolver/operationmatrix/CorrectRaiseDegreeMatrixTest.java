@@ -1,6 +1,8 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,13 +13,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class RaiseDegreeMatrixTest {
+public class CorrectRaiseDegreeMatrixTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     int degree;
 
     MatrixOperations expectedMatrix;
 
-    public RaiseDegreeMatrixTest(double [][] firstMatrix, int degree, double [][]  expectedMatrix) {
+    public CorrectRaiseDegreeMatrixTest(double [][] firstMatrix, int degree, double [][]  expectedMatrix) {
         this.firstMatrix = new MatrixOperations(firstMatrix);
         this.degree = degree;
         this.expectedMatrix = new MatrixOperations(expectedMatrix);
@@ -33,6 +36,6 @@ public class RaiseDegreeMatrixTest {
 
     @Test
     public void testMultiplyTwoMatrix() throws Exception {
-        Assert.assertArrayEquals(expectedMatrix.getMatrix(), firstMatrix.raise_to_degree(degree).getMatrix());
+        Assert.assertArrayEquals(expectedMatrix.getMatrix(), repository.raise_to_degree(firstMatrix, degree).getMatrix());
     }
 }

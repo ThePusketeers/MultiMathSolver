@@ -1,7 +1,9 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.IncorrectMatrixSize;
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.IncorrectMatrixSize;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class IncorrectSearchDeterminantTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     double determinant;
 
@@ -32,6 +35,6 @@ public class IncorrectSearchDeterminantTest {
 
     @Test
     public void testAddTwoMatrix() {
-        Assert.assertThrows(IncorrectMatrixSize.class, () -> firstMatrix.search_determinant());
+        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.search_determinant(firstMatrix));
     }
 }

@@ -19,10 +19,7 @@ public class MainViewModel extends ViewModel {
         return a;
     }
 
-    public void incrementA() {
-        int b = a.getValue();
-        a.postValue(repository.incrementByOne(b));
-    }
+
 
 
 }

@@ -1,7 +1,9 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.IncorrectMatrixSize;
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.IncorrectMatrixSize;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,13 +14,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class MinusMatrixTest {
+public class CorrectMinusMatrixTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     MatrixOperations secondMatrix;
 
     MatrixOperations expectedMatrix;
 
-    public MinusMatrixTest(double [][] firstMatrix, double [][] secondMatrix, double [][]  expectedMatrix) {
+    public CorrectMinusMatrixTest(double [][] firstMatrix, double [][] secondMatrix, double [][]  expectedMatrix) {
         this.firstMatrix = new MatrixOperations(firstMatrix);
         this.secondMatrix = new MatrixOperations(secondMatrix);
         this.expectedMatrix = new MatrixOperations(expectedMatrix);
@@ -36,6 +39,6 @@ public class MinusMatrixTest {
 
     @Test
     public void testAddTwoMatrix() throws IncorrectMatrixSize {
-        Assert.assertArrayEquals(expectedMatrix.getMatrix(), firstMatrix.add_or_minus(secondMatrix, '-').getMatrix());
+        Assert.assertArrayEquals(expectedMatrix.getMatrix(), repository.add_or_minus(firstMatrix, secondMatrix, '-').getMatrix());
     }
 }

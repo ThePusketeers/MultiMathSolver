@@ -1,6 +1,8 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,13 +13,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class MultiplyOnNumberTest {
+public class CorrectMultiplyOnNumberTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     double number;
 
     MatrixOperations expectedMatrix;
 
-    public MultiplyOnNumberTest(double [][] firstMatrix, double number, double [][]  expectedMatrix) {
+    public CorrectMultiplyOnNumberTest(double [][] firstMatrix, double number, double [][]  expectedMatrix) {
         this.firstMatrix = new MatrixOperations(firstMatrix);
         this.number = number;
         this.expectedMatrix = new MatrixOperations(expectedMatrix);
@@ -32,7 +35,7 @@ public class MultiplyOnNumberTest {
 
     @Test
     public void testAddTwoMatrix() throws Exception {
-        Assert.assertEquals(expectedMatrix.getMatrix(), firstMatrix.multiplyOnNumber(number).getMatrix());
+        Assert.assertArrayEquals(expectedMatrix.getMatrix(), repository.multiplyOnNumber(firstMatrix, number).getMatrix());
     }
 
 

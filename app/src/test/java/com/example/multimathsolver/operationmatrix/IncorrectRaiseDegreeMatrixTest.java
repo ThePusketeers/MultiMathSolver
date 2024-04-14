@@ -1,7 +1,9 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.IncorrectMatrixSize;
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.IncorrectMatrixSize;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class IncorrectRaiseDegreeMatrixTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     int degree;
 
@@ -35,6 +38,6 @@ public class IncorrectRaiseDegreeMatrixTest {
 
     @Test
     public void testMultiplyTwoMatrix() {
-        Assert.assertThrows(IncorrectMatrixSize.class, () -> firstMatrix.raise_to_degree(degree).getMatrix());
+        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.raise_to_degree(firstMatrix, degree));
     }
 }

@@ -1,6 +1,8 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,11 +13,12 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class SearchMatrixRankTest {
+public class CorrectSearchMatrixRankTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     int expectedRank;
 
-    public SearchMatrixRankTest(double [][] firstMatrix, int expectedRank) {
+    public CorrectSearchMatrixRankTest(double [][] firstMatrix, int expectedRank) {
         this.firstMatrix = new MatrixOperations(firstMatrix);
         this.expectedRank = expectedRank;
     }
@@ -33,6 +36,6 @@ public class SearchMatrixRankTest {
 
     @Test
     public void testMultiplyTwoMatrix() throws Exception {
-        Assert.assertEquals(expectedRank, firstMatrix.search_rank());
+        Assert.assertEquals(expectedRank, repository.search_rank(firstMatrix));
     }
 }

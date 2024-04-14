@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.multimathsolver.R;
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,21 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
 
-        MatrixOperations first = new MatrixOperations(new double[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}});
-        try {
-            System.out.println(first.search_determinant());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.incrementA();
-            }
-        });
 
         viewModel.getA().observe(this, new Observer<Integer>() {
             @Override

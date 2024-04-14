@@ -1,7 +1,9 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.IncorrectMatrixSize;
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.IncorrectMatrixSize;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,13 +14,13 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class MultiplicationMatrixTest {
+public class CorrectMultiplicationMatrixTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     MatrixOperations secondMatrix;
-
     MatrixOperations expectedMatrix;
 
-    public MultiplicationMatrixTest(double [][] firstMatrix, double [][] secondMatrix, double [][]  expectedMatrix) {
+    public CorrectMultiplicationMatrixTest(double [][] firstMatrix, double [][] secondMatrix, double [][]  expectedMatrix) {
         this.firstMatrix = new MatrixOperations(firstMatrix);
         this.secondMatrix = new MatrixOperations(secondMatrix);
         this.expectedMatrix = new MatrixOperations(expectedMatrix);
@@ -35,6 +37,6 @@ public class MultiplicationMatrixTest {
 
     @Test
     public void testMultiplyTwoMatrix() throws IncorrectMatrixSize {
-        Assert.assertArrayEquals(expectedMatrix.getMatrix(), firstMatrix.multiplication(secondMatrix).getMatrix());
+        Assert.assertArrayEquals(expectedMatrix.getMatrix(), repository.multiplication(firstMatrix, secondMatrix).getMatrix());
     }
 }

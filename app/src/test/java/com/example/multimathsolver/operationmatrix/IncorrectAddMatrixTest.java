@@ -1,7 +1,9 @@
 package com.example.multimathsolver.operationmatrix;
 
-import com.example.multimathsolver.data.operationmatrix.IncorrectMatrixSize;
-import com.example.multimathsolver.data.operationmatrix.MatrixOperations;
+import com.example.multimathsolver.data.RepositoryImpl;
+import com.example.multimathsolver.domain.IncorrectMatrixSize;
+import com.example.multimathsolver.domain.MatrixOperations;
+import com.example.multimathsolver.domain.Repository;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class IncorrectAddMatrixTest {
+    Repository repository = new RepositoryImpl();
     MatrixOperations firstMatrix;
     MatrixOperations secondMatrix;
 
@@ -36,6 +39,6 @@ public class IncorrectAddMatrixTest {
 
     @Test
     public void testAddTwoMatrix() {
-        Assert.assertThrows(IncorrectMatrixSize.class, () -> firstMatrix.add_or_minus(secondMatrix, '+').getMatrix());
+        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.add_or_minus(firstMatrix, secondMatrix, '+'));
     }
 }
