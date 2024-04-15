@@ -18,8 +18,4 @@ public class MainViewModel extends ViewModel {
         }
         return a;
     }
-
-
-
-
 }
