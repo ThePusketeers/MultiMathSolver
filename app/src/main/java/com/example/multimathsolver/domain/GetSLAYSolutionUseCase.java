@@ -1,7 +1,5 @@
 package com.example.multimathsolver.domain;
 
-import com.example.multimathsolver.data.slay.SLAY;
-
 public class GetSLAYSolutionUseCase {
     private final Repository repository;
 
@@ -10,6 +8,6 @@ public class GetSLAYSolutionUseCase {
     }
 
     public String getSLAYSolutionUseCase(SLAY matrix){
-        return repository.solutionOfSLAY(matrix);
+        return repository.getSolutionOfSLAY(matrix);
     }
 }

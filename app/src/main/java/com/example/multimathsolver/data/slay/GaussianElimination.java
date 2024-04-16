@@ -1,5 +1,7 @@
 package com.example.multimathsolver.data.slay;
 
+import com.example.multimathsolver.domain.SLAY;
+
 public class GaussianElimination {
     /** Поле точность */
     private final double precision;
@@ -20,15 +22,16 @@ public class GaussianElimination {
     public void forward(SLAY coeffSLAY, SLAY additionalSLAY) {
         int row = 0; //номер строки элемента, под которым мы обнуляем
         int col = 0; //номер столбца элемента, под которым мы обнуляем
-
+        double[][] coeffArray = coeffSLAY.getArray(); // массив из элементов матрицы коэфициентов
+        double[][] additionalArray = additionalSLAY.getArray(); // массив из элементов добавочной матрицы
         //нам нужно обнулять до тех пор, пока не упремся с какого-то края
-        while (col < coeffSLAY.colsCount && row < coeffSLAY.rowsCount) {
+        while (col < coeffSLAY.getColsCount() && row < coeffSLAY.getRowsCount()) {
             //Если текущий элемент на главной диагонали равен нулю, его нужно заменить на другой не нулевой
             //элемент под ним (поменять строки местами)
             //Так как мы имеем дело с double, то нельзя сравнивать с нулем с помощью ==, потому что есть
             //погрешность, поэтому мы сравниваем значение по модулю с погрешностью. Если значение меньше,
             //значит, элемент можно считать равным нулю
-            if (Math.abs(coeffSLAY.array[row][col]) < precision) {
+            if (Math.abs(coeffArray[row][col]) < precision) {
                 int notZeroRow = getFirstNotZeroRowAfter(row, col, coeffSLAY); //ищем первый не нулевой элемент под
                 //текущим элементом
                 if (notZeroRow == -1) {
@@ -48,14 +51,14 @@ public class GaussianElimination {
             }
 
             //теперь текущий элемент точно не ноль, поэтому нужно обнулить все элементы под ним
-            for (int i = row+1; i < coeffSLAY.rowsCount; i++) {
+            for (int i = row+1; i < coeffSLAY.getRowsCount(); i++) {
                 //формируем коэффициент, на который нужно умножать строки
-                double k = coeffSLAY.array[i][col] / coeffSLAY.array[row][col];
+                double k = coeffArray[i][col] / coeffArray[row][col];
 
                 //из i-ой строки вычитаем текущую строку, умноженную на k
-                subtractFromRow(coeffSLAY.array[i], getMultipliedRow(coeffSLAY.array[row], k));
+                subtractFromRow(coeffArray[i], getMultipliedRow(coeffArray[row], k));
                 if (additionalSLAY != null) { //если матрица свободных членов не равна null, проделываем то же самое
-                    subtractFromRow(additionalSLAY.array[i], getMultipliedRow(additionalSLAY.array[row], k));
+                    subtractFromRow(additionalArray[i], getMultipliedRow(additionalArray[row], k));
                 }
             }
 
@@ -71,12 +74,14 @@ public class GaussianElimination {
      * @param coeffSLAY матрица коэффициентов
      * @param additionalSLAY матрица свободных членов, если она равна null, то игнорируется
      */
-    void backward(SLAY coeffSLAY, SLAY additionalSLAY) {
-        int row = coeffSLAY.rowsCount - 1;
-        int col = coeffSLAY.colsCount - 1;
+    public void backward(SLAY coeffSLAY, SLAY additionalSLAY) {
+        int row = coeffSLAY.getRowsCount() - 1;
+        int col = coeffSLAY.getColsCount() - 1;
+        double[][] coeffArray = coeffSLAY.getArray(); // массив из элементов матрицы коэфициентов
+        double[][] additionalArray = additionalSLAY.getArray(); // массив из элементов добавочной матрицы
 
         while (col >= 0 && row >= 0) {
-            if (Math.abs(coeffSLAY.array[row][col]) < precision) {
+            if (Math.abs(coeffArray[row][col]) < precision) {
                 int notZeroRow = getFirstNotZeroRowBefore(row, col, coeffSLAY);
                 if (notZeroRow == -1) {
                     col--;
@@ -89,11 +94,11 @@ public class GaussianElimination {
             }
 
             for (int i = row - 1; i >= 0; i--) {
-                double k = coeffSLAY.array[i][col] / coeffSLAY.array[row][col];
+                double k = coeffArray[i][col] / coeffArray[row][col];
 
-                subtractFromRow(coeffSLAY.array[i], getMultipliedRow(coeffSLAY.array[row], k));
+                subtractFromRow(coeffArray[i], getMultipliedRow(coeffArray[row], k));
                 if (additionalSLAY != null) {
-                    subtractFromRow(additionalSLAY.array[i], getMultipliedRow(additionalSLAY.array[row], k));
+                    subtractFromRow(additionalArray[i], getMultipliedRow(additionalArray[row], k));
                 }
             }
 
@@ -108,12 +113,14 @@ public class GaussianElimination {
      * @param coeffSLAY матрица коэффициентов
      * @param additionalSLAY матрица свободных членов, если она равна null, то игнорируется
      */
-    void mainDiagonalToOne(SLAY coeffSLAY, SLAY additionalSLAY) {
-        for (int i = 0; i < Math.min(coeffSLAY.rowsCount, coeffSLAY.colsCount); i++) {
-            if (Math.abs(coeffSLAY.array[i][i]) >= precision) {
-                double k = 1 / coeffSLAY.array[i][i];
-                coeffSLAY.array[i] = getMultipliedRow(coeffSLAY.array[i], k);
-                additionalSLAY.array[i] =  getMultipliedRow(additionalSLAY.array[i],k);
+    public void mainDiagonalToOne(SLAY coeffSLAY, SLAY additionalSLAY) {
+        double[][] coeffArray = coeffSLAY.getArray(); // массив из элементов матрицы коэфициентов
+        double[][] additionalArray = additionalSLAY.getArray(); // массив из элементов добавочной матрицы
+        for (int i = 0; i < Math.min(coeffSLAY.getRowsCount(), coeffSLAY.getColsCount()); i++) {
+            if (Math.abs(coeffArray[i][i]) >= precision) {
+                double k = 1 / coeffArray[i][i];
+                coeffArray[i] = getMultipliedRow(coeffArray[i], k);
+                additionalArray[i] =  getMultipliedRow(additionalArray[i],k);
             }
         }
     }
@@ -126,8 +133,9 @@ public class GaussianElimination {
      * @return индекс строки первого ненулевого элемента под заданным
      */
     private int getFirstNotZeroRowAfter(int row, int col, SLAY matrix) {
-        for (int i = row+1; i < matrix.rowsCount; i++) {
-            if (Math.abs(matrix.array[i][col]) >= precision) {
+        double[][] array = matrix.getArray(); // массив из элементов матрицы
+        for (int i = row+1; i < matrix.getRowsCount(); i++) {
+            if (Math.abs(array[i][col]) >= precision) {
                 return i;
             }
         }
@@ -143,8 +151,9 @@ public class GaussianElimination {
      * @return индекс строки первого ненулевого элемента над заданным
      */
     private int getFirstNotZeroRowBefore(int row, int col, SLAY matrix) {
+        double[][] array = matrix.getArray(); // массив из элементов матрицы
         for (int i = row-1; i >= 0; i--) {
-            if (Math.abs(matrix.array[i][col]) >= precision) {
+            if (Math.abs(array[i][col]) >= precision) {
                 return i;
             }
         }
@@ -161,10 +170,11 @@ public class GaussianElimination {
      * @param matrix матрица, в которой нужно поменять местами строки
      */
     private void swapRows(int row1, int row2, SLAY matrix) {
-        matrix.array[row1] = getMultipliedRow(matrix.array[row1], -1);
-        double[] temp = matrix.array[row1];
-        matrix.array[row1] = matrix.array[row2];
-        matrix.array[row2] = temp;
+        double[][] array = matrix.getArray(); // массив из элементов матрицы
+        array[row1] = getMultipliedRow(array[row1], -1);
+        double[] temp = array[row1];
+        array[row1] = array[row2];
+        array[row2] = temp;
     }
 
     /**

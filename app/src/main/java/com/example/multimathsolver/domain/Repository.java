@@ -2,9 +2,6 @@ package com.example.multimathsolver.domain;
 
 import java.util.Map;
 
-
-import com.example.multimathsolver.data.slay.SLAY;
-
 public interface Repository {
     BooleanFunction getBooleanFunction(String expression) throws IncorrectFunctionInput;
 
@@ -21,5 +18,5 @@ public interface Repository {
     String getPolynomial(BooleanFunction function);
 
     Map<PostClass, Boolean> getBelongingToPostClasses(BooleanFunction function);
-    public String solutionOfSLAY(SLAY matrix);
+    String getSolutionOfSLAY(SLAY matrix);
 }
