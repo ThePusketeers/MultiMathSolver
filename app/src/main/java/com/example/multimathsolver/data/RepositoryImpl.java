@@ -7,6 +7,8 @@ import com.example.multimathsolver.domain.BooleanFunction;
 import com.example.multimathsolver.domain.PostClass;
 import com.example.multimathsolver.data.booleanalgebra.ExpressionHandler;
 import com.example.multimathsolver.domain.IncorrectFunctionInput;
+import com.example.multimathsolver.domain.IncorrectMatrixSize;
+import com.example.multimathsolver.domain.MatrixOperations;
 import com.example.multimathsolver.domain.Repository;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class RepositoryImpl implements Repository {
+
 
     @Override
     public BooleanFunction getBooleanFunction(String expression) throws IncorrectFunctionInput {
@@ -399,5 +402,189 @@ public class RepositoryImpl implements Repository {
         return map;
     }
 
+    @Override
+    public MatrixOperations addOrMinus(MatrixOperations mainMatrix, MatrixOperations otherMatrix, char operation) throws IncorrectMatrixSize {
+        if (mainMatrix.getColumns() == otherMatrix.getColumns() && mainMatrix.getRows() == otherMatrix.getRows()) {
+            MatrixOperations summaryMatrix = new MatrixOperations(mainMatrix.getRows(), mainMatrix.getColumns());
+            double [][] summaryMatrixTable = summaryMatrix.getMatrix();
+            double [][] mainMatrixTable = mainMatrix.getMatrix();
+            double [][] otherMatrixTable = otherMatrix.getMatrix();
+
+            for (int i = 0; i < mainMatrix.getRows(); i++) {
+                for (int j = 0; j < mainMatrix.getColumns(); j++) {
+                    if (operation == '+') {
+                        summaryMatrixTable[i][j] = mainMatrixTable[i][j] + otherMatrixTable[i][j];
+                    } else {
+                        summaryMatrixTable[i][j] = mainMatrixTable[i][j] - otherMatrixTable[i][j];
+                    }
+                }
+            }
+
+            return summaryMatrix;
+        } else {
+            if (operation == '+') {
+                throw new IncorrectMatrixSize("Сложение матриц невозможно. Матрицы должны быть одинакового размера!");
+            }
+            throw new IncorrectMatrixSize("Вычитание матриц невозможно. Матрицы должны быть одинакового размера!");
+        }
+    }
+
+    @Override
+    public MatrixOperations multiplyOnNumber(MatrixOperations mainMatrix, double number) {
+        MatrixOperations multiplyNumMatrix = new MatrixOperations(mainMatrix.getRows(), mainMatrix.getColumns());
+
+        double [][] mainMatrixTable = mainMatrix.getMatrix();
+        double [][] multiplyNumMatrixTable = multiplyNumMatrix.getMatrix();
+
+        for (int i = 0; i < mainMatrix.getRows(); i++) {
+            for (int j = 0; j < mainMatrix.getColumns(); j++) {
+                multiplyNumMatrixTable[i][j] = mainMatrixTable[i][j] * number;
+            }
+        }
+
+        return multiplyNumMatrix;
+    }
+
+    @Override
+    public MatrixOperations multiplication(MatrixOperations mainMatrix, MatrixOperations otherMatrix) throws IncorrectMatrixSize {
+        MatrixOperations multiplicationMatrix;
+
+        if (mainMatrix.getColumns() == otherMatrix.getRows()) {
+            multiplicationMatrix = new MatrixOperations(mainMatrix.getRows(), otherMatrix.getColumns());
+
+            double [][] multiplicationMatrixTable = multiplicationMatrix.getMatrix();
+            double [][] mainMatrixTable = mainMatrix.getMatrix();
+            double [][] otherMatrixTable = otherMatrix.getMatrix();
+
+            for (int i = 0; i < mainMatrix.getRows(); i++) {
+                for (int w = 0; w < otherMatrix.getColumns(); w++) {
+                    double summary = 0;
+                    for (int j = 0; j < otherMatrix.getRows(); j++) {
+                        summary = summary + (mainMatrixTable[i][j] * otherMatrixTable[j][w]);
+                    }
+                    multiplicationMatrixTable[i][w] = summary;
+                }
+            }
+            return multiplicationMatrix;
+        }
+        else {
+            throw new IncorrectMatrixSize("Умножение матриц невозможно. Количество столбцов в первой матрице не равно количеству строк во второй матрице!");
+        }
+    }
+
+    @Override
+    public MatrixOperations raiseToDegree(MatrixOperations mainMatrix, int degree) throws IncorrectMatrixSize {
+        if (mainMatrix.getRows() == mainMatrix.getColumns() && degree > 0) {
+            MatrixOperations degreeMatrix = new MatrixOperations(mainMatrix.getRows(), mainMatrix.getColumns());
+
+
+            for (int i = 0; i < degree - 1; i++) {
+                degreeMatrix.setMatrix(this.multiplication(mainMatrix, mainMatrix).getMatrix());
+            }
+
+            return degreeMatrix;
+        } else {
+            throw new IncorrectMatrixSize("Возведение в степень невозможно. Матрица должна быть квадратной!");
+        }
+    }
+
+    private MatrixOperations gauss(MatrixOperations mainMatrix) {
+        MatrixOperations gaussMatrix = new MatrixOperations(mainMatrix.getMatrix());
+        double multDeter = 1;
+        gaussMatrix.setMainCoef(1);
+        double [][] gaussMatrixTable = gaussMatrix.getMatrix();
+        for (int i = 0; i < Math.min(gaussMatrix.getRows(), gaussMatrix.getColumns()); i++) {
+            double maxNumber = Math.abs(gaussMatrixTable[i][i]);
+            int maxRow = i;
+            for (int j = i + 1; j < gaussMatrix.getRows(); j++) {
+                if (Math.abs(gaussMatrixTable[j][i]) > maxNumber) {
+                    maxNumber = Math.abs(gaussMatrixTable[j][i]);
+                    maxRow = j;
+                }
+            }
+
+            if (i != maxRow) {
+                double[] tempArray = gaussMatrixTable[i];
+                gaussMatrixTable[i] = gaussMatrixTable[maxRow];
+                gaussMatrixTable[maxRow] = tempArray;
+
+                multDeter *= -1;
+            }
+
+            // В треугольную форму снизу
+            for (int k = i + 1; k < gaussMatrix.getRows(); k++) {
+                double coef = -(gaussMatrixTable[k][i] / gaussMatrixTable[i][i]);
+                // Чтоб не было много чисел после точки
+                if (coef % 2 != 1 && coef % 2 != 0) {
+                    double temp = gaussMatrixTable[i][i];
+                    for (int j = 0; j < gaussMatrix.getColumns(); j++) {
+                        gaussMatrixTable[i][j] *= gaussMatrixTable[k][i];
+                    }
+
+                    multDeter *= (gaussMatrixTable[i][i]);
+
+                    for (int j = 0; j < gaussMatrix.getColumns(); j++) {
+                        gaussMatrixTable[k][j] *= temp;
+                    }
+                    coef = -(gaussMatrixTable[k][i] / gaussMatrixTable[i][i]);
+                }
+
+                if (Double.isNaN(coef)) {
+                    gaussMatrix.setMainCoef(1);
+                    return gaussMatrix;
+                }
+
+                for (int j = i; j < gaussMatrix.getColumns(); j++) {
+                    if (i == j) {
+                        gaussMatrixTable[k][j] = 0;
+                    } else {
+                        gaussMatrixTable[k][j] += coef * gaussMatrixTable[i][j];
+                    }
+                }
+            }
+        }
+
+        gaussMatrix.setMainCoef(multDeter);
+
+        return gaussMatrix;
+    }
+
+    @Override
+    public int searchRank(MatrixOperations mainMatrix) {
+        MatrixOperations gaussMatrix = this.gauss(mainMatrix);
+        double [][] gaussMatrixTable = gaussMatrix.getMatrix();
+        int count = 0;
+        for (int i = 0; i < gaussMatrix.getRows(); i++) {
+            boolean flag = false;
+            for (int j = 0; j < gaussMatrix.getColumns(); j++) {
+                if (gaussMatrixTable[i][j] != 0) {
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                count++;
+            }
+        }
+        return gaussMatrix.getRows() - count;
+    }
+
+    @Override
+    public double searchDeterminant(MatrixOperations mainMatrix) throws IncorrectMatrixSize {
+        if (mainMatrix.getColumns() == mainMatrix.getRows()) {
+            MatrixOperations gaussMatrix = this.gauss(mainMatrix);
+
+            double[][] gaussMatrixTable = gaussMatrix.getMatrix();
+
+            double multiply = 1;
+
+            for (int i = 0; i < gaussMatrix.getColumns(); i++) {
+                multiply *= gaussMatrixTable[i][i];
+            }
+
+            return multiply / (gaussMatrix.getMainCoef() != 0 ? gaussMatrix.getMainCoef() : 1);
+        } else {
+            throw new IncorrectMatrixSize("Не получится найти определитель, матрица должна быть квадратной!");
+        }
+    }
 
 }
