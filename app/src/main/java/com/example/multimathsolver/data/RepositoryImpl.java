@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 
 public class RepositoryImpl implements Repository {
@@ -401,14 +400,6 @@ public class RepositoryImpl implements Repository {
         map.put(PostClass.S, belongsToS(function));
         return map;
     }
-
-
-
-
-
-
-
-
     public String getSolutionOfSLAY (SLAY system){
         return solve(system).toString();
     }
@@ -462,8 +453,6 @@ public class RepositoryImpl implements Repository {
         }
         return true;
     }
-
-
     /**
      * Метод для копирования двумерного массива
      * @param array массив, который нужно скопировать
@@ -477,134 +466,4 @@ public class RepositoryImpl implements Repository {
 
         return copy;
     }
-
-
-    /**
-     * Метод, которые спрашивает у пользователя количество строк матрицы
-     * @return количество строк матрицы
-     */
-    private static int enterRowsCount() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Введите количество строк матрицы:");
-
-        int rowsCount = -1;
-        try {
-            rowsCount = Integer.parseInt(sc.next());
-            if (rowsCount < 1) {
-                System.out.println("Некорректный ввод. Количество строк матрицы не может быть меньше 1. " +
-                        "Попробуйте снова.");
-                return enterRowsCount();
-            }
-            return rowsCount;
-        } catch (NumberFormatException e) {
-            System.out.println("Некорректный ввод, попробуйте снова.");
-            return enterRowsCount();
-        }
-    }
-
-    /**
-     * Метод, который спрашивает у пользователя количество столбцов матрицы
-     * @return количество столбцов матрицы
-     */
-    private static int enterColsCount() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Введите количество столбцов матрицы:");
-
-        int rowsCount = -1;
-        try {
-            rowsCount = Integer.parseInt(sc.next());
-            if (rowsCount < 1) {
-                System.out.println("Некорректный ввод. Количество столбцов матрицы не может быть меньше 1. " +
-                        "Попробуйте снова.");
-                return enterRowsCount();
-            }
-            return rowsCount;
-        } catch (NumberFormatException e) {
-            System.out.println("Некорректный ввод, попробуйте снова.");
-            return enterRowsCount();
-        }
-    }
-
-    /**
-     * Метод, который спрашивает у пользователя количество цифр после точки.
-     * @return количество цифр после точки
-     */
-    private static int enterOutputAccuracy() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Какое количество цифр после точки выводить? ");
-
-        int outputAccuracy = -1;
-        try {
-            outputAccuracy = Integer.parseInt(sc.next());
-            if (outputAccuracy < 0) {
-                System.out.println("Некорректный ввод. Количество цифр после точки не может быть меньше 0. " +
-                        "Попробуйте снова.");
-                return enterRowsCount();
-            }
-            return outputAccuracy;
-        } catch (NumberFormatException e) {
-            System.out.println("Некорректный ввод, попробуйте снова.");
-            return enterRowsCount();
-        }
-    }
-
-    /**
-     * Метод, который спрашивает у пользователя способ ввода матрицы
-     * @return способ ввода (1 - поэлементно, 2 - построчно)
-     */
-    private static int enterType() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Если вы хотите вводить матрицу поэлементно, введите 1. Если хотите вводить матрицу" +
-                " построчно, введите 2.");
-
-        int type = -1;
-        try {
-            type = Integer.parseInt(sc.next());
-            if (type != 1 && type != 2) {
-                System.out.println("Неизвестный способ ввода. Попробуйте снова");
-                return enterType();
-            }
-
-            return type;
-        } catch (NumberFormatException e) {
-            System.out.println("Некорректный ввод, попробуйте снова.");
-            return enterType();
-        }
-    }
-
-    /**
-     * Метод, который считывает матрицу поэлементно
-     * @param mat матрица, в которую нужно записать результат
-     */
-    public static void enterMatrixByElements(SLAY mat) {
-        for (int i = 0; i < mat.getRowsCount(); i++) {
-            for (int j = 0; j < mat.getColsCount(); j++) {
-                enterElement(mat, i, j);
-            }
-        }
-    }
-
-    /**
-     * Метод спрашивает у пользователя конкретный элемент.
-     * @param mat матрица, в которую нужно записать элемент
-     * @param row индекс строки элемента, который нужно ввести
-     * @param col индекс столбца элемента, который нужно ввести
-     */
-    private static void enterElement(SLAY mat, int row, int col) {
-        Scanner sc = new Scanner(System.in);
-        double[][] array = mat.getArray();
-
-        System.out.println("Введите " + (col + 1) + "-й элемент в " + (row + 1) + "-й строке: ");
-
-        try {
-            array[row][col] = Double.parseDouble(sc.next());
-        } catch (NumberFormatException e) {
-            System.out.print("Некорректный ввод. Попробуйте снова.");
-            enterElement(mat, row, col);
-        }
-    }
-
-
-
 }
