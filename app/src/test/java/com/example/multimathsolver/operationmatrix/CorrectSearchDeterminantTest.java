@@ -38,6 +38,6 @@ public class CorrectSearchDeterminantTest {
 
     @Test
     public void testAddTwoMatrix() throws IncorrectMatrixSize {
-        Assert.assertEquals(determinant, repository.search_determinant(firstMatrix), 1);
+        Assert.assertEquals(determinant, repository.searchDeterminant(firstMatrix), 1);
     }
 }

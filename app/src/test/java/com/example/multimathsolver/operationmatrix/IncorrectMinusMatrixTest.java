@@ -39,6 +39,6 @@ public class IncorrectMinusMatrixTest {
 
     @Test
     public void testAddTwoMatrix() {
-        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.add_or_minus(firstMatrix, secondMatrix, '-'));
+        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.addOrMinus(firstMatrix, secondMatrix, '-'));
     }
 }

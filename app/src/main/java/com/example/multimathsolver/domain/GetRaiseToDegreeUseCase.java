@@ -8,6 +8,6 @@ public class GetRaiseToDegreeUseCase {
     }
 
     public MatrixOperations getRaiseToDegree(MatrixOperations firstMatrix, int degree) throws IncorrectMatrixSize {
-        return repository.raise_to_degree(firstMatrix, degree);
+        return repository.raiseToDegree(firstMatrix, degree);
     }
 }

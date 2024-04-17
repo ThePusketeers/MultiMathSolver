@@ -35,6 +35,6 @@ public class IncorrectSearchDeterminantTest {
 
     @Test
     public void testAddTwoMatrix() {
-        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.search_determinant(firstMatrix));
+        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.searchDeterminant(firstMatrix));
     }
 }

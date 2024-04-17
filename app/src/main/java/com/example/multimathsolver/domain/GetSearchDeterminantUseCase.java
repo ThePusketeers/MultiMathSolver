@@ -8,6 +8,6 @@ public class GetSearchDeterminantUseCase {
     }
 
     public double getSearchDeterminant(MatrixOperations firstMatrix) throws IncorrectMatrixSize {
-        return repository.search_determinant(firstMatrix);
+        return repository.searchDeterminant(firstMatrix);
     }
 }

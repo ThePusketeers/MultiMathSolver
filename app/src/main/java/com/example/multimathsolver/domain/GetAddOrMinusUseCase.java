@@ -8,6 +8,6 @@ public class GetAddOrMinusUseCase {
     }
 
     public MatrixOperations getAddOrMinus(MatrixOperations firstMatrix, MatrixOperations secondMatrix, char operation) throws IncorrectMatrixSize {
-        return repository.add_or_minus(firstMatrix, secondMatrix, operation);
+        return repository.addOrMinus(firstMatrix, secondMatrix, operation);
     }
 }

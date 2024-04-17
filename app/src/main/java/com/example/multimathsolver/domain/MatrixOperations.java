@@ -4,7 +4,7 @@ public class MatrixOperations {
     private double[][] matrix;
     private int rows;
     private int columns;
-    private double main_coef;
+    private double mainCoef;
 
 
     public int getColumns() {
@@ -27,12 +27,12 @@ public class MatrixOperations {
         this.columns = columns;
     }
 
-    public void setMain_coef(double main_coef) {
-        this.main_coef = main_coef;
+    public void setMainCoef(double mainCoef) {
+        this.mainCoef = mainCoef;
     }
 
-    public double getMain_coef() {
-        return main_coef;
+    public double getMainCoef() {
+        return mainCoef;
     }
 
 
@@ -46,13 +46,13 @@ public class MatrixOperations {
         matrix = new double[rows][columns];
     }
 
-    public MatrixOperations(double[][] enter_matrix) {
-        rows = enter_matrix.length;
-        columns = enter_matrix[0].length;
+    public MatrixOperations(double[][] enterMatrix) {
+        rows = enterMatrix.length;
+        columns = enterMatrix[0].length;
         matrix = new double[rows][columns];
 
         for (int i = 0; i < rows; i++) {
-            System.arraycopy(enter_matrix[i], 0, matrix[i], 0, columns);
+            System.arraycopy(enterMatrix[i], 0, matrix[i], 0, columns);
         }
     }
 }

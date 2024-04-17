@@ -36,6 +36,6 @@ public class CorrectRaiseDegreeMatrixTest {
 
     @Test
     public void testMultiplyTwoMatrix() throws Exception {
-        Assert.assertArrayEquals(expectedMatrix.getMatrix(), repository.raise_to_degree(firstMatrix, degree).getMatrix());
+        Assert.assertArrayEquals(expectedMatrix.getMatrix(), repository.raiseToDegree(firstMatrix, degree).getMatrix());
     }
 }

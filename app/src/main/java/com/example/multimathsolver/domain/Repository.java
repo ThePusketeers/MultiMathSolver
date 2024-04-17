@@ -19,17 +19,17 @@ public interface Repository {
 
     Map<PostClass, Boolean> getBelongingToPostClasses(BooleanFunction function);
 
-    MatrixOperations add_or_minus(MatrixOperations main_matrix, MatrixOperations other_matrix, char operation) throws IncorrectMatrixSize;
+    MatrixOperations addOrMinus(MatrixOperations mainMatrix, MatrixOperations otherMatrix, char operation) throws IncorrectMatrixSize;
 
-    MatrixOperations multiplyOnNumber(MatrixOperations main_matrix, double number);
+    MatrixOperations multiplyOnNumber(MatrixOperations mainMatrix, double number);
 
-    MatrixOperations multiplication(MatrixOperations main_matrix, MatrixOperations other_matrix) throws IncorrectMatrixSize;
+    MatrixOperations multiplication(MatrixOperations mainMatrix, MatrixOperations otherMatrix) throws IncorrectMatrixSize;
 
-    MatrixOperations raise_to_degree(MatrixOperations main_matrix, int degree) throws IncorrectMatrixSize;
+    MatrixOperations raiseToDegree(MatrixOperations mainMatrix, int degree) throws IncorrectMatrixSize;
 
     //    MatrixOperations gauss(MatrixOperations main_matrix);
 
-    int search_rank(MatrixOperations main_matrix);
+    int searchRank(MatrixOperations mainMatrix);
 
-    double search_determinant(MatrixOperations main_matrix) throws IncorrectMatrixSize;
+    double searchDeterminant(MatrixOperations mainMatrix) throws IncorrectMatrixSize;
 }

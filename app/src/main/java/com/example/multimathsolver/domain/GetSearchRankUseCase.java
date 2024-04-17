@@ -8,6 +8,6 @@ public class GetSearchRankUseCase {
     }
 
     public int getSearchRank(MatrixOperations firstMatrix) {
-        return repository.search_rank(firstMatrix);
+        return repository.searchRank(firstMatrix);
     }
 }

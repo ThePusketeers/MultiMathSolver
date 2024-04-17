@@ -38,6 +38,6 @@ public class IncorrectRaiseDegreeMatrixTest {
 
     @Test
     public void testMultiplyTwoMatrix() {
-        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.raise_to_degree(firstMatrix, degree));
+        Assert.assertThrows(IncorrectMatrixSize.class, () -> repository.raiseToDegree(firstMatrix, degree));
     }
 }
