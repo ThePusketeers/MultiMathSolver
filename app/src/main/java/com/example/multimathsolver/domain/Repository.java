@@ -32,4 +32,6 @@ public interface Repository {
     int searchRank(MatrixOperations mainMatrix);
 
     double searchDeterminant(MatrixOperations mainMatrix) throws IncorrectMatrixSize;
+  
+    String getSolutionOfSLAY(SLAY matrix);
 }

@@ -1,5 +1,7 @@
 package com.example.multimathsolver.data;
 
+import com.example.multimathsolver.data.slay.GaussianElimination;
+import com.example.multimathsolver.domain.SLAY;
 import com.example.multimathsolver.data.booleanalgebra.BinaryOperation;
 import com.example.multimathsolver.data.booleanalgebra.HandlerSelector;
 import com.example.multimathsolver.data.booleanalgebra.UnaryOperation;
@@ -401,6 +403,43 @@ public class RepositoryImpl implements Repository {
         map.put(PostClass.S, belongsToS(function));
         return map;
     }
+    public String getSolutionOfSLAY (SLAY system){
+        return solve(system).toString();
+    }
+
+    /**
+     * Метод для решения системы линейных уравнений. Метод изменяет текущую матрицу коэффициентов (this),
+     * но не изменяет матрицу-столбец свободных членов.
+     * @param b матрица-столбец свободных членов
+     * @return матрица-столбец значений неизвестных
+     */
+    public SLAY solve(SLAY b) {
+        GaussianElimination gaussianElimination = new GaussianElimination(b.getPrecision());
+        SLAY answer = new SLAY(b);
+        double[][] array = b.getArray();
+        gaussianElimination.forward(b, answer);
+
+        if (
+                this.isZeroRow(b.getRowsCount()-1, b) &&
+                        Math.abs(array[answer.getRowsCount()-1][0]) >= b.getPrecision()
+        ) {
+            System.out.println("СЛАУ не имеет решений");
+            return null;
+        }
+
+        if (
+                this.isZeroRow(b.getRowsCount()-1,b) &&
+                        Math.abs(array[answer.getRowsCount()-1][0]) < b.getPrecision()
+        ) {
+            System.out.println("СЛАУ не имеет бесконечно много решений");
+            return null;
+        }
+
+        gaussianElimination.backward(b, answer);
+        gaussianElimination.mainDiagonalToOne(b, answer);
+
+        return answer;
+    }
 
     @Override
     public MatrixOperations addOrMinus(MatrixOperations mainMatrix, MatrixOperations otherMatrix, char operation) throws IncorrectMatrixSize {
@@ -587,4 +626,18 @@ public class RepositoryImpl implements Repository {
         }
     }
 
+    /**
+     * Метод проверяет, является ли строка нулевой, т.е. в ней только нулевые элементы
+     * @param row индекс строки, которую нужно проверить
+     * @return true, если в строке только нулевые элементы, и false в противном случае
+     */
+    private boolean isZeroRow(int row, SLAY b) {
+        double[][] array = b.getArray();
+        for(double elem : array[row]  ) {
+            if (Math.abs(elem) >= b.getPrecision()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
