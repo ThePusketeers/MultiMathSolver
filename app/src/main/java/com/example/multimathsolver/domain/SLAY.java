@@ -1,6 +1,7 @@
 package com.example.multimathsolver.domain;
 
-import static com.example.multimathsolver.data.RepositoryImpl.getDeepCopyOfArray;
+
+import java.util.Arrays;
 
 public class SLAY {
     /** Точность. Значения меньше этого будут приняты за ноль */
@@ -54,8 +55,18 @@ public class SLAY {
         this(matrix.rowsCount, matrix.colsCount, getDeepCopyOfArray(matrix.array), matrix.outputAccuracy);
     }
 
-    public int getOutputAccuracy() {
-        return outputAccuracy;
+    /**
+     * Метод для копирования двумерного массива
+     * @param array массив, который нужно скопировать
+     * @return массив, которые является копией заданного
+     */
+    public static double[][] getDeepCopyOfArray(double[][] array) {
+        double[][] copy = new double[array.length][array[0].length];
+        for (int i = 0; i < array.length; i++) {
+            copy[i] = Arrays.copyOf(array[i], array[i].length);
+        }
+
+        return copy;
     }
 
     public int getRowsCount() {

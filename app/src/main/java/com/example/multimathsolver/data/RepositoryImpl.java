@@ -453,17 +453,4 @@ public class RepositoryImpl implements Repository {
         }
         return true;
     }
-    /**
-     * Метод для копирования двумерного массива
-     * @param array массив, который нужно скопировать
-     * @return массив, которые является копией заданного
-     */
-    public static double[][] getDeepCopyOfArray(double[][] array) {
-        double[][] copy = new double[array.length][array[0].length];
-        for (int i = 0; i < array.length; i++) {
-            copy[i] = Arrays.copyOf(array[i], array[i].length);
-        }
-
-        return copy;
-    }
 }
