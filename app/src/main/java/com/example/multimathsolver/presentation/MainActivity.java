@@ -12,7 +12,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.multimathsolver.R;
-import com.example.multimathsolver.data.mathematicalAnalysis.SequenceLimit;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 viewModel.incrementA();
-
-                Log.d("LIMITRESULT", SequenceLimit.solve("1/n plus 2/3"));
             }
         });
 
