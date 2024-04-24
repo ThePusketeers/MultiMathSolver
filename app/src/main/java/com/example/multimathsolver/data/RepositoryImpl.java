@@ -1,5 +1,6 @@
 package com.example.multimathsolver.data;
 
+import com.example.multimathsolver.data.mathematicalAnalysis.FunctionLimit;
 import com.example.multimathsolver.data.mathematicalAnalysis.SequenceLimit;
 import com.example.multimathsolver.data.slay.GaussianElimination;
 import com.example.multimathsolver.domain.SLAY;
@@ -30,6 +31,12 @@ public class RepositoryImpl implements Repository {
         return SequenceLimit.solve(sequence);
 
     }
+
+    @Override
+    public String getFunctionLimit(String function, Double strivesFor) {
+        return FunctionLimit.solve(function, strivesFor);
+    }
+
     @Override
     public BooleanFunction getBooleanFunction(String expression) throws IncorrectFunctionInput {
         ExpressionHandler handler = HandlerSelector.getHandler(expression);
