@@ -29,7 +29,7 @@ public class RepositoryImpl implements Repository {
     public String getSequenceLimit(String sequence) {
         return SequenceLimit.solve(sequence);
 
-
+    }
     @Override
     public BooleanFunction getBooleanFunction(String expression) throws IncorrectFunctionInput {
         ExpressionHandler handler = HandlerSelector.getHandler(expression);
