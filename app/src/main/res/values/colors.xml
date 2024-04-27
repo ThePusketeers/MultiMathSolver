@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color> <!--> Чёрный цвет -->
+    <color name="white">#FFFFFFFF</color> <!--> Белый цвет-->
+    <color name="background_color">#17181A</color> <!--> Цвет фона -->
+    <color name="dark_gray_button_color">#303136</color> <!--> Цвет тёмно-серой кнопки -->
+    <color name="dark_gray_button_text_color">#29A8FF</color> <!--> Цвет текста тёмно-серой кнопки -->
+    <color name="light_gray_button_color">#616161</color> <!--> Цвет светло-серой кнопки -->
+    <color name="light_gray_button_text_color">#A5A5A5</color> <!--> Цвет текста светло-серой кнопки -->
+    <color name="stroke_panel_color">#29A8FF</color> <!--> Цвет обводки -->
+    <color name="light_blue_button_color">#1991FF</color> <!--> Цвет светло-синей кнопки -->
+    <color name="light_blue_button_text_color">#B2DAFF</color> <!--> Цвет текста светло-синей кнопки -->
+    <color name="bottom_panel_color">#303136</color> <!--> Цвет нижней панели -->
 </resources>
