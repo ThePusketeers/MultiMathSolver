@@ -7,7 +7,7 @@ public class GetSLAYSolutionUseCase {
         this.repository = repository;
     }
 
-    public String getSLAYSolutionUseCase(SLAY matrix){
-        return repository.getSolutionOfSLAY(matrix);
+    public String getSLAYSolutionUseCase(SLAY coeffSLAY, SLAY additionalSLAY){
+        return repository.getSolutionOfSLAY(coeffSLAY, additionalSLAY);
     }
 }

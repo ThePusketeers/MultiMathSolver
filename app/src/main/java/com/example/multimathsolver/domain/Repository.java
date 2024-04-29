@@ -36,5 +36,5 @@ public interface Repository {
 
     double searchDeterminant(MatrixOperations mainMatrix) throws IncorrectMatrixSize;
   
-    String getSolutionOfSLAY(SLAY matrix);
+    String getSolutionOfSLAY(SLAY coeffSLAY, SLAY additionalSLAY);
 }

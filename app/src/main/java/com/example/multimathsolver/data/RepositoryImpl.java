@@ -37,6 +37,7 @@ public class RepositoryImpl implements Repository {
         return FunctionLimit.solve(function, strivesFor);
     }
 
+
     @Override
     public BooleanFunction getBooleanFunction(String expression) throws IncorrectFunctionInput {
         ExpressionHandler handler = HandlerSelector.getHandler(expression);
@@ -415,42 +416,42 @@ public class RepositoryImpl implements Repository {
         map.put(PostClass.S, belongsToS(function));
         return map;
     }
-    public String getSolutionOfSLAY (SLAY system){
-        return solve(system).toString();
+    public String getSolutionOfSLAY (SLAY coeffSLAY, SLAY additionalSLAY){
+        return solve(coeffSLAY, additionalSLAY).toString();
     }
 
     /**
-     * Метод для решения системы линейных уравнений. Метод изменяет текущую матрицу коэффициентов (this),
-     * но не изменяет матрицу-столбец свободных членов.
-     * @param b матрица-столбец свободных членов
+     * Метод для решения системы линейных уравнений.
+     * @param coeffSLAY матрица коэфициентов
+     * @param additionalSLAY матрица-столбец свободных членов
      * @return матрица-столбец значений неизвестных
      */
-    public SLAY solve(SLAY b) {
-        GaussianElimination gaussianElimination = new GaussianElimination(b.getPrecision());
-        SLAY answer = new SLAY(b);
-        double[][] array = b.getArray();
-        gaussianElimination.forward(b, answer);
+
+    public double[][] solve(SLAY coeffSLAY, SLAY additionalSLAY){
+        GaussianElimination gaussianElimination = new GaussianElimination(coeffSLAY.getPrecision());
+        double[][] array = coeffSLAY.getArray();
+        gaussianElimination.forward(coeffSLAY, additionalSLAY);
 
         if (
-                this.isZeroRow(b.getRowsCount()-1, b) &&
-                        Math.abs(array[answer.getRowsCount()-1][0]) >= b.getPrecision()
+                this.isZeroRow(coeffSLAY.getRowsCount()-1, coeffSLAY) &&
+                        Math.abs(array[additionalSLAY.getRowsCount()-1][0]) >= coeffSLAY.getPrecision()
         ) {
             System.out.println("СЛАУ не имеет решений");
             return null;
         }
 
         if (
-                this.isZeroRow(b.getRowsCount()-1,b) &&
-                        Math.abs(array[answer.getRowsCount()-1][0]) < b.getPrecision()
+                this.isZeroRow(coeffSLAY.getRowsCount()-1,coeffSLAY) &&
+                        Math.abs(array[additionalSLAY.getRowsCount()-1][0]) < coeffSLAY.getPrecision()
         ) {
             System.out.println("СЛАУ не имеет бесконечно много решений");
             return null;
         }
 
-        gaussianElimination.backward(b, answer);
-        gaussianElimination.mainDiagonalToOne(b, answer);
+        gaussianElimination.backward(coeffSLAY, additionalSLAY);
+        gaussianElimination.mainDiagonalToOne(coeffSLAY, additionalSLAY);
 
-        return answer;
+        return additionalSLAY.getArray();
     }
 
     @Override
