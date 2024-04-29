@@ -5,6 +5,59 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SlayActivity">
+    android:background="@color/background_color"
+    tools:context=".presentation.SlayActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Решение СЛАУ"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="406dp"
+        android:layout_height="570dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/string_edit_text"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/recycler_view_item_layout" />
+
+    <EditText
+        android:id="@+id/string_edit_text"
+        android:layout_width="259dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/rounded_corner"
+        android:ems="10"
+        android:hint="2x+6y+9z"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="@color/dark_gray_button_text_color"
+        android:textColorHint="@color/light_gray_button_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/add_string_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/light_blue_button_color"
+        android:text="Добавить\nстроку"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/string_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/string_edit_text"
+        app:layout_constraintTop_toTopOf="@+id/string_edit_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

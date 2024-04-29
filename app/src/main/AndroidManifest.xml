@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MultiMathSolver"
         tools:targetApi="31">
         <activity
-            android:name=".SlayActivity"
+            android:name=".presentation.SlayActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.MainActivity2"
