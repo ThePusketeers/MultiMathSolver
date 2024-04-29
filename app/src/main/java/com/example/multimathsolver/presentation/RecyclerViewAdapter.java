@@ -8,14 +8,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
 
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private DiffUtil.ItemCallback<String> diffUtilCallback = new DiffUtil.ItemCallback<String>() {
+public class RecyclerViewAdapter extends ListAdapter<String, RecyclerViewAdapter.ViewHolder> //RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
+{
+    public RecyclerViewAdapter() {
+        super(diffUtilCallback);
+    }
+
+    private static final DiffUtil.ItemCallback<String> diffUtilCallback = new DiffUtil.ItemCallback<String>() {
         @Override
         public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
             return oldItem == newItem;
@@ -27,12 +33,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     };
 
-    private AsyncListDiffer asyncListDiffer = new AsyncListDiffer(this, diffUtilCallback);
-
-    void setData(List<String> rows) {
-        asyncListDiffer.submitList(rows);
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,12 +42,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.rowTv.setText(asyncListDiffer.getCurrentList().get(position).toString());
+        holder.rowTv.setText(getCurrentList().get(position));
     }
 
     @Override
     public int getItemCount() {
-        return asyncListDiffer.getCurrentList().size();
+        return getCurrentList().size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

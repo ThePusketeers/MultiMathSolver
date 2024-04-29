@@ -15,18 +15,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SlayActivity extends AppCompatActivity {
     private Button addButton;
     private EditText slayString;
+    private int count = 0;
     private RecyclerView recyclerView;
-    private List<String> rows;
+    private List<String> rows = new ArrayList<>();
     private RecyclerViewAdapter adapter = new RecyclerViewAdapter();
 
     @Override
@@ -39,15 +44,13 @@ public class SlayActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setData(rows);
+        adapter.submitList(rows);
         recyclerView.setAdapter(adapter);
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rows.add("DAAATA");
-                adapter.setData(rows);
+                rows.add("DASDA" + (count++));
+                adapter.submitList(rows);
             }
         });
 
