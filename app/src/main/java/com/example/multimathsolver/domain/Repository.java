@@ -29,6 +29,9 @@ public interface Repository {
 
     //    MatrixOperations gauss(MatrixOperations main_matrix);
 
+    String getSequenceLimit(String sequence);
+    String getFunctionLimit(String function, Double strivesFor);
+  
     int searchRank(MatrixOperations mainMatrix);
 
     double searchDeterminant(MatrixOperations mainMatrix) throws IncorrectMatrixSize;
