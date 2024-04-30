@@ -44,13 +44,15 @@ public class SlayActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        adapter.submitList(rows);
         recyclerView.setAdapter(adapter);
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rows.add("DASDA" + (count++));
-                adapter.submitList(rows);
+                rows.add(String.valueOf(slayString.getText()));
+                slayString.setText("");
+                adapter.submitList(new ArrayList<>(rows));
+                recyclerView.smoothScrollToPosition(0);
             }
         });
 
