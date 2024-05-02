@@ -41,7 +41,7 @@
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
-        android:background="@drawable/rounded_corner"
+        android:background="@drawable/edittext_rounded_corners"
         android:ems="10"
         android:hint="2x+6y+9z=0"
         android:inputType="text"
