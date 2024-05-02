@@ -52,7 +52,7 @@ public class SlayActivity extends AppCompatActivity {
                 rows.add(String.valueOf(slayString.getText()));
                 slayString.setText("");
                 adapter.submitList(new ArrayList<>(rows));
-                recyclerView.smoothScrollToPosition(0);
+                recyclerView.smoothScrollToPosition(rows.size()-1);
             }
         });
 
