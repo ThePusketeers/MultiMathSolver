@@ -1,5 +1,7 @@
 package com.example.multimathsolver.presentation;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -22,7 +24,7 @@ public class MatrixActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matrix);
 
-        numbersList.findViewById(R.id.rv_numbers);
+        numbersList = findViewById(R.id.rv_numbers);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
@@ -33,5 +35,9 @@ public class MatrixActivity extends AppCompatActivity {
         matrixAdapter = new MatrixAdapter(100); // вот здесь аргумент - сколько я хочу элементов в списке
 
         numbersList.setAdapter(matrixAdapter);
+    }
+
+    public static Intent newIntent(Context context){
+        return new Intent(context, MatrixActivity.class);
     }
 }

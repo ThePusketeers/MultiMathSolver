@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         buttonToMatrix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(MainActivity.this,MatrixActivity.class);
+                Intent intent =  MatrixActivity.newIntent(MainActivity.this);
                 startActivity(intent);
             }
         });
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        buttonToMatrix = findViewById(R.id.buttonToMatrix);
         btn = findViewById(R.id.button);
         textView = findViewById(R.id.tv);
         buttonActivity = findViewById(R.id.buttonActivity);
