@@ -7,7 +7,7 @@ public class GetFunctionLimitUseCase {
         this.repository = repository;
     }
 
-    public String getFunctionLimitUseCase(String function, Double strivesFor) {
-        return repository.getFunctionLimit(function, strivesFor);
-    }
+//    public String getFunctionLimitUseCase(String function, Double strivesFor) {
+//        return repository.getFunctionLimit(function, strivesFor);
+//    }
 }

@@ -7,7 +7,7 @@ public class GetSequenceLimitUseCase {
         this.repository = repository;
     }
 
-    public String getSequenceLimitUseCase(String sequence) {
-        return repository.getSequenceLimit(sequence);
+//    public String getSequenceLimitUseCase(String sequence) {
+//        return repository.getSequenceLimit(sequence);
+//    }
     }
-}

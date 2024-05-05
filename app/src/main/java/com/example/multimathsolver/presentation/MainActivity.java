@@ -19,13 +19,24 @@ public class MainActivity extends AppCompatActivity {
     private Button btn;
     private Button buttonActivity;
     private TextView textView;
+    private Button buttonToMatrix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        buttonToMatrix = findViewById(R.id.buttonToMatrix);
         initViews();
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        buttonToMatrix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(MainActivity.this,MatrixActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

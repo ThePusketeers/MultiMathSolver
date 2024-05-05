@@ -26,16 +26,16 @@ import java.util.Set;
 
 public class RepositoryImpl implements Repository {
   
-    @Override
-    public String getSequenceLimit(String sequence) {
-        return SequenceLimit.solve(sequence);
-
-    }
-
-    @Override
-    public String getFunctionLimit(String function, Double strivesFor) {
-        return FunctionLimit.solve(function, strivesFor);
-    }
+//    @Override
+//    public String getSequenceLimit(String sequence) {
+//        return SequenceLimit.solve(sequence);
+//
+//    }
+//
+//    @Override
+//    public String getFunctionLimit(String function, Double strivesFor) {
+//        return FunctionLimit.solve(function, strivesFor);
+//    }
 
 
     @Override
