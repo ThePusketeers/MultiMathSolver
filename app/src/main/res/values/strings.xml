@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MultiMathSolver</string>
+    <string name="x_aspires_to"><![CDATA[x-->]]></string>
+    <string name="infinity_char">∞</string>
+    <string name="finding_the_limit">Нахождение предела</string>
+    <string name="limit_text">lim</string>
+    <string name="input_limit">Введите предел</string>
+    <string name="list_of_functions_and_constants">Список функций и констант:</string>
 </resources>
