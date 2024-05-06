@@ -3,6 +3,10 @@ package com.example.multimathsolver.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.GridView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MatrixActivity extends AppCompatActivity {
 
-    private RecyclerView numbersList;
     private MatrixAdapter matrixAdapter;
 
     @Override
@@ -23,18 +29,12 @@ public class MatrixActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matrix);
+        initViews();
 
-        numbersList = findViewById(R.id.rv_numbers);
+    }
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
-        numbersList.setLayoutManager(layoutManager);
-
-        numbersList.hasFixedSize();
-
-        matrixAdapter = new MatrixAdapter(100); // вот здесь аргумент - сколько я хочу элементов в списке
-
-        numbersList.setAdapter(matrixAdapter);
+    private void initViews() {
+        matrixAdapter = new MatrixAdapter();
     }
 
     public static Intent newIntent(Context context){
