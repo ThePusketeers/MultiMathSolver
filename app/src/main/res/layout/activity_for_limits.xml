@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     android:background="#17181A"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    app:circularflow_angles="20dp"
+    app:circularflow_defaultRadius="20dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/x_aspires_to"
         android:layout_width="66dp"
         android:layout_height="48dp"
         android:layout_marginTop="4dp"
@@ -18,15 +20,15 @@
         android:text="@string/x_aspires_to"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="@+id/param_input"
-        app:layout_constraintEnd_toStartOf="@+id/param_input"
+        app:layout_constraintBottom_toBottomOf="@+id/parameter"
+        app:layout_constraintEnd_toStartOf="@+id/parameter"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/lim"
         app:layout_constraintTop_toBottomOf="@+id/lim"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/param_input"
+        android:id="@+id/parameter"
         android:layout_width="75dp"
         android:layout_height="48dp"
         android:layout_marginTop="4dp"
@@ -36,8 +38,10 @@
         android:backgroundTintMode="add"
         android:ems="10"
         android:hint="@string/infinity_char"
-        android:inputType="phone"
+        android:imeOptions="actionDone"
+        android:inputType="text"
         android:paddingStart="11dp"
+        android:paddingRight="11dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#949494"
         android:textSize="20sp"
@@ -49,12 +53,13 @@
         android:id="@+id/title"
         android:layout_width="330dp"
         android:layout_height="46dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="48dp"
         android:text="@string/finding_the_limit"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,36 +91,64 @@
         android:hint="@string/input_limit"
         android:inputType="text"
         android:paddingStart="11dp"
+        android:paddingRight="11dp"
         android:textAlignment="inherit"
         android:textColor="@color/white"
         android:textColorHint="#949494"
+        android:textColorLink="@color/light_blue_button_color"
         android:textSize="20sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/list_of_function_and_constant"
         android:layout_width="300dp"
         android:layout_height="35dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="72dp"
         android:gravity="center"
         android:text="@string/list_of_functions_and_constants"
         android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="@+id/title"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/param_input" />
+        app:layout_constraintTop_toBottomOf="@+id/parameter" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="330dp"
-        android:layout_height="564dp"
+        android:layout_height="410dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintStart_toStartOf="@+id/title"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/list_of_function_and_constant"
         tools:listitem="@layout/list_item" />
+
+    <Button
+        android:id="@+id/solve_button"
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_rounded_corners"
+        android:text="@string/solve"
+        android:textColor="@color/white"
+        app:circularflow_angles="20"
+        app:layout_constraintEnd_toEndOf="@+id/limit_input"
+        app:layout_constraintTop_toBottomOf="@+id/limit_input" />
+
+    <TextView
+        android:id="@+id/output_text"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/list_of_function_and_constant"
+        app:layout_constraintEnd_toEndOf="@+id/list_of_function_and_constant"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/list_of_function_and_constant"
+        app:layout_constraintTop_toBottomOf="@+id/parameter"
+        app:layout_constraintVertical_bias="0.454" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
