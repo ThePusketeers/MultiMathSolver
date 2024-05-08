@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MultiMathSolver</string>
+    <string name="discret">Дискра</string>
+    <string name="matrix">Матрицы</string>
+    <string name="slay">СЛАУ</string>
+    <string name="limits">Пределы</string>
 </resources>
