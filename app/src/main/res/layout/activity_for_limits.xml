@@ -41,7 +41,7 @@
         android:imeOptions="actionDone"
         android:inputType="text"
         android:paddingStart="11dp"
-        android:paddingRight="11dp"
+        android:paddingEnd="11dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#949494"
         android:textSize="20sp"
@@ -53,7 +53,7 @@
         android:id="@+id/title"
         android:layout_width="330dp"
         android:layout_height="46dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="25dp"
         android:text="@string/finding_the_limit"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
@@ -91,7 +91,7 @@
         android:hint="@string/input_limit"
         android:inputType="text"
         android:paddingStart="11dp"
-        android:paddingRight="11dp"
+        android:paddingEnd="11dp"
         android:textAlignment="inherit"
         android:textColor="@color/white"
         android:textColorHint="#949494"
@@ -118,8 +118,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="330dp"
-        android:layout_height="410dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="0dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="@+id/title"
         app:layout_constraintStart_toStartOf="@+id/title"
         app:layout_constraintTop_toBottomOf="@+id/list_of_function_and_constant"
@@ -150,5 +153,19 @@
         app:layout_constraintStart_toStartOf="@+id/list_of_function_and_constant"
         app:layout_constraintTop_toBottomOf="@+id/parameter"
         app:layout_constraintVertical_bias="0.454" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#303136"
+        app:itemActiveIndicatorStyle="@color/white"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:itemTextColor="@drawable/bottom_navigation_selector"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
