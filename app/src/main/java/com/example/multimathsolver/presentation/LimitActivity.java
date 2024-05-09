@@ -1,9 +1,7 @@
 package com.example.multimathsolver.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class LimitActivity extends AppCompatActivity {
@@ -22,6 +21,7 @@ public class LimitActivity extends AppCompatActivity {
     EditText limit;
     Button button;
     TextView output;
+    BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +43,29 @@ public class LimitActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         CustomAdapter adapter = new CustomAdapter(mathFunctions);
         recyclerView.setAdapter(adapter);
+        navigationView.setSelectedItemId(R.id.limit_menu);
         button.setOnClickListener(button -> {
             viewModel.solve(parameter.getText().toString(), limit.getText().toString().replace("+", "plus"));
             String text = "Вычисленное решение: \n" + viewModel.getOutput().getValue();
             output.setText(text);
         } );
-        
+
+        navigationView.setOnItemSelectedListener(item -> {
+            final int id = item.getItemId();
+            if (id == R.id.limit_menu) {
+                return true;
+            } else if (id == R.id.slay_menu) {
+                startActivity(new Intent(getApplicationContext(), MainActivity2.class)); // заменить MainActivity2 на класс для СЛАУ
+                return true;
+            } else if (id == R.id.discra_menu) {
+                startActivity(new Intent(getApplicationContext(), MainActivity2.class)); // заменить MainActivity2 на класс для Дискры
+                return true;
+            } else if (id == R.id.matrix_menu) {
+                startActivity(new Intent(getApplicationContext(), MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                return true;
+            }
+            return false;
+        });
     }
 
     private void initViews() {
@@ -57,5 +74,6 @@ public class LimitActivity extends AppCompatActivity {
         limit = findViewById(R.id.limit_input);
         button = findViewById(R.id.solve_button);
         output = findViewById(R.id.output_text);
+        navigationView = findViewById(R.id.bottomNavigationView);
     }
 }
