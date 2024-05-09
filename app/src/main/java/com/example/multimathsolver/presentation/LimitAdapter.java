@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class LimitAdapter extends RecyclerView.Adapter<LimitAdapter.ViewHolder> {
 
     private final String[] data;
 
-    public CustomAdapter(String[] data) {
+    public LimitAdapter(String[] data) {
         this.data = data;
     }
 
