@@ -8,4 +8,8 @@
     <string name="list_of_functions_and_constants">Список функций и констант:</string>
     <string name="solve">решить</string>
     <string name="calculated_output">Вычисленное решение:</string>
+    <string name="discret">Дискра</string>
+    <string name="matrix">Матрицы</string>
+    <string name="slay">СЛАУ</string>
+    <string name="limits">Пределы</string>
 </resources>
