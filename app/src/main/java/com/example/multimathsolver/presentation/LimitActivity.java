@@ -40,15 +40,11 @@ public class LimitActivity extends AppCompatActivity {
             String text = "Вычисленное решение: \n" + viewModel.getOutput().getValue();
             output.setText(text);
         }) );
-        button.setOnClickListener(button -> {
-            boolean isSolved = viewModel.solve(parameter.getText().toString(), limit.getText().toString().replace("+", "plus"));
-            if (!isSolved) {
-                Toast toast = new Toast(this);
-                toast.setText("Ошибка");
-                toast.setDuration(Toast.LENGTH_LONG);
-                toast.show();
-            }
-        });
+        viewModel.getError().observe(this, (string -> {
+            Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
+            toast.show();
+        }) );
+        button.setOnClickListener(button -> viewModel.solve(parameter.getText().toString(), limit.getText().toString().replace("+", "plus")));
 
         navigationView.setOnItemSelectedListener(item -> {
             final int id = item.getItemId();
@@ -79,5 +75,12 @@ public class LimitActivity extends AppCompatActivity {
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LimitActivity.class);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LimitActivityViewModel viewModel = new ViewModelProvider(this).get(LimitActivityViewModel.class);
+        viewModel.getCompositeDisposable().clear();
     }
 }
