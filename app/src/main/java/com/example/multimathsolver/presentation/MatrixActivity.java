@@ -41,14 +41,20 @@ public class MatrixActivity extends AppCompatActivity {
         // Set this adapter to the our TableView
         tableView.setAdapter(adapter);
 
-        for (int i = 0; i < 100; i++) {
-            mRowHeaderList.add("a");
 
-            mColumnHeaderList.add("a");
-            List temp = new ArrayList<String>();
-            for (int j = 0; j < 100; j++) {
-                temp.add(i + ", " + j);
+        Object[][] testMatrix = new Object[][]{
+                new double[][] {{1, 2, 3, 4, 5}, {4, 8, 3, 9, 1}},
+                new double[][] {{5, 1, 8, 2, 1}, {9, 22, 13, 7, 4}},
+                new double[][] {{6, 3, 11, 6, 6}, {13, 30, 16, 16, 5}}};
+
+        for (int i = 0; i < testMatrix.length; i++) {
+
+            List<String> temp = new ArrayList<>();
+
+            for (int j = 0; j < testMatrix.length; j++) {
+                temp.add(String.valueOf(  ));
             }
+
             mCellList.add(temp);
         }
 

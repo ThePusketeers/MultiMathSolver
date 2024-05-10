@@ -9,10 +9,13 @@
 
     <com.evrencoskun.tableview.TableView
         android:id="@+id/table_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/add_item_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="300sp"
+        android:layout_height="300sp"
+        android:layout_margin="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:ignore="MissingClass" />
 
     <Button
         android:id="@+id/add_item_button"
@@ -21,6 +24,16 @@
         android:text="add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Решение матриц"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
