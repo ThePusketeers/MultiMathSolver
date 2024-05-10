@@ -1,7 +1,6 @@
 package com.example.multimathsolver.data;
 
 import com.example.multimathsolver.data.mathematicalAnalysis.FunctionLimit;
-import com.example.multimathsolver.data.mathematicalAnalysis.SequenceLimit;
 import com.example.multimathsolver.data.slay.GaussianElimination;
 import com.example.multimathsolver.domain.SLAY;
 import com.example.multimathsolver.data.booleanalgebra.BinaryOperation;
@@ -25,13 +24,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class RepositoryImpl implements Repository {
-  
-    @Override
-    public String getSequenceLimit(String sequence) {
-        return SequenceLimit.solve(sequence);
-
-    }
-
     @Override
     public String getFunctionLimit(String function, Double strivesFor) {
         return FunctionLimit.solve(function, strivesFor);
