@@ -9,8 +9,8 @@
 
     <com.evrencoskun.tableview.TableView
         android:id="@+id/table_view"
-        android:layout_width="300sp"
-        android:layout_height="300sp"
+        android:layout_width="350sp"
+        android:layout_height="350sp"
         android:layout_margin="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/add_item_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add"
+        android:text="вывод новую матрицу"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -34,6 +34,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/get_determinant_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="посчитать определитель"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table_view"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/determinant_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Тут будет зачение"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/get_determinant_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table_view"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
