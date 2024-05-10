@@ -11,11 +11,11 @@ import java.net.URL;
 public class FunctionLimitThread extends Thread{
     public FunctionLimitThread(String sequence, Double strivesFor) {
         if (strivesFor == Double.POSITIVE_INFINITY)
-            wolfram_url = "https://api.wolframalpha.com/v2/query?input=lim n->inf (" + sequence + ")&appid=" + BuildConfig.API_KEY;
+            wolfram_url = "https://api.wolframalpha.com/v2/query?input=lim x->inf (" + sequence + ")&appid=" + BuildConfig.API_KEY;
         else if (strivesFor == Double.NEGATIVE_INFINITY)
-            wolfram_url = "https://api.wolframalpha.com/v2/query?input=lim n->(-inf) (" + sequence + ")&appid=" + BuildConfig.API_KEY;
+            wolfram_url = "https://api.wolframalpha.com/v2/query?input=lim x->(-inf) (" + sequence + ")&appid=" + BuildConfig.API_KEY;
         else
-            wolfram_url = "https://api.wolframalpha.com/v2/query?input=lim n->" + strivesFor + "(" + sequence + ")&appid=" + BuildConfig.API_KEY;
+            wolfram_url = "https://api.wolframalpha.com/v2/query?input=lim x->" + strivesFor + "(" + sequence + ")&appid=" + BuildConfig.API_KEY;
     }
 
     public String getXmlText() {

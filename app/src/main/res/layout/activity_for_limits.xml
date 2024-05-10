@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#17181A"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    app:circularflow_angles="20dp"
+    app:circularflow_defaultRadius="20dp">
+
+    <TextView
+        android:id="@+id/x_aspires_to"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:gravity="bottom"
+        android:text="@string/x_aspires_to"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/parameter"
+        app:layout_constraintEnd_toStartOf="@+id/parameter"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/lim"
+        app:layout_constraintTop_toBottomOf="@+id/lim"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/parameter"
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:autofillHints=""
+        android:background="@drawable/edittext_rounded_corners"
+        android:backgroundTint="#008B2121"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:hint="@string/infinity_char"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:paddingStart="11dp"
+        android:paddingEnd="11dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#949494"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/limit_input"
+        app:layout_constraintTop_toBottomOf="@+id/limit_input" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="330dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/finding_the_limit"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lim"
+        android:layout_width="66dp"
+        android:layout_height="48dp"
+        android:gravity="bottom"
+        android:text="@string/limit_text"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/limit_input"
+        app:layout_constraintEnd_toStartOf="@+id/limit_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/limit_input"
+        android:layout_width="262dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:autofillHints=""
+        android:background="@drawable/edittext_rounded_corners"
+        android:backgroundTint="#008B2121"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:hint="@string/input_limit"
+        android:inputType="text"
+        android:paddingStart="11dp"
+        android:paddingEnd="11dp"
+        android:textAlignment="inherit"
+        android:textColor="@color/white"
+        android:textColorHint="#949494"
+        android:textColorLink="@color/light_blue_button_color"
+        android:textSize="20sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <TextView
+        android:id="@+id/list_of_function_and_constant"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="72dp"
+        android:gravity="center"
+        android:text="@string/list_of_functions_and_constants"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/parameter" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="330dp"
+        android:layout_height="0dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="@+id/title"
+        app:layout_constraintStart_toStartOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/list_of_function_and_constant"
+        tools:listitem="@layout/list_item" />
+
+    <Button
+        android:id="@+id/solve_button"
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_rounded_corners"
+        android:text="@string/solve"
+        android:textColor="@color/white"
+        app:circularflow_angles="20"
+        app:layout_constraintEnd_toEndOf="@+id/limit_input"
+        app:layout_constraintTop_toBottomOf="@+id/limit_input" />
+
+    <TextView
+        android:id="@+id/output_text"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/list_of_function_and_constant"
+        app:layout_constraintEnd_toEndOf="@+id/list_of_function_and_constant"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="@+id/list_of_function_and_constant"
+        app:layout_constraintTop_toBottomOf="@+id/parameter"
+        app:layout_constraintVertical_bias="0.454" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#303136"
+        app:itemActiveIndicatorStyle="@color/white"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:itemTextColor="@drawable/bottom_navigation_selector"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

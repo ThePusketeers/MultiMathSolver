@@ -3,6 +3,7 @@ package com.example.multimathsolver.data;
 import com.example.multimathsolver.data.mathematicalAnalysis.ApiFactory;
 import com.example.multimathsolver.data.mathematicalAnalysis.SequenceLimit;
 import com.example.multimathsolver.domain.models.LimitResponse;
+import com.example.multimathsolver.data.mathematicalAnalysis.FunctionLimit;
 import com.example.multimathsolver.data.slay.GaussianElimination;
 import com.example.multimathsolver.domain.SLAY;
 import com.example.multimathsolver.data.booleanalgebra.BinaryOperation;
@@ -28,12 +29,6 @@ import java.util.Set;
 import io.reactivex.rxjava3.core.Single;
 
 public class RepositoryImpl implements Repository {
-
-    @Override
-    public String getSequenceLimit(String sequence) {
-        return SequenceLimit.solve(sequence);
-    }
-
     @Override
     public Single<LimitResponse> getFunctionLimit(String function, Double strivesFor) {
         String functionCall = "";
