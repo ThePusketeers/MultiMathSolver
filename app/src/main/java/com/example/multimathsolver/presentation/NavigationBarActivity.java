@@ -24,7 +24,7 @@ public class NavigationBarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_navigation_bar);
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         RepositoryImpl repository = new RepositoryImpl();
-        Disposable disposable = repository.getFunctionLimit("sin(x)/x", 0.0).subscribeOn(Schedulers.io())
+        Disposable disposable = repository.getFunctionLimit("sqrt(36*x^2plus7*xplus49)-6*x", Double.POSITIVE_INFINITY).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<LimitResponse>() {
                     @Override

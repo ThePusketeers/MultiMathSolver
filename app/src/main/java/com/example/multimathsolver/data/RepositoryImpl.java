@@ -38,11 +38,11 @@ public class RepositoryImpl implements Repository {
     public Single<LimitResponse> getFunctionLimit(String function, Double strivesFor) {
         String functionCall = "";
         if (strivesFor == Double.POSITIVE_INFINITY)
-            functionCall = "lim n->inf (" + function + ")";
+            functionCall = "lim x->inf (" + function + ")";
         else if (strivesFor == Double.NEGATIVE_INFINITY)
-            functionCall = "lim n->(-inf) (" + function + ")";
+            functionCall = "lim x->(-inf) (" + function + ")";
         else
-            functionCall = "lim n->" + strivesFor + "(" + function + ")";
+            functionCall = "lim x->" + strivesFor + "(" + function + ")";
         return ApiFactory.apiService.getLimitResponse(functionCall);
     }
 
