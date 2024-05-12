@@ -9,8 +9,8 @@
 
     <com.evrencoskun.tableview.TableView
         android:id="@+id/table_view"
-        android:layout_width="350sp"
-        android:layout_height="350sp"
+        android:layout_width="250sp"
+        android:layout_height="250sp"
         android:layout_margin="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,17 +19,19 @@
 
     <Button
         android:id="@+id/add_item_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="66dp"
+        android:layout_height="243dp"
         android:text="вывод новую матрицу"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="63dp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Решение матриц"
+        android:textColor="@color/white"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,24 +39,177 @@
 
     <Button
         android:id="@+id/get_determinant_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="посчитать определитель"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="150dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Определитель"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/table_view"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/determinant_display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Тут будет зачение"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/get_determinant_button"
+        android:layout_width="104dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="40sp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Тут будет зачение определителя"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/rang_display"
+        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/get_determinant_button"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/rang_display"
+        android:layout_width="94dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="92dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Тут будет зачение ранга"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="149dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Ранг"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toEndOf="@+id/get_determinant_button"
         app:layout_constraintTop_toBottomOf="@+id/table_view"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="146dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Перемножить A и B"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="116dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Сложить A и B"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/button7"
+        app:layout_constraintTop_toBottomOf="@+id/button5"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="147dp"
+        android:layout_height="66dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Умножить на константу k:"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/constant_input_field"
+        app:layout_constraintTop_toBottomOf="@+id/rang_display"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="125dp"
+        android:layout_height="65dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Возвести в степень n:"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/degree_input_field"
+        app:layout_constraintHorizontal_bias="0.347"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/determinant_display"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="116dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Вычесть А и В"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/degree_input_field"
+        android:layout_width="47dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:ems="10"
+        android:hint="n"
+        android:inputType="text"
+        android:textColorHint="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintTop_toBottomOf="@+id/determinant_display"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/constant_input_field"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:ems="10"
+        android:hint="k"
+        android:inputType="text"
+        android:textColorHint="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rang_display"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/save_to_matrix_A_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12sp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Сохранить в А"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toStartOf="@+id/save_to_matrix_B_button"
+        app:layout_constraintHorizontal_bias="0.718"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <Button
+        android:id="@+id/save_to_matrix_B_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12sp"
+        android:layout_marginEnd="68dp"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Сохранить в В"
+        android:textColor="@color/dark_gray_button_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

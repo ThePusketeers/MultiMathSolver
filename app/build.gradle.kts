@@ -46,7 +46,6 @@ dependencies {
 //    implementation("com.android.support:recyclerview-v7:27.1.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 //    implementation("androidx.activity:activity:1.9.0")
-
     implementation ("com.github.evrencoskun:TableView:v0.8.9.4")
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
 
