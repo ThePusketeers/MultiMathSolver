@@ -3,8 +3,10 @@ package com.example.multimathsolver.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ public class LimitActivity extends AppCompatActivity {
     private Button button;
     private TextView output;
     private BottomNavigationView navigationView;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +36,14 @@ public class LimitActivity extends AppCompatActivity {
         LimitActivityViewModel viewModel = new ViewModelProvider(this).get(LimitActivityViewModel.class);
         final String[] mathFunctions = getResources().getStringArray(R.array.list_of_functions);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        LimitAdapter adapter = new LimitAdapter(mathFunctions);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(new LimitAdapter(mathFunctions));
         navigationView.setSelectedItemId(R.id.limit_menu);
-        viewModel.getOutput().observe(this, (string -> {
-            String text = "Вычисленное решение: \n" + viewModel.getOutput().getValue();
-            output.setText(text);
-        }) );
-        viewModel.getError().observe(this, (string -> {
-            Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
-            toast.show();
-        }) );
-        button.setOnClickListener(button -> viewModel.solve(parameter.getText().toString(), limit.getText().toString().replace("+", "plus")));
+        observeViewModel(viewModel);
+        setUpOnClickListeners(viewModel);
+        setUpOnItemListeners();
+    }
 
+    private void setUpOnItemListeners() {
         navigationView.setOnItemSelectedListener(item -> {
             final int id = item.getItemId();
             if (id == R.id.limit_menu) {
@@ -64,6 +62,29 @@ public class LimitActivity extends AppCompatActivity {
         });
     }
 
+    private void setUpOnClickListeners(LimitActivityViewModel viewModel) {
+        button.setOnClickListener(button ->
+                viewModel.solve(parameter.getText().toString(),
+                        limit.getText().toString().replace("+", "plus")));
+    }
+
+    private void observeViewModel(LimitActivityViewModel viewModel) {
+        viewModel.getOutput().observe(this, (string -> {
+            String text = "Вычисленное решение: \n" + viewModel.getOutput().getValue();
+            output.setText(text);
+        }) );
+        viewModel.getError().observe(this, (string -> {
+            Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
+            toast.show();
+        }) );
+        viewModel.getIsProgress().observe(this, (isProgress -> {
+            if (isProgress)
+                progressBar.setVisibility(View.VISIBLE);
+            else
+                progressBar.setVisibility(View.INVISIBLE);
+        }));
+    }
+
     private void initViews() {
         recyclerView = findViewById(R.id.recyclerView);
         parameter = findViewById(R.id.parameter);
@@ -71,16 +92,10 @@ public class LimitActivity extends AppCompatActivity {
         button = findViewById(R.id.solve_button);
         output = findViewById(R.id.output_text);
         navigationView = findViewById(R.id.bottomNavigationView);
+        progressBar = findViewById(R.id.progressBar);
     }
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LimitActivity.class);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        LimitActivityViewModel viewModel = new ViewModelProvider(this).get(LimitActivityViewModel.class);
-        viewModel.getCompositeDisposable().clear();
     }
 }

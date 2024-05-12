@@ -22,21 +22,23 @@ public class LimitActivityViewModel extends ViewModel {
     private final MutableLiveData<String> output = new MutableLiveData<>();
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private final MutableLiveData<String> error = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isProgress = new MutableLiveData<>();
 
     public void solve(String parameter, String expression) {
+        isProgress.setValue(true);
         double parameterDoubleValue;
         if (parameter.isEmpty() || parameter.equals("+inf") || parameter.equals("inf"))
             parameterDoubleValue = DEFAULT_PARAMETER;
-        else {
+        else if (parameter.equals("-inf")) {
+            parameterDoubleValue = Double.NEGATIVE_INFINITY;
+        } else {
             try {
                 parameterDoubleValue = Double.parseDouble(parameter);
             } catch (NumberFormatException ex) {
-                if (parameter.equals("-inf")) {
-                    parameterDoubleValue = Double.NEGATIVE_INFINITY;
-                } else {
-                    error.setValue("Неверный ввод параметра");
-                    return;
-                }
+                error.setValue("Неверный ввод параметра");
+                output.setValue("");
+                isProgress.setValue(false);
+                return;
             }
         }
         if (expression.isEmpty()) expression = DEFAULT_EXPRESSION;
@@ -47,12 +49,26 @@ public class LimitActivityViewModel extends ViewModel {
                 .subscribe((limitResponse) -> {
                     if (!limitResponse.getLimitResult().getSuccess()) {
                         error.setValue("Неверный ввод предела");
+                        output.setValue("");
+                        isProgress.setValue(false);
                         return;
                     }
-                    String response = limitResponse.getLimitResult().getPods().get(0).getSubpods().get(0).getPlaintext();
-                    response = response.substring(response.lastIndexOf('=') + 1);
-                    output.setValue(response);
-                }, (throwable -> error.setValue(throwable.getMessage()))
+                    try {
+                        String response = limitResponse.getLimitResult().getPods().get(0).getSubpods().get(0).getPlaintext();
+                        response = response.substring(response.lastIndexOf('=') + 1);
+                        output.setValue(response);
+                        isProgress.setValue(false);
+
+                    } catch (Exception e) {
+                        error.setValue(e.getMessage());
+                        output.setValue("");
+                        isProgress.setValue(false);
+                    }
+                }, (throwable -> {
+                    error.setValue(throwable.getMessage());
+                    output.setValue("");
+                    isProgress.setValue(false);
+                    })
                 );
         compositeDisposable.add(disposable);
     }
@@ -61,11 +77,17 @@ public class LimitActivityViewModel extends ViewModel {
         return output;
     }
 
-    public MutableLiveData<String> getError() {
+    public LiveData<String> getError() {
         return error;
     }
 
-    public CompositeDisposable getCompositeDisposable() {
-        return compositeDisposable;
+    public LiveData<Boolean> getIsProgress() {
+        return isProgress;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        compositeDisposable.clear();
     }
 }

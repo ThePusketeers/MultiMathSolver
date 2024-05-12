@@ -168,4 +168,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/light_blue_button_color"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/solve_button"
+        app:layout_constraintTop_toBottomOf="@+id/limit_input" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
