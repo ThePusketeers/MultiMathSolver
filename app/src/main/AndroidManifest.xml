@@ -17,8 +17,9 @@
             android:name=".presentation.MainActivity2"
             android:exported="false" />
         <activity
-            android:name=".presentation.NavigationBarActivity"
-            android:exported="true">
+            android:name=".presentation.LimitActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,7 +1,7 @@
 package com.example.multimathsolver.data;
 
-import com.example.multimathsolver.data.mathematicalAnalysis.FunctionLimit;
-import com.example.multimathsolver.data.mathematicalAnalysis.SequenceLimit;
+import com.example.multimathsolver.data.mathematicalAnalysis.ApiFactory;
+import com.example.multimathsolver.domain.models.LimitResponse;
 import com.example.multimathsolver.data.slay.GaussianElimination;
 import com.example.multimathsolver.domain.SLAY;
 import com.example.multimathsolver.data.booleanalgebra.BinaryOperation;
@@ -24,17 +24,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.reactivex.rxjava3.core.Single;
+
 public class RepositoryImpl implements Repository {
-  
     @Override
-    public String getSequenceLimit(String sequence) {
-        return SequenceLimit.solve(sequence);
-
-    }
-
-    @Override
-    public String getFunctionLimit(String function, Double strivesFor) {
-        return FunctionLimit.solve(function, strivesFor);
+    public Single<LimitResponse> getFunctionLimit(String function, Double strivesFor) {
+        String functionCall;
+        if (strivesFor == Double.POSITIVE_INFINITY)
+            functionCall = "lim x->inf (" + function + ")";
+        else if (strivesFor == Double.NEGATIVE_INFINITY)
+            functionCall = "lim x->(-inf) (" + function + ")";
+        else
+            functionCall = "lim x->" + strivesFor + "(" + function + ")";
+        return ApiFactory.apiService.getLimitResponse(functionCall);
     }
 
 
