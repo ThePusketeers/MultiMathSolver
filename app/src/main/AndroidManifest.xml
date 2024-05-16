@@ -17,6 +17,10 @@
             android:name=".presentation.MainActivity2"
             android:exported="false" />
         <activity
+            android:name=".presentation.BooleanAlgebraSolvedActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".presentation.BooleanAlgebraActivity"
             android:exported="true">
             <intent-filter>

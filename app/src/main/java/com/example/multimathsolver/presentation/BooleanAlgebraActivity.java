@@ -47,6 +47,7 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_for_booleanalgebra);
         initViews();
 
+//        setUpOnClickListeners(new ViewModelProvider(this).get(BooleanAlgebraViewModel.class));
         setUpOnClickListeners();
     }
 
