@@ -47,14 +47,13 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_for_booleanalgebra);
         initViews();
 
-//        setUpOnClickListeners(new ViewModelProvider(this).get(BooleanAlgebraViewModel.class));
         setUpOnClickListeners();
     }
 
     private void setUpOnClickListeners() {
         buttonDeleteAll.setOnClickListener(button -> booleanFunction.getText().clear());
-        buttonOr.setOnClickListener(button -> booleanFunction.append("^"));
-        buttonAnd.setOnClickListener(button -> booleanFunction.append("∨"));
+        buttonOr.setOnClickListener(button -> booleanFunction.append("∨"));
+        buttonAnd.setOnClickListener(button -> booleanFunction.append("∧"));
         buttonDelete.setOnClickListener(button -> {
             int length = booleanFunction.getText().length();
             if (length > 0) {
@@ -77,10 +76,13 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         buttonX6.setOnClickListener(button -> booleanFunction.append("X6"));
         buttonX7.setOnClickListener(button -> booleanFunction.append("X7"));
         buttonX8.setOnClickListener(button -> booleanFunction.append("X8"));
-
         buttonSolve.setOnClickListener(view -> {
-            Intent intent = new Intent(view.getContext(), BooleanAlgebraSolvedActivity.class);
-            startActivity(intent);
+            String expression = String.valueOf(booleanFunction.getText());
+            if (!expression.isEmpty()) {
+                Intent intent = new Intent(view.getContext(), BooleanAlgebraSolvedActivity.class);
+                intent.putExtra("expression", booleanFunction.getText().toString());
+                startActivity(intent);
+            }
         });
     }
 
