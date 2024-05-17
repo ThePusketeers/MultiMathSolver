@@ -9,12 +9,17 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
 import com.example.multimathsolver.domain.IncorrectFunctionInput;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
-    private TextView textViewDNF;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +28,12 @@ public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
         initViews();
         Bundle bundle = getIntent().getExtras();
         try {
+
             String expression = bundle.getString("expression");
-            textViewDNF.setText(viewModel.solve(expression));
+            List<String> data = viewModel.solve(expression);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new BooleanAlgebraAdapter(data));
         } catch (IncorrectFunctionInput e) {
             throw new RuntimeException(e);
         }
@@ -32,8 +41,8 @@ public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        textViewDNF = findViewById(R.id.textViewDNF);
-        textViewDNF.setMovementMethod(new ScrollingMovementMethod());
+        recyclerView = findViewById(R.id.recyclerView);
+//        textViewDNF.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public static Intent newIntent(Context context) {
