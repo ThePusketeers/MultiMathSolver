@@ -22,21 +22,27 @@ public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        List<String> data = new ArrayList<>();
+        Bundle bundle = getIntent().getExtras();
+        BooleanAlgebraViewModel viewModel = new ViewModelProvider(this).get(BooleanAlgebraViewModel.class);
+        try {
+            String expression = bundle.getString("expression");
+            data = viewModel.solve(expression);
+        }  catch (IncorrectFunctionInput e) {
+            data.add("Неправильный ввод!");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_solved_booleanalgebra);
-        BooleanAlgebraViewModel viewModel = new ViewModelProvider(this).get(BooleanAlgebraViewModel.class);
         initViews();
-        Bundle bundle = getIntent().getExtras();
-        try {
-
-            String expression = bundle.getString("expression");
-            List<String> data = viewModel.solve(expression);
+//        try {
+//            String expression = bundle.getString("expression");
+//            List<String> data = viewModel.solve(expression);
 
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(new BooleanAlgebraAdapter(data));
-        } catch (IncorrectFunctionInput e) {
-            throw new RuntimeException(e);
-        }
+//        }  catch (IncorrectFunctionInput e) {
+//            throw new RuntimeException(e);
+//        }
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.multimathsolver.presentation;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,19 @@ public class BooleanAlgebraAdapter extends RecyclerView.Adapter<BooleanAlgebraAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(data.get(position));
+        String text = data.get(position);
+
+        holder.textView.setText(text);
+        if (text.equals("Неправильный ввод!")) {
+            holder.textView.setTextColor(Color.RED);
+            holder.textView.setTextSize(30);
+        }
+        String [] dataBooleanAlgebra = new String[] {"СКНФ: ", "СДНФ: ", "Тупиковые ДНФ: ", "Минимальная ДНФ: ", "Сокращённая ДНФ: ", "Полином Жегалкина: ", "Классификация Поста: "};
+        for (String t : dataBooleanAlgebra) {
+            if (text.equals(t)) {
+                holder.textView.setTextColor(Color.WHITE);
+            }
+        }
     }
 
     @Override
