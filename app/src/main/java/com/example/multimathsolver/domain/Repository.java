@@ -1,6 +1,10 @@
 package com.example.multimathsolver.domain;
 
+import com.example.multimathsolver.domain.models.LimitResponse;
+
 import java.util.Map;
+
+import io.reactivex.rxjava3.core.Single;
 
 public interface Repository {
     BooleanFunction getBooleanFunction(String expression) throws IncorrectFunctionInput;
@@ -29,12 +33,11 @@ public interface Repository {
 
     //    MatrixOperations gauss(MatrixOperations main_matrix);
 
-    String getSequenceLimit(String sequence);
-    String getFunctionLimit(String function, Double strivesFor);
+    Single<LimitResponse> getFunctionLimit(String function, Double strivesFor);
   
     int searchRank(MatrixOperations mainMatrix);
 
     double searchDeterminant(MatrixOperations mainMatrix) throws IncorrectMatrixSize;
   
-    String getSolutionOfSLAY(SLAY matrix);
+    String getSolutionOfSLAY(SLAY coeffSLAY, SLAY additionalSLAY);
 }

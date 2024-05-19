@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">MultiMathSolver</string>
+    <string name="x_aspires_to"><![CDATA[x-->]]></string>
+    <string name="infinity_char">+inf</string>
+    <string name="finding_the_limit">Нахождение предела</string>
+    <string name="limit_text">lim</string>
+    <string name="input_limit">sqrt(36*x^2+7*x+49)-6*x</string>
+    <string name="list_of_functions_and_constants">Список функций и констант:</string>
+    <string name="solve">решить</string>
+    <string name="calculated_output">Вычисленное решение:</string>
+    <string name="discret">Дискра</string>
+    <string name="matrix">Матрицы</string>
+    <string name="slay">СЛАУ</string>
+    <string name="limits">Пределы</string>
+    <string-array name="list_of_functions">
+        <item>ln(x) — натуральный логарифм</item>
+        <item>sin(x) — синус</item>
+        <item>cos(x) — косинус</item>
+        <item>tg(x) — тангенс</item>
+        <item>ctg(x) — котангенс</item>
+        <item>arcsin(x) — арксинус</item>
+        <item>arccos(x) — арккосинус</item>
+        <item>arctg(x) — арктангенс</item>
+        <item>arcctg(x) — арккотангенс</item>
+        <item>sqrt(x), root(x) — корень</item>
+        <item>exp(x) — экспонента в степени x"</item>
+        <item>a^b, pow(a,b) — a в степени b</item>
+        <item>abs(x) — модуль</item>
+        <item>sqrt(n,x) — корень n-ой степени из x</item>
+        <item>log(a,x) — log(x) по основанию a</item>
+        <item>pi — число ПИ</item>
+    </string-array>
 </resources>
