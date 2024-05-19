@@ -49,7 +49,7 @@ public class LimitActivity extends AppCompatActivity {
             if (id == R.id.limit_menu) {
                 return true;
             } else if (id == R.id.slay_menu) {
-                startActivity(new Intent(LimitActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для СЛАУ
+                startActivity(new Intent(LimitActivity.this, SlayActivity.class)); // заменить MainActivity2 на класс для СЛАУ
                 return true;
             } else if (id == R.id.discra_menu) {
                 startActivity(new Intent(LimitActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Дискры

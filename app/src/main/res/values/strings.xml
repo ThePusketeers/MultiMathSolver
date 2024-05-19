@@ -12,6 +12,7 @@
     <string name="matrix">Матрицы</string>
     <string name="slay">СЛАУ</string>
     <string name="limits">Пределы</string>
+    <string name="add">добавить</string>
     <string-array name="list_of_functions">
         <item>ln(x) — натуральный логарифм</item>
         <item>sin(x) — синус</item>

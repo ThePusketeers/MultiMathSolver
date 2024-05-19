@@ -84,20 +84,4 @@ public class SLAY {
     public double getPrecision() {
         return precision;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append("Матрица ( ").append(this.rowsCount).append(" * ").append(this.colsCount).append(" )\n");
-        for (double[] row : this.array) {
-            res.append("[ ");
-            for (double elem : row) {
-                res.append(String.format("%." + this.outputAccuracy + "f", elem)).append(" ");
-            }
-            res.append("]\n");
-        }
-        res.deleteCharAt(res.length()-1);
-        return res.toString();
-    }
-
 }
