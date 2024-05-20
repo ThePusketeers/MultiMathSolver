@@ -35,5 +35,18 @@
         app:layout_constraintVertical_bias="0.007"
         tools:listitem="@layout/list_of_items" />
 
+    <ImageButton
+        android:id="@+id/buttonBack"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_solve_delete_rounded_corners"
+        android:src="@drawable/goback"
+        android:textSize="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.088"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
