@@ -20,7 +20,9 @@
         <activity
             android:name=".presentation.LimitActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
+
+        </activity>
         <activity
             android:name=".presentation.BooleanAlgebraActivity"
             android:exported="true">

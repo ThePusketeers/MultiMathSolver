@@ -38,16 +38,8 @@ public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_for_solved_booleanalgebra);
         initViews();
         setUpOnClickListeners();
-//        try {
-//            String expression = bundle.getString("expression");
-//            List<String> data = viewModel.solve(expression);
-
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new BooleanAlgebraAdapter(data));
-//        }  catch (IncorrectFunctionInput e) {
-//            throw new RuntimeException(e);
-//        }
-
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new BooleanAlgebraAdapter(data));
     }
 
     private void setUpOnClickListeners() {
@@ -57,7 +49,6 @@ public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
     private void initViews() {
         recyclerView = findViewById(R.id.recyclerView);
         buttonBack = findViewById(R.id.buttonBack);
-//        textViewDNF.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public static Intent newIntent(Context context) {

@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.multimathsolver.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BooleanAlgebraActivity extends AppCompatActivity {
     private EditText booleanFunction;
@@ -40,6 +41,7 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
     private Button buttonX6;
     private Button buttonX7;
     private Button buttonX8;
+    private BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,33 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_for_booleanalgebra);
         initViews();
 
+        navigationView.setSelectedItemId(R.id.discra_menu);
         setUpOnClickListeners();
+        setUpOnItemListeners();
     }
+
+    private void setUpOnItemListeners() {
+        navigationView.setOnItemSelectedListener(item -> {
+            final int id = item.getItemId();
+            if (id == R.id.discra_menu) {
+                return true;
+            } else if (id == R.id.slay_menu) {
+                startActivity(new Intent(BooleanAlgebraActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для СЛАУ
+                finish();
+                return true;
+            } else if (id == R.id.limit_menu) {
+                startActivity(new Intent(BooleanAlgebraActivity.this, LimitActivity.class)); // заменить MainActivity2 на класс для Дискры
+                finish();
+                return true;
+            } else if (id == R.id.matrix_menu) {
+                startActivity(new Intent(BooleanAlgebraActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                finish();
+                return true;
+            }
+            return false;
+        });
+    }
+
 
     private void setUpOnClickListeners() {
         buttonDeleteAll.setOnClickListener(button -> booleanFunction.getText().clear());
@@ -109,6 +136,7 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         buttonX6 = findViewById(R.id.buttonX6);
         buttonX7 = findViewById(R.id.buttonX7);
         buttonX8 = findViewById(R.id.buttonX8);
+        navigationView = findViewById(R.id.bottomNavigationViewBooleanAlgebra);
     }
 
     public static Intent newIntent(Context context) {
