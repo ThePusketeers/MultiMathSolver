@@ -268,7 +268,7 @@
         android:layout_width="383dp"
         android:layout_height="79dp"
         android:layout_marginBottom="76dp"
-        android:background="@drawable/button_solve_delete_rounded_corners"
+        android:background="@drawable/button_solve_rounded_corners"
         android:text="Решить"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"

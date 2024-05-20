@@ -41,6 +41,7 @@ public class BooleanAlgebraAdapter extends RecyclerView.Adapter<BooleanAlgebraAd
         for (String t : dataBooleanAlgebra) {
             if (text.equals(t)) {
                 holder.textView.setTextColor(Color.WHITE);
+                break;
             }
         }
     }
