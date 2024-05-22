@@ -1,5 +1,7 @@
 package com.example.multimathsolver.presentation;
 
+
+
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,8 @@ public class BooleanAlgebraAdapter extends RecyclerView.Adapter<BooleanAlgebraAd
             holder.textView.setTextColor(Color.RED);
             holder.textView.setTextSize(30);
         }
+
+//        String [] dataBooleanAlgebra = getResources().getStringArray(R.array.list_of_functions);
         String [] dataBooleanAlgebra = new String[] {"СКНФ: ", "СДНФ: ", "Тупиковые ДНФ: ", "Минимальная ДНФ: ", "Сокращённая ДНФ: ", "Полином Жегалкина: ", "Классификация Поста: "};
         for (String t : dataBooleanAlgebra) {
             if (text.equals(t)) {
