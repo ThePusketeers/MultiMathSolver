@@ -98,7 +98,7 @@ public class LimitActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
     }
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntentLimit(Context context) {
         return new Intent(context, LimitActivity.class);
     }
 }

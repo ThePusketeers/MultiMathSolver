@@ -18,10 +18,14 @@ import java.util.List;
 public class BooleanAlgebraAdapter extends RecyclerView.Adapter<BooleanAlgebraAdapter.ViewHolder> {
 
     private final List<String> data;
+    String [] mathAlgebraBooleanFunctions;
 
-    public BooleanAlgebraAdapter(List<String> data) {
+    public BooleanAlgebraAdapter(List<String> data, String [] mathAlgebraBooleanFunctions) {
         this.data = data;
+        this.mathAlgebraBooleanFunctions = mathAlgebraBooleanFunctions;
+
     }
+
 
     @NonNull
     @Override
@@ -40,9 +44,7 @@ public class BooleanAlgebraAdapter extends RecyclerView.Adapter<BooleanAlgebraAd
             holder.textView.setTextSize(30);
         }
 
-//        String [] dataBooleanAlgebra = getResources().getStringArray(R.array.list_of_functions);
-        String [] dataBooleanAlgebra = new String[] {"СКНФ: ", "СДНФ: ", "Тупиковые ДНФ: ", "Минимальная ДНФ: ", "Сокращённая ДНФ: ", "Полином Жегалкина: ", "Классификация Поста: "};
-        for (String t : dataBooleanAlgebra) {
+        for (String t : mathAlgebraBooleanFunctions) {
             if (text.equals(t)) {
                 holder.textView.setTextColor(Color.WHITE);
                 break;
