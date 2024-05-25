@@ -109,7 +109,7 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         buttonSolve.setOnClickListener(view -> {
             String expression = booleanFunction.getText().toString();
             if (!expression.isEmpty()) {
-                Intent intent = newIntentSolved(view.getContext(), expression);
+                Intent intent = newIntentSolved(getApplicationContext(), expression);
                 startActivity(intent);
             }
         });
@@ -140,10 +140,4 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         buttonX8 = findViewById(R.id.buttonX8);
         navigationView = findViewById(R.id.bottomNavigationViewBooleanAlgebra);
     }
-
-//    public static Intent newIntent(Context context, String expression) {
-//        Intent intent = new Intent(context, BooleanAlgebraSolvedActivity.class);
-//        intent.putExtra("expression", expression);
-//        return intent;
-//    }
 }
