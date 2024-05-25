@@ -30,4 +30,13 @@
         <item>log(a,x) — log(x) по основанию a</item>
         <item>pi — число ПИ</item>
     </string-array>
+    <string-array name="list_of_names_functions">
+        <item>"СКНФ: "</item>
+        <item>"СДНФ: "</item>
+        <item>"Тупиковые ДНФ: "</item>
+        <item>"Минимальная ДНФ: "</item>
+        <item>"Сокращённая ДНФ: "</item>
+        <item>"Полином Жегалкина: "</item>
+        <item>"Классификация Поста: "</item>
+    </string-array>
 </resources>
