@@ -1,5 +1,6 @@
 package com.example.multimathsolver.presentation;
 
+import static com.example.multimathsolver.presentation.BooleanAlgebraSolvedActivity.newIntentSolved;
 import static com.example.multimathsolver.presentation.LimitActivity.newIntentLimit;
 
 import android.content.Context;
@@ -108,7 +109,7 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         buttonSolve.setOnClickListener(view -> {
             String expression = booleanFunction.getText().toString();
             if (!expression.isEmpty()) {
-                Intent intent = newIntent(view.getContext(), expression);
+                Intent intent = newIntentSolved(view.getContext(), expression);
                 startActivity(intent);
             }
         });
@@ -140,9 +141,9 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.bottomNavigationViewBooleanAlgebra);
     }
 
-    public static Intent newIntent(Context context, String expression) {
-        Intent intent = new Intent(context, BooleanAlgebraSolvedActivity.class);
-        intent.putExtra("expression", expression);
-        return intent;
-    }
+//    public static Intent newIntent(Context context, String expression) {
+//        Intent intent = new Intent(context, BooleanAlgebraSolvedActivity.class);
+//        intent.putExtra("expression", expression);
+//        return intent;
+//    }
 }

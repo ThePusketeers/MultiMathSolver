@@ -43,7 +43,7 @@ public class BooleanAlgebraAdapter extends RecyclerView.Adapter<BooleanAlgebraAd
             holder.textView.setTextColor(Color.RED);
             holder.textView.setTextSize(30);
         }
-
+        holder.textView.setTextColor(Color.parseColor("#29A8FF"));
         for (String t : mathAlgebraBooleanFunctions) {
             if (text.equals(t)) {
                 holder.textView.setTextColor(Color.WHITE);

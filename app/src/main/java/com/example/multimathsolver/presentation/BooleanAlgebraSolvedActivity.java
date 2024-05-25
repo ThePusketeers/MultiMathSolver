@@ -64,8 +64,9 @@ public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
         expression = getIntent().getExtras().getString("expression");
     }
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntentSolved(Context context, String expression) {
         Intent intent = new Intent(context, BooleanAlgebraSolvedActivity.class);
+        intent.putExtra("expression", expression);
         return intent;
     }
 }
