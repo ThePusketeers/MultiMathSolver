@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class SlayActivity extends AppCompatActivity {
     private List<String> rows = new ArrayList<>();
     private RecyclerViewAdapter adapter = new RecyclerViewAdapter();
     private SlayActivityViewModel viewModel;
+    private BottomNavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,6 @@ public class SlayActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(SlayActivityViewModel.class);
         observeViewModel(viewModel);
         recyclerView.setAdapter(adapter);
-
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +63,28 @@ public class SlayActivity extends AppCompatActivity {
                 viewModel.solve(rows);
             }
         });
+        navigationView.setSelectedItemId(R.id.slay_menu);
+        setUpOnItemListeners();
     }
 
+    private void setUpOnItemListeners() {
+        navigationView.setOnItemSelectedListener(item -> {
+            final int id = item.getItemId();
+            if (id == R.id.limit_menu) {
+                startActivity(new Intent(SlayActivity.this, LimitActivity.class));
+                return true;
+            } else if (id == R.id.slay_menu) {
+                return true;
+            } else if (id == R.id.discra_menu) {
+                startActivity(new Intent(SlayActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Дискры
+                return true;
+            } else if (id == R.id.matrix_menu) {
+                startActivity(new Intent(SlayActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                return true;
+            }
+            return false;
+        });
+    }
     private void observeViewModel(SlayActivityViewModel viewModel) {
         viewModel.getOutput().observe(this, (string -> {
             String text = "Ответ: " + viewModel.getOutput().getValue();
@@ -86,5 +107,6 @@ public class SlayActivity extends AppCompatActivity {
         slayString = findViewById(R.id.string_edit_text);
         recyclerView = findViewById(R.id.recyclerview);
         answerTextView = findViewById(R.id.answer);
+        navigationView = findViewById(R.id.bottomNavigationView);
     }
 }
