@@ -47,6 +47,12 @@ public class SlayActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(SlayActivityViewModel.class);
         observeViewModel(viewModel);
         recyclerView.setAdapter(adapter);
+        navigationView.setSelectedItemId(R.id.slay_menu);
+        setUpOnClickListeners();
+        setUpOnItemListeners();
+    }
+
+    private void setUpOnClickListeners() {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,15 +62,12 @@ public class SlayActivity extends AppCompatActivity {
                 recyclerView.smoothScrollToPosition(rows.size()-1);
             }
         });
-
         solveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewModel.solve(rows);
             }
         });
-        navigationView.setSelectedItemId(R.id.slay_menu);
-        setUpOnItemListeners();
     }
 
     private void setUpOnItemListeners() {
