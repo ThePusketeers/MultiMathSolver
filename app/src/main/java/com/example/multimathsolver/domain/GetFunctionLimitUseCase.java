@@ -1,5 +1,9 @@
 package com.example.multimathsolver.domain;
 
+import com.example.multimathsolver.domain.models.LimitResponse;
+
+import io.reactivex.rxjava3.core.Single;
+
 public class GetFunctionLimitUseCase {
     private final Repository repository;
 
@@ -7,7 +11,7 @@ public class GetFunctionLimitUseCase {
         this.repository = repository;
     }
 
-//    public String getFunctionLimitUseCase(String function, Double strivesFor) {
-//        return repository.getFunctionLimit(function, strivesFor);
-//    }
+    public Single<LimitResponse> getFunctionLimitUseCase(String function, Double strivesFor) {
+        return repository.getFunctionLimit(function, strivesFor);
+    }
 }
