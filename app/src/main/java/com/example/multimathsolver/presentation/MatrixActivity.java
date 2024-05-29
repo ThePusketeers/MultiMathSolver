@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.evrencoskun.tableview.TableView;
 import com.example.multimathsolver.R;
@@ -90,6 +91,11 @@ public class MatrixActivity extends AppCompatActivity {
         });
 
     }
+
+//    private void checkSolver() {
+//        MatrixActivityViewModel viewModel = new ViewModelProvider(this).get(MatrixActivityViewModel.class);
+//        viewModel.solve(matrix);
+//    }
 
     private void setUpOnClickListeners() {
 
