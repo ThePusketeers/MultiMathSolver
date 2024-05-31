@@ -49,13 +49,16 @@ public class LimitActivity extends AppCompatActivity {
             if (id == R.id.limit_menu) {
                 return true;
             } else if (id == R.id.slay_menu) {
-                startActivity(new Intent(LimitActivity.this, SlayActivity.class)); // заменить MainActivity2 на класс для СЛАУ
+                startActivity(SlayActivity.newIntent(this)); // заменить MainActivity2 на класс для СЛАУ
+                finish();
                 return true;
             } else if (id == R.id.discra_menu) {
-                startActivity(new Intent(LimitActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Дискры
+                startActivity(new Intent(LimitActivity.this, BooleanAlgebraActivity.class)); // заменить MainActivity2 на класс для Дискры
+                finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
                 startActivity(new Intent(LimitActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                finish();
                 return true;
             }
             return false;
@@ -74,8 +77,7 @@ public class LimitActivity extends AppCompatActivity {
             output.setText(text);
         }) );
         viewModel.getError().observe(this, (string -> {
-            Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
-            toast.show();
+            Toast.makeText(this, string, Toast.LENGTH_LONG).show();
         }) );
         viewModel.getIsProgress().observe(this, (isProgress -> {
             if (isProgress)
@@ -95,7 +97,7 @@ public class LimitActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
     }
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntentLimit(Context context) {
         return new Intent(context, LimitActivity.class);
     }
 }

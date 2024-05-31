@@ -6,18 +6,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.AsyncListDiffer;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
 
-import java.util.List;
-
-public class RecyclerViewAdapter extends ListAdapter<String, RecyclerViewAdapter.ViewHolder> //RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
+public class SlayAdapter extends ListAdapter<String, SlayAdapter.ViewHolder>
+        implements ItemTouchHelperAdapter
 {
-    public RecyclerViewAdapter() {
+    public SlayAdapter() {
         super(diffUtilCallback);
     }
 
@@ -46,8 +44,9 @@ public class RecyclerViewAdapter extends ListAdapter<String, RecyclerViewAdapter
     }
 
     @Override
-    public int getItemCount() {
-        return getCurrentList().size();
+    public void onItemDismiss(int position) {
+        getCurrentList().remove(position);
+        notifyItemRemoved(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

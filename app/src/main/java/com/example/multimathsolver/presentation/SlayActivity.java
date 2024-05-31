@@ -1,5 +1,7 @@
 package com.example.multimathsolver.presentation;
 
+import static com.example.multimathsolver.presentation.LimitActivity.newIntentLimit;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
@@ -30,7 +33,7 @@ public class SlayActivity extends AppCompatActivity {
     private int count = 0;
     private RecyclerView recyclerView;
     private List<String> rows = new ArrayList<>();
-    private RecyclerViewAdapter adapter = new RecyclerViewAdapter();
+    private SlayAdapter adapter = new SlayAdapter();
     private SlayActivityViewModel viewModel;
     private BottomNavigationView navigationView;
 
@@ -48,6 +51,8 @@ public class SlayActivity extends AppCompatActivity {
         observeViewModel(viewModel);
         recyclerView.setAdapter(adapter);
         navigationView.setSelectedItemId(R.id.slay_menu);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(new SlayItemTouchHelperCallback(adapter));
+        touchHelper.attachToRecyclerView(recyclerView);
         setUpOnClickListeners();
         setUpOnItemListeners();
     }
@@ -56,10 +61,12 @@ public class SlayActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rows.add(String.valueOf(slayString.getText()));
-                slayString.setText("");
-                adapter.submitList(new ArrayList<>(rows));
-                recyclerView.smoothScrollToPosition(rows.size()-1);
+                if (slayString.getText() != null){
+                    rows.add(String.valueOf(slayString.getText()));
+                    slayString.setText("");
+                    adapter.submitList(new ArrayList<>(rows));
+                    recyclerView.smoothScrollToPosition(rows.size() - 1);
+                }
             }
         });
         solveButton.setOnClickListener(new View.OnClickListener() {
@@ -73,16 +80,18 @@ public class SlayActivity extends AppCompatActivity {
     private void setUpOnItemListeners() {
         navigationView.setOnItemSelectedListener(item -> {
             final int id = item.getItemId();
-            if (id == R.id.limit_menu) {
-                startActivity(new Intent(SlayActivity.this, LimitActivity.class));
+            if (id == R.id.discra_menu) {
+                startActivity(new Intent(SlayActivity.this, BooleanAlgebraActivity.class));
                 return true;
             } else if (id == R.id.slay_menu) {
                 return true;
-            } else if (id == R.id.discra_menu) {
-                startActivity(new Intent(SlayActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Дискры
+            } else if (id == R.id.limit_menu) {
+                startActivity(newIntentLimit(this));
+                finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
                 startActivity(new Intent(SlayActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                finish();
                 return true;
             }
             return false;
@@ -111,5 +120,9 @@ public class SlayActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         answerTextView = findViewById(R.id.answer);
         navigationView = findViewById(R.id.bottomNavigationView);
+    }
+
+    public static Intent newIntentSlay(Context context) {
+        return new Intent(context, SlayActivity.class);
     }
 }
