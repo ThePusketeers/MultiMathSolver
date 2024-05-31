@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.multimathsolver.R;
 
 public class SlayAdapter extends ListAdapter<String, SlayAdapter.ViewHolder>
-        implements ItemTouchHelperAdapter
 {
     public SlayAdapter() {
         super(diffUtilCallback);
@@ -41,12 +40,6 @@ public class SlayAdapter extends ListAdapter<String, SlayAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.rowTv.setText(getCurrentList().get(position));
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-        getCurrentList().remove(position);
-        notifyItemRemoved(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

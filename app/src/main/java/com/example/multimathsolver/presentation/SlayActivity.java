@@ -52,8 +52,6 @@ public class SlayActivity extends AppCompatActivity {
         observeViewModel(viewModel);
         recyclerView.setAdapter(adapter);
         navigationView.setSelectedItemId(R.id.slay_menu);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(new SlayItemTouchHelperCallback(adapter));
-        touchHelper.attachToRecyclerView(recyclerView);
         setUpOnClickListeners();
         setUpOnItemListeners();
     }
