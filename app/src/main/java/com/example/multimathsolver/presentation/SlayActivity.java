@@ -1,5 +1,6 @@
 package com.example.multimathsolver.presentation;
 
+import static com.example.multimathsolver.presentation.BooleanAlgebraActivity.newIntentBooleanAlgera;
 import static com.example.multimathsolver.presentation.LimitActivity.newIntentLimit;
 
 import android.content.Context;
@@ -80,7 +81,8 @@ public class SlayActivity extends AppCompatActivity {
         navigationView.setOnItemSelectedListener(item -> {
             final int id = item.getItemId();
             if (id == R.id.discra_menu) {
-                startActivity(new Intent(SlayActivity.this, BooleanAlgebraActivity.class));
+                startActivity(newIntentBooleanAlgera(this));
+                finish();
                 return true;
             } else if (id == R.id.slay_menu) {
                 return true;

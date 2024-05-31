@@ -141,4 +141,8 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         buttonX8 = findViewById(R.id.buttonX8);
         navigationView = findViewById(R.id.bottomNavigationViewBooleanAlgebra);
     }
+
+    public static Intent newIntentBooleanAlgera(Context context) {
+        return new Intent(context, BooleanAlgebraActivity.class);
+    }
 }

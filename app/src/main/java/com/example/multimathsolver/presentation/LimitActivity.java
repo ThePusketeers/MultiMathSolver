@@ -1,5 +1,7 @@
 package com.example.multimathsolver.presentation;
 
+import static com.example.multimathsolver.presentation.BooleanAlgebraActivity.newIntentBooleanAlgera;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,7 +55,7 @@ public class LimitActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
-                startActivity(new Intent(LimitActivity.this, BooleanAlgebraActivity.class)); // заменить MainActivity2 на класс для Дискры
+                startActivity(newIntentBooleanAlgera(this));// заменить MainActivity2 на класс для Дискры
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
