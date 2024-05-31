@@ -41,9 +41,14 @@ public class SlayActivityViewModel extends ViewModel {
         }
     }
 
+    public void delete(List<String> rows, int position) {
+        rows.remove(position);
+    }
     public LiveData<String> getSolution() {
         if (output == null)
             return output = new MutableLiveData<>("Нет решения");
         return output;
     }
+
+
 }

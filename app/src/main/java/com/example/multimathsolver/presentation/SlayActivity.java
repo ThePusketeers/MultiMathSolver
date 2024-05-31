@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -120,7 +121,20 @@ public class SlayActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerview);
         answerTextView = findViewById(R.id.answer);
         navigationView = findViewById(R.id.bottomNavigationView);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+             viewModel.delete(rows, viewHolder.getAdapterPosition());
+        }
+    };
 
     public static Intent newIntentSlay(Context context) {
         return new Intent(context, SlayActivity.class);
