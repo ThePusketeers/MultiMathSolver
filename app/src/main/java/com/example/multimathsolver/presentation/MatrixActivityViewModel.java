@@ -12,6 +12,7 @@ import com.example.multimathsolver.domain.Repository;
 
 public class MatrixActivityViewModel {
     private final Repository repository = new RepositoryImpl();
+    private final static int[][] DEFAULT_MATRIX = new int[3][3];
     private final GetSearchDeterminantUseCase useCaseGetSearchDeterminant = new GetSearchDeterminantUseCase(repository);
     private final GetAddOrMinusUseCase useCaseGetAddOrMinus = new GetAddOrMinusUseCase(repository);
     private final GetMultiplicationUseCase useCaseGetMultiplication = new GetMultiplicationUseCase(repository);
@@ -19,7 +20,7 @@ public class MatrixActivityViewModel {
     private final GetRaiseToDegreeUseCase useCaseGetRaiseToDegree = new GetRaiseToDegreeUseCase(repository);
     private final GetSearchRankUseCase useCaseGetSearchRank = new GetSearchRankUseCase(repository);
 
-    public void solve(MatrixOperations matrix){
+    public void solve(int[][] matrix){
 
     }
 }

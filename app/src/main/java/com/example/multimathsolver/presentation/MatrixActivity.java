@@ -1,17 +1,15 @@
 package com.example.multimathsolver.presentation;
 
-import static com.example.multimathsolver.presentation.LimitActivity.newIntentLimit;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.evrencoskun.tableview.TableView;
 import com.example.multimathsolver.R;
@@ -41,8 +39,10 @@ public class MatrixActivity extends AppCompatActivity {
     private Button saveToMatrix_B_Button;
     private TableView tableView;
     private MatrixOperations matrix;
-    private TextView determinantAnswer;
+    private TextView determinantDisplay;
+    private TextView rangDisplay;
     private BottomNavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,9 +86,10 @@ public class MatrixActivity extends AppCompatActivity {
         determinantCountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                determinantDisplay.setText(String.valueOf("значение определителя"));
             }
         });
+
 
     }
 
@@ -98,7 +99,23 @@ public class MatrixActivity extends AppCompatActivity {
 //    }
 
     private void setUpOnClickListeners() {
+//        matrixDisplayButton.setOnClickListener();
 
+        rangCountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rangDisplay.setText(String.valueOf("значение ранга"));
+            }
+        });
+//        multiplyMatrixButton.setOnClickListener();
+//        sumMatrixButton.setOnClickListener();
+//        multiplyByConstantMatrixButton.setOnClickListener();
+//        raiseToDegreeMatrixButton.setOnClickListener();
+//        subtractMatrixButton.setOnClickListener();
+//        EditText degreeInputField
+//        EditText constantInputField
+//        saveToMatrix_A_Button.setOnClickListener();
+//        saveToMatrix_B_Button.setOnClickListener();
     }
 
     private void setUpOnItemListeners() {
@@ -107,15 +124,15 @@ public class MatrixActivity extends AppCompatActivity {
             if (id == R.id.matrix_menu) {
                 return true;
             } else if (id == R.id.slay_menu) {
-                startActivity(new Intent(MatrixActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для СЛАУ
+                startActivity(new Intent(MatrixActivity.this, MainActivity2.class));
                 finish();
                 return true;
             } else if (id == R.id.limit_menu) {
-                startActivity(new Intent(MatrixActivity.this, LimitActivity.class)); // заменить MainActivity2 на класс для Пределов
+                startActivity(new Intent(MatrixActivity.this, LimitActivity.class));
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
-                startActivity(new Intent(MatrixActivity.this, BooleanAlgebraActivity.class)); // заменить MainActivity2 на класс для Дискры
+                startActivity(new Intent(MatrixActivity.this, BooleanAlgebraActivity.class));
                 finish();
                 return true;
             }
@@ -126,8 +143,9 @@ public class MatrixActivity extends AppCompatActivity {
     private void initViews(){
         matrixDisplayButton = findViewById(R.id.add_item_button);
         determinantCountButton = findViewById(R.id.get_determinant_button);
-        determinantAnswer = findViewById(R.id.determinant_display);
         rangCountButton = findViewById(R.id.get_rang_button);
+        determinantDisplay = findViewById(R.id.determinant_display);
+        rangDisplay = findViewById(R.id.rang_display);
         tableView = findViewById(R.id.table_view);
         multiplyMatrixButton = findViewById(R.id.multiply_matrix);
         sumMatrixButton = findViewById(R.id.sum_matrix);
@@ -138,6 +156,7 @@ public class MatrixActivity extends AppCompatActivity {
         constantInputField = findViewById(R.id.constant_input_field);
         saveToMatrix_A_Button = findViewById(R.id.save_to_matrix_A_button);
         saveToMatrix_B_Button = findViewById(R.id.save_to_matrix_B_button);
+        navigationView = findViewById(R.id.bottomNavigationViewMatrix);
 
     }
 

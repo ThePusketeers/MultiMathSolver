@@ -57,7 +57,7 @@ public class LimitActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
-                startActivity(new Intent(LimitActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                startActivity(new Intent(LimitActivity.this, MatrixActivity.class)); // заменить MainActivity2 на класс для Матриц
                 finish();
                 return true;
             }

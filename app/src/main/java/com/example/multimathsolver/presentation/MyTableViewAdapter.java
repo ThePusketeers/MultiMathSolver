@@ -14,6 +14,8 @@ import com.example.multimathsolver.R;
 
 public class MyTableViewAdapter extends AbstractTableAdapter<String, String, String> {
 
+
+
     /**
      * This is sample CellViewHolder class
      * This viewHolder must be extended from AbstractViewHolder class instead of RecyclerView.ViewHolder.
@@ -74,6 +76,7 @@ public class MyTableViewAdapter extends AbstractTableAdapter<String, String, Str
         // Get the holder to update cell item text
         MyCellViewHolder viewHolder = (MyCellViewHolder) holder;
         viewHolder.cell_textview.setText(cell);
+
 
         // If your TableView should have auto resize for cells & columns.
         // Then you should consider the below lines. Otherwise, you can ignore them.
