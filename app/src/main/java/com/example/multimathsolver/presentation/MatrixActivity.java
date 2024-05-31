@@ -10,9 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import com.evrencoskun.tableview.TableView;
 import com.example.multimathsolver.R;
+import com.example.multimathsolver.domain.IncorrectMatrixSize;
 import com.example.multimathsolver.domain.MatrixOperations;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -38,10 +40,11 @@ public class MatrixActivity extends AppCompatActivity {
     private Button saveToMatrix_A_Button;
     private Button saveToMatrix_B_Button;
     private TableView tableView;
-    private MatrixOperations matrix;
+    private MatrixOperations matrixOperations;
     private TextView determinantDisplay;
     private TextView rangDisplay;
     private BottomNavigationView navigationView;
+    private final MatrixActivityViewModel viewModel = new MatrixActivityViewModel();
 
 
     @Override
@@ -83,12 +86,7 @@ public class MatrixActivity extends AppCompatActivity {
             }
         });
 
-        determinantCountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                determinantDisplay.setText(String.valueOf("значение определителя"));
-            }
-        });
+
 
 
     }
@@ -105,15 +103,133 @@ public class MatrixActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 rangDisplay.setText(String.valueOf("значение ранга"));
+                viewModel.solveRang(viewModel.matrixOperations);
             }
         });
-//        multiplyMatrixButton.setOnClickListener();
-//        sumMatrixButton.setOnClickListener();
-//        multiplyByConstantMatrixButton.setOnClickListener();
-//        raiseToDegreeMatrixButton.setOnClickListener();
-//        subtractMatrixButton.setOnClickListener();
-//        EditText degreeInputField
-//        EditText constantInputField
+
+        viewModel.rang.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                rangDisplay.setText(String.valueOf(viewModel.rang.getValue()));
+            }
+        });
+        determinantCountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                determinantDisplay.setText(String.valueOf("значение определителя"));
+                try {
+                    viewModel.solveDeterminant(viewModel.matrixOperations);
+                } catch (IncorrectMatrixSize e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        viewModel.determinant.observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double ints) {
+                determinantDisplay.setText(String.valueOf(viewModel.determinant.getValue()));
+            }
+        });
+        multiplyByConstantMatrixButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.solveMultiplyByConstant(viewModel.matrixOperations,Double.parseDouble(String.valueOf(constantInputField.getText())));
+            }
+        });
+        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+            @Override
+            public void onChanged(MatrixOperations matrixOperations) {
+
+
+
+                //(вставить умноженную на константу матрицу в таблицу)//
+
+
+
+
+            }
+        });
+        raiseToDegreeMatrixButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    viewModel.solveRaiseToDegree(viewModel.matrixOperations, Integer.parseInt(String.valueOf(degreeInputField.getText())));
+                } catch (IncorrectMatrixSize e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+            @Override
+            public void onChanged(MatrixOperations matrixOperations) {
+
+
+                //(вставить возведённую в степень матрицу в таблицу)//
+
+
+            }
+        });
+
+        multiplyMatrixButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    viewModel.solveMultiplyMatrix(viewModel.matrixOperations, viewModel.matrixOperations2);
+                } catch (IncorrectMatrixSize e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+            @Override
+            public void onChanged(MatrixOperations matrixOperations) {
+
+                //(вставить полученную после переминожения матрицу в таблицу)//
+
+            }
+        });
+
+        sumMatrixButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    viewModel.solveSumMatrix(viewModel.matrixOperations, viewModel.matrixOperations2);
+                } catch (IncorrectMatrixSize e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+            @Override
+            public void onChanged(MatrixOperations matrixOperations) {
+
+
+                //(вставить полученную после сложения матрицу в таблицу)//
+
+
+            }
+        });
+        subtractMatrixButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    viewModel.solveSubtractMatrix(viewModel.matrixOperations, viewModel.matrixOperations2);
+                } catch (IncorrectMatrixSize e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+            @Override
+            public void onChanged(MatrixOperations matrixOperations) {
+
+
+                //(вставить полученную после вычитания матрицу в таблицу)//
+
+
+
+            }
+        });
 //        saveToMatrix_A_Button.setOnClickListener();
 //        saveToMatrix_B_Button.setOnClickListener();
     }
