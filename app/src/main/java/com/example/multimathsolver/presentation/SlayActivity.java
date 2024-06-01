@@ -99,8 +99,10 @@ public class SlayActivity extends AppCompatActivity {
     }
     private void observeViewModel(SlayActivityViewModel viewModel) {
         viewModel.getOutput().observe(this, (string -> {
-            String text = "@string/answer" + viewModel.getOutput().getValue();
-            answerTextView.setText(text);
+            if (!string.isEmpty()) {
+                String text = "@string/answer" + string;
+                answerTextView.setText(text);
+            }
         }));
         viewModel.getError().observe(this, (string -> {
             Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
