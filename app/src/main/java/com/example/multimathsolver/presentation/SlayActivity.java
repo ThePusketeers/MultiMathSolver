@@ -32,7 +32,6 @@ public class SlayActivity extends AppCompatActivity {
     private Button solveButton;
     private EditText slayString;
     private TextView answerTextView;
-    private int count = 0;
     private RecyclerView recyclerView;
     private List<String> rows = new ArrayList<>();
     private SlayAdapter adapter = new SlayAdapter();
@@ -91,7 +90,7 @@ public class SlayActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
-                startActivity(new Intent(SlayActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                startActivity(new Intent(SlayActivity.this, MainActivity2.class));
                 finish();
                 return true;
             }

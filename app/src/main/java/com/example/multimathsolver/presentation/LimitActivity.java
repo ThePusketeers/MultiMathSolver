@@ -51,15 +51,15 @@ public class LimitActivity extends AppCompatActivity {
             if (id == R.id.limit_menu) {
                 return true;
             } else if (id == R.id.slay_menu) {
-                startActivity(SlayActivity.newIntent(this)); // заменить MainActivity2 на класс для СЛАУ
+                startActivity(SlayActivity.newIntent(this));
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
-                startActivity(newIntentBooleanAlgera(this));// заменить MainActivity2 на класс для Дискры
+                startActivity(newIntentBooleanAlgera(this));
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
-                startActivity(new Intent(LimitActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                startActivity(new Intent(LimitActivity.this, MainActivity2.class));
                 finish();
                 return true;
             }
