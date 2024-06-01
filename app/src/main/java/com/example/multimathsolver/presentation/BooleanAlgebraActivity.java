@@ -4,6 +4,7 @@ import static com.example.multimathsolver.presentation.BooleanAlgebraSolvedActiv
 import static com.example.multimathsolver.presentation.LimitActivity.newIntentLimit;
 import static com.example.multimathsolver.presentation.SlayActivity.newIntentSlay;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
