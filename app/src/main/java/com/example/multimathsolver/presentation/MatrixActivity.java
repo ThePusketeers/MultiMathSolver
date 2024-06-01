@@ -20,8 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-
+import java.util.function.Consumer;
 public class MatrixActivity extends AppCompatActivity {
     private List<String> mRowHeaderList = new ArrayList<>();
     private List<String> mColumnHeaderList = new ArrayList<>();
@@ -35,10 +34,6 @@ public class MatrixActivity extends AppCompatActivity {
     private Button subtractMatrixButton;
     private EditText degreeInputField;
     private EditText constantInputField;
-
-    private EditText rowCountToInput;
-    private EditText columnCountToInput;
-
     private Button saveToMatrix_A_Button;
     private Button saveToMatrix_B_Button;
     private TableView tableView;
@@ -48,10 +43,6 @@ public class MatrixActivity extends AppCompatActivity {
     private BottomNavigationView navigationView;
     private final MatrixActivityViewModel viewModel = new MatrixActivityViewModel();
     private final MyTableViewAdapter adapter = new MyTableViewAdapter(viewModel.matrixAsArray);
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -64,26 +55,17 @@ public class MatrixActivity extends AppCompatActivity {
         setUpOnItemListeners();
         tableView.setAdapter(adapter);
         initTable();
-
     }
     private void initTable() {
-        //double[][] matrixAsArray = new double[viewModel.rows.getValue()][viewModel.columns.getValue()];
-
-        //double[][] matrixAsArray = new double[5][5];
-
         double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
         for (int i = 0; i < matrixAsArray.length; i++) {
 
             List<String> temp = new ArrayList<>();
-
             for (int j = 0; j < matrixAsArray[0].length; j++) {
                 temp.add(String.valueOf(matrixAsArray[i][j]));
             }
-
             mCellList.add(temp);
         }
-
-
         adapter.setAllItems(mColumnHeaderList,mRowHeaderList,mCellList);
     }
 
@@ -121,7 +103,13 @@ public class MatrixActivity extends AppCompatActivity {
         multiplyByConstantMatrixButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.solveMultiplyByConstant(viewModel.matrixOperations,Double.parseDouble(String.valueOf(constantInputField.getText())));
+                if ( String.valueOf(constantInputField.getText()).equals("") ){
+                    viewModel.solveMultiplyByConstant(viewModel.matrixOperations,1);
+                }
+                else{
+                    viewModel.solveMultiplyByConstant(viewModel.matrixOperations,Double.parseDouble(String.valueOf(constantInputField.getText())));
+                }
+
             }
         });
         viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
@@ -134,7 +122,12 @@ public class MatrixActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    viewModel.solveRaiseToDegree(viewModel.matrixOperations,Integer.parseInt(String.valueOf(degreeInputField.getText())));
+                    if ( String.valueOf(degreeInputField.getText()).equals("") ){
+                        viewModel.solveRaiseToDegree(viewModel.matrixOperations,1);
+                    }
+                    else{
+                        viewModel.solveRaiseToDegree(viewModel.matrixOperations,Integer.parseInt(String.valueOf(degreeInputField.getText())));
+                    }
                 } catch (IncorrectMatrixSize e) {
                     throw new RuntimeException(e);
                 }
@@ -196,21 +189,6 @@ public class MatrixActivity extends AppCompatActivity {
                 matrixParserFromArrayToTable(adapter, viewModel.outputMatrix.getValue());
             }
         });
-
-//        viewModel.rows.observe(this, new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                viewModel.rows.setValue(Integer.parseInt(String.valueOf(rowCountToInput.getText())));
-//            }
-//        });
-//
-//        viewModel.columns.observe(this, new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer integer) {
-//                viewModel.columns.setValue(Integer.parseInt(String.valueOf(columnCountToInput.getText())));
-//            }
-//        });
-
         saveToMatrix_A_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,15 +241,11 @@ public class MatrixActivity extends AppCompatActivity {
         saveToMatrix_A_Button = findViewById(R.id.save_to_matrix_A_button);
         saveToMatrix_B_Button = findViewById(R.id.save_to_matrix_B_button);
         navigationView = findViewById(R.id.bottomNavigationViewMatrix);
-        rowCountToInput = findViewById(R.id.row_count_for_input);
-        columnCountToInput = findViewById(R.id.column_count_for_input);
     }
 
     public static double[][] matrixParserFromTableToArray(MyTableViewAdapter myTableViewAdapter){
-
-        int rows = Objects.requireNonNull(myTableViewAdapter.getRowHeaderItem(0)).length();
-        int columns = Objects.requireNonNull(myTableViewAdapter.getColumnHeaderItem(0)).length();
-
+        int rows = Objects.requireNonNull(myTableViewAdapter.getCellRowItems(0)).size();
+        int columns = myTableViewAdapter.getCellColumnItems(0).size();
         double[][] resultMatrix = new double[rows][columns];
 
         for (int i = 0; i < rows; i++) {
@@ -279,7 +253,6 @@ public class MatrixActivity extends AppCompatActivity {
                 resultMatrix[i][j] = Double.parseDouble(Objects.requireNonNull(myTableViewAdapter.getCellItem(i, j)));
             }
         }
-
         return resultMatrix;
     }
 

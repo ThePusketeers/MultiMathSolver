@@ -21,28 +21,19 @@ public class MatrixActivityViewModel {
     private final GetMultiplyOnNumberUseCase useCaseGetMultiplyOnNumber = new GetMultiplyOnNumberUseCase(repository);
     private final GetRaiseToDegreeUseCase useCaseGetRaiseToDegree = new GetRaiseToDegreeUseCase(repository);
     private final GetSearchRankUseCase useCaseGetSearchRank = new GetSearchRankUseCase(repository);
-
     MutableLiveData<Double> determinant = new MutableLiveData<>();
     MutableLiveData<Integer> rang = new MutableLiveData<>();
     MutableLiveData<MatrixOperations> outputMatrix = new MutableLiveData<>();
     double[][] matrixA;
     double[][] matrixB;
-
-//    MutableLiveData<Integer> rows = new MutableLiveData<>(5);
-//    MutableLiveData<Integer> columns = new MutableLiveData<>(5);
-
-    ///Input Example///
     double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
     double[][] matrixAsArray2 = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
-    ///Example///
     MatrixOperations matrixOperations = new MatrixOperations(matrixAsArray);
-    MatrixOperations matrixOperations2 = new MatrixOperations(matrixAsArray2);
-
     public void solveDeterminant(MatrixOperations matrixOperations) throws IncorrectMatrixSize {
         determinant.setValue( useCaseGetSearchDeterminant.getSearchDeterminant(matrixOperations) );
     }
     public void solveRang(MatrixOperations matrixOperations){
-        rang.setValue( useCaseGetSearchRank.getSearchRank(matrixOperations) );
+        rang.setValue(useCaseGetSearchRank.getSearchRank(matrixOperations));
     }
     public void solveMultiplyByConstant(MatrixOperations matrixOperations, double constantForMultiply){
         outputMatrix.setValue( useCaseGetMultiplyOnNumber.getMultiplyOnNumber(matrixOperations, constantForMultiply) );
