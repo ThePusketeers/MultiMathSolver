@@ -15,7 +15,6 @@ import com.example.multimathsolver.domain.Repository;
 
 public class MatrixActivityViewModel {
     private final Repository repository = new RepositoryImpl();
-    private final static int[][] DEFAULT_MATRIX = new int[3][3];
     private final GetSearchDeterminantUseCase useCaseGetSearchDeterminant = new GetSearchDeterminantUseCase(repository);
     private final GetAddOrMinusUseCase useCaseGetAddOrMinus = new GetAddOrMinusUseCase(repository);
     private final GetMultiplicationUseCase useCaseGetMultiplication = new GetMultiplicationUseCase(repository);
@@ -26,8 +25,11 @@ public class MatrixActivityViewModel {
     MutableLiveData<Double> determinant = new MutableLiveData<>();
     MutableLiveData<Integer> rang = new MutableLiveData<>();
     MutableLiveData<MatrixOperations> outputMatrix = new MutableLiveData<>();
-    MutableLiveData<Double[][]> matrixA = new MutableLiveData<>();
-    MutableLiveData<Double[][]> matrixB = new MutableLiveData<>();
+    double[][] matrixA;
+    double[][] matrixB;
+
+//    MutableLiveData<Integer> rows = new MutableLiveData<>(5);
+//    MutableLiveData<Integer> columns = new MutableLiveData<>(5);
 
     ///Input Example///
     double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };

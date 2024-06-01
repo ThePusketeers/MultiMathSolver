@@ -3,7 +3,6 @@ package com.example.multimathsolver.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +26,6 @@ public class MatrixActivity extends AppCompatActivity {
     private List<String> mRowHeaderList = new ArrayList<>();
     private List<String> mColumnHeaderList = new ArrayList<>();
     private List<List<String>> mCellList = new ArrayList<>();
-    private Button matrixDisplayButton;
     private Button determinantCountButton;
     private Button rangCountButton;
     private Button multiplyMatrixButton;
@@ -37,6 +35,10 @@ public class MatrixActivity extends AppCompatActivity {
     private Button subtractMatrixButton;
     private EditText degreeInputField;
     private EditText constantInputField;
+
+    private EditText rowCountToInput;
+    private EditText columnCountToInput;
+
     private Button saveToMatrix_A_Button;
     private Button saveToMatrix_B_Button;
     private TableView tableView;
@@ -45,6 +47,9 @@ public class MatrixActivity extends AppCompatActivity {
     private TextView rangDisplay;
     private BottomNavigationView navigationView;
     private final MatrixActivityViewModel viewModel = new MatrixActivityViewModel();
+    private final MyTableViewAdapter adapter = new MyTableViewAdapter(viewModel.matrixAsArray);
+
+
 
 
     @Override
@@ -57,56 +62,39 @@ public class MatrixActivity extends AppCompatActivity {
         navigationView.setSelectedItemId(R.id.matrix_menu);
         setUpOnClickListeners();
         setUpOnItemListeners();
-
-
-        // Create our custom TableView Adapter
-        MyTableViewAdapter adapter = new MyTableViewAdapter();
-
-        // Set this adapter to the our TableView
         tableView.setAdapter(adapter);
-
-        matrixDisplayButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                double[][] matrixAsArray = new double[][] { {1, 2, 3, 4, 5}, {4, 8, 3, 9, 1},{5, 1, 8, 2, 1}, {9, 22, 13, 7, 4} };
-                for (int i = 0; i < matrixAsArray.length; i++) {
-
-                    List<String> temp = new ArrayList<>();
-
-                    for (int j = 0; j < matrixAsArray[0].length; j++) {
-                        temp.add(String.valueOf(matrixAsArray[i][j]));
-                    }
-
-                    mCellList.add(temp);
-                }
-
-                // Let's set datas of the TableView on the Adapter
-                adapter.setAllItems(mColumnHeaderList, mRowHeaderList, mCellList);
-
-            }
-        });
-
-
-
+        initTable();
 
     }
+    private void initTable() {
+        //double[][] matrixAsArray = new double[viewModel.rows.getValue()][viewModel.columns.getValue()];
 
-//    private void checkSolver() {
-//        MatrixActivityViewModel viewModel = new ViewModelProvider(this).get(MatrixActivityViewModel.class);
-//        viewModel.solve(matrix);
-//    }
+        //double[][] matrixAsArray = new double[5][5];
+
+        double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
+        for (int i = 0; i < matrixAsArray.length; i++) {
+
+            List<String> temp = new ArrayList<>();
+
+            for (int j = 0; j < matrixAsArray[0].length; j++) {
+                temp.add(String.valueOf(matrixAsArray[i][j]));
+            }
+
+            mCellList.add(temp);
+        }
+
+
+        adapter.setAllItems(mColumnHeaderList,mRowHeaderList,mCellList);
+    }
 
     private void setUpOnClickListeners() {
-//        matrixDisplayButton.setOnClickListener();
-
         rangCountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rangDisplay.setText(String.valueOf("значение ранга"));
-                viewModel.solveRang(viewModel.matrixOperations);
+                rangDisplay.setText(String.valueOf("Значение ранга"));
+                viewModel.solveRang(new MatrixOperations(matrixParserFromTableToArray(adapter)));
             }
         });
-
         viewModel.rang.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -116,9 +104,9 @@ public class MatrixActivity extends AppCompatActivity {
         determinantCountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                determinantDisplay.setText(String.valueOf("значение определителя"));
+                determinantDisplay.setText(String.valueOf("Значение определителя"));
                 try {
-                    viewModel.solveDeterminant(viewModel.matrixOperations);
+                    viewModel.solveDeterminant(new MatrixOperations(matrixParserFromTableToArray(adapter)));
                 } catch (IncorrectMatrixSize e) {
                     throw new RuntimeException(e);
                 }
@@ -139,21 +127,14 @@ public class MatrixActivity extends AppCompatActivity {
         viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-
-
-
-                //(вставить умноженную на константу матрицу в таблицу)//
-
-
-
-
+                matrixParserFromArrayToTable(adapter,viewModel.outputMatrix.getValue());
             }
         });
         raiseToDegreeMatrixButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    viewModel.solveRaiseToDegree(viewModel.matrixOperations, Integer.parseInt(String.valueOf(degreeInputField.getText())));
+                    viewModel.solveRaiseToDegree(viewModel.matrixOperations,Integer.parseInt(String.valueOf(degreeInputField.getText())));
                 } catch (IncorrectMatrixSize e) {
                     throw new RuntimeException(e);
                 }
@@ -162,11 +143,7 @@ public class MatrixActivity extends AppCompatActivity {
         viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-
-
-                //(вставить возведённую в степень матрицу в таблицу)//
-
-
+                matrixParserFromArrayToTable(adapter,viewModel.outputMatrix.getValue());
             }
         });
 
@@ -174,7 +151,7 @@ public class MatrixActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    viewModel.solveMultiplyMatrix(viewModel.matrixOperations, viewModel.matrixOperations2);
+                    viewModel.solveMultiplyMatrix(new MatrixOperations(viewModel.matrixA), new MatrixOperations(viewModel.matrixB));
                 } catch (IncorrectMatrixSize e) {
                     throw new RuntimeException(e);
                 }
@@ -183,9 +160,7 @@ public class MatrixActivity extends AppCompatActivity {
         viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-
-                //(вставить полученную после переминожения матрицу в таблицу)//
-
+                matrixParserFromArrayToTable(adapter, viewModel.outputMatrix.getValue());
             }
         });
 
@@ -193,7 +168,7 @@ public class MatrixActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    viewModel.solveSumMatrix(viewModel.matrixOperations, viewModel.matrixOperations2);
+                    viewModel.solveSumMatrix(new MatrixOperations(viewModel.matrixA), new MatrixOperations(viewModel.matrixB));
                 } catch (IncorrectMatrixSize e) {
                     throw new RuntimeException(e);
                 }
@@ -202,18 +177,14 @@ public class MatrixActivity extends AppCompatActivity {
         viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-
-
-                //(вставить полученную после сложения матрицу в таблицу)//
-
-
+                matrixParserFromArrayToTable(adapter, viewModel.outputMatrix.getValue());
             }
         });
         subtractMatrixButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    viewModel.solveSubtractMatrix(viewModel.matrixOperations, viewModel.matrixOperations2);
+                    viewModel.solveSubtractMatrix(new MatrixOperations(viewModel.matrixA), new MatrixOperations(viewModel.matrixB));
                 } catch (IncorrectMatrixSize e) {
                     throw new RuntimeException(e);
                 }
@@ -222,16 +193,36 @@ public class MatrixActivity extends AppCompatActivity {
         viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-
-
-                //(вставить полученную после вычитания матрицу в таблицу)//
-
-
-
+                matrixParserFromArrayToTable(adapter, viewModel.outputMatrix.getValue());
             }
         });
-//        saveToMatrix_A_Button.setOnClickListener();
-//        saveToMatrix_B_Button.setOnClickListener();
+
+//        viewModel.rows.observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                viewModel.rows.setValue(Integer.parseInt(String.valueOf(rowCountToInput.getText())));
+//            }
+//        });
+//
+//        viewModel.columns.observe(this, new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer integer) {
+//                viewModel.columns.setValue(Integer.parseInt(String.valueOf(columnCountToInput.getText())));
+//            }
+//        });
+
+        saveToMatrix_A_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.matrixA = matrixParserFromTableToArray(adapter);
+            }
+        });
+        saveToMatrix_B_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.matrixB = matrixParserFromTableToArray(adapter);
+            }
+        });
     }
 
     private void setUpOnItemListeners() {
@@ -257,7 +248,6 @@ public class MatrixActivity extends AppCompatActivity {
     }
 
     private void initViews(){
-        matrixDisplayButton = findViewById(R.id.add_item_button);
         determinantCountButton = findViewById(R.id.get_determinant_button);
         rangCountButton = findViewById(R.id.get_rang_button);
         determinantDisplay = findViewById(R.id.determinant_display);
@@ -273,18 +263,39 @@ public class MatrixActivity extends AppCompatActivity {
         saveToMatrix_A_Button = findViewById(R.id.save_to_matrix_A_button);
         saveToMatrix_B_Button = findViewById(R.id.save_to_matrix_B_button);
         navigationView = findViewById(R.id.bottomNavigationViewMatrix);
-
+        rowCountToInput = findViewById(R.id.row_count_for_input);
+        columnCountToInput = findViewById(R.id.column_count_for_input);
     }
 
-    public static double[][] matrixMapper(MyTableViewAdapter myTableViewAdapter){
+    public static double[][] matrixParserFromTableToArray(MyTableViewAdapter myTableViewAdapter){
 
-    double[][] resultMatrix = new double[4][5];
-        for (int i = 0; i < resultMatrix.length; i++) {
-            for (int j = 0; j < resultMatrix[0].length; j++) {
+        int rows = Objects.requireNonNull(myTableViewAdapter.getRowHeaderItem(0)).length();
+        int columns = Objects.requireNonNull(myTableViewAdapter.getColumnHeaderItem(0)).length();
+
+        double[][] resultMatrix = new double[rows][columns];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
                 resultMatrix[i][j] = Double.parseDouble(Objects.requireNonNull(myTableViewAdapter.getCellItem(i, j)));
             }
         }
+
         return resultMatrix;
+    }
+
+    public static void matrixParserFromArrayToTable(MyTableViewAdapter myTableViewAdapter, MatrixOperations matrixOperations){
+
+        List<List<String>> localOutput = new ArrayList<>();
+
+        for (double[] row : matrixOperations.getMatrix()) {
+            List<String> rowList = new ArrayList<>();
+            for (double value : row) {
+                rowList.add(String.valueOf(value));
+            }
+            localOutput.add(rowList);
+        }
+
+        myTableViewAdapter.setCellItems(localOutput);
     }
 
     public static Intent newIntent(Context context) {

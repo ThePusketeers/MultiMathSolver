@@ -20,15 +20,6 @@
         app:layout_constraintTop_toBottomOf="@+id/title"
         tools:ignore="MissingClass" />
 
-    <Button
-        android:id="@+id/add_item_button"
-        android:layout_width="66dp"
-        android:layout_height="243dp"
-        android:text="вывод новую матрицу"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="63dp" />
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -47,8 +38,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/buttons_rounded_corners"
-        android:textColor="#29A8FF"
         android:text="Определитель"
+        android:textColor="#29A8FF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/table_view"
         tools:ignore="MissingConstraints" />
@@ -59,8 +50,8 @@
         android:layout_height="64dp"
         android:layout_marginStart="40sp"
         android:layout_marginTop="8dp"
-        android:text="Тут будет зачение определителя"
         android:backgroundTint="@color/dark_gray_button_color"
+        android:text="Тут будет зачение определителя"
         android:textColor="@color/dark_gray_button_text_color"
         app:layout_constraintEnd_toStartOf="@+id/rang_display"
         app:layout_constraintHorizontal_bias="0.28"
@@ -88,8 +79,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/buttons_rounded_corners"
-        android:textColor="#29A8FF"
         android:text="Ранг"
+        android:textColor="#29A8FF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.437"
         app:layout_constraintStart_toEndOf="@+id/get_determinant_button"
@@ -102,8 +93,8 @@
         android:layout_height="65dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/buttons_rounded_corners"
-        android:textColor="#29A8FF"
         android:text="Перемножить A и B"
+        android:textColor="#29A8FF"
         app:layout_constraintEnd_toStartOf="@+id/sum_matrix"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,8 +108,8 @@
         android:layout_marginTop="14dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/buttons_rounded_corners"
-        android:textColor="#29A8FF"
         android:text="Сложить A и B"
+        android:textColor="#29A8FF"
         app:layout_constraintEnd_toStartOf="@+id/subtract_matrix"
         app:layout_constraintTop_toBottomOf="@+id/multiply_by_constant_matrix"
         tools:ignore="MissingConstraints" />
@@ -128,8 +119,8 @@
         android:layout_width="147dp"
         android:layout_height="66dp"
         android:background="@drawable/buttons_rounded_corners"
-        android:textColor="#29A8FF"
         android:text="Умножить на константу k:"
+        android:textColor="#29A8FF"
         app:layout_constraintEnd_toStartOf="@+id/constant_input_field"
         app:layout_constraintTop_toBottomOf="@+id/rang_display"
         tools:ignore="MissingConstraints" />
@@ -139,8 +130,8 @@
         android:layout_width="125dp"
         android:layout_height="65dp"
         android:background="@drawable/buttons_rounded_corners"
-        android:textColor="#29A8FF"
         android:text="Возвести в степень n:"
+        android:textColor="#29A8FF"
         app:layout_constraintEnd_toStartOf="@+id/degree_input_field"
         app:layout_constraintHorizontal_bias="0.347"
         app:layout_constraintStart_toStartOf="parent"
@@ -153,8 +144,8 @@
         android:layout_height="66dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/buttons_rounded_corners"
-        android:textColor="#29A8FF"
         android:text="Вычесть А и В"
+        android:textColor="#29A8FF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/multiply_by_constant_matrix"
         tools:ignore="MissingConstraints" />
@@ -234,5 +225,39 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
+
+    <EditText
+        android:id="@+id/row_count_for_input"
+        android:layout_width="71dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/edittext_rounded_corners"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:textColorHint="@color/dark_gray_button_text_color"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:inputType="text"
+        android:text="5"
+        app:layout_constraintBottom_toTopOf="@+id/column_count_for_input"
+        app:layout_constraintEnd_toStartOf="@+id/table_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <EditText
+        android:id="@+id/column_count_for_input"
+        android:layout_width="74dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="220dp"
+        android:ems="10"
+        android:background="@drawable/edittext_rounded_corners"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:textColorHint="@color/dark_gray_button_text_color"
+        android:backgroundTintMode="add"
+        android:inputType="text"
+        android:text="5"
+        app:layout_constraintBottom_toTopOf="@+id/get_determinant_button"
+        app:layout_constraintEnd_toStartOf="@+id/table_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
