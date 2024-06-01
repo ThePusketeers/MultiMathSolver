@@ -2,6 +2,8 @@ package com.example.multimathsolver.presentation;
 
 import static com.example.multimathsolver.presentation.BooleanAlgebraSolvedActivity.newIntentSolved;
 import static com.example.multimathsolver.presentation.LimitActivity.newIntentLimit;
+import static com.example.multimathsolver.presentation.SlayActivity.newIntentSlay;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -63,15 +65,15 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
             if (id == R.id.discra_menu) {
                 return true;
             } else if (id == R.id.slay_menu) {
-                startActivity(new Intent(BooleanAlgebraActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для СЛАУ
+                startActivity(newIntentSlay(this));
                 finish();
                 return true;
             } else if (id == R.id.limit_menu) {
-                startActivity(newIntentLimit(this)); // заменить MainActivity2 на класс для Дискры
+                startActivity(newIntentLimit(this));
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
-                startActivity(new Intent(BooleanAlgebraActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                startActivity(new Intent(BooleanAlgebraActivity.this, MainActivity2.class));
                 finish();
                 return true;
             }
@@ -139,5 +141,9 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
         buttonX7 = findViewById(R.id.buttonX7);
         buttonX8 = findViewById(R.id.buttonX8);
         navigationView = findViewById(R.id.bottomNavigationViewBooleanAlgebra);
+    }
+
+    public static Intent newIntentBooleanAlgera(Context context) {
+        return new Intent(context, BooleanAlgebraActivity.class);
     }
 }
