@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -72,6 +73,13 @@ public class MatrixActivity extends AppCompatActivity {
     }
 
     private void setUpOnClickListeners() {
+        viewModel.getError().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String string) {
+                Toast.makeText(MatrixActivity.this, string,Toast.LENGTH_LONG).show();
+            }
+        });
+
         rangCountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,7 +107,7 @@ public class MatrixActivity extends AppCompatActivity {
         viewModel.getDeterminantLiveData().observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double ints) {
-                determinantDisplay.setText(String.valueOf(viewModel.getDeterminantLiveData().getValue()));
+                determinantDisplay.setText(String.valueOf(ints));
             }
         });
         multiplyByConstantMatrixButton.setOnClickListener(new View.OnClickListener() {
@@ -272,7 +280,6 @@ public class MatrixActivity extends AppCompatActivity {
 
         matrixAdapter.setCellItems(localOutput);
     }
-
     public static Intent newIntentMatrix(Context context) {
         return new Intent(context, MatrixActivity.class);
     }
