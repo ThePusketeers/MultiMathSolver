@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
+
 public class MatrixActivity extends AppCompatActivity {
     private List<String> mRowHeaderList = new ArrayList<>();
     private List<String> mColumnHeaderList = new ArrayList<>();
@@ -41,12 +41,14 @@ public class MatrixActivity extends AppCompatActivity {
     private TextView determinantDisplay;
     private TextView rangDisplay;
     private BottomNavigationView navigationView;
-    private final MatrixActivityViewModel viewModel = new MatrixActivityViewModel();
-    private final MyTableViewAdapter adapter = new MyTableViewAdapter(viewModel.matrixAsArray);
+    private MatrixActivityViewModel viewModel = new MatrixActivityViewModel();
+    private MatrixAdapter adapter = new MatrixAdapter(viewModel.matrixAsArray);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+//        viewModel = (MatrixActivityViewModel) getDefaultViewModelProviderFactory();
+//        adapter = new MyTableViewAdapter(viewModel.matrixAsArray);
         setContentView(R.layout.activity_matrix);
         initViews();
 
@@ -77,10 +79,10 @@ public class MatrixActivity extends AppCompatActivity {
                 viewModel.solveRang(new MatrixOperations(matrixParserFromTableToArray(adapter)));
             }
         });
-        viewModel.rang.observe(this, new Observer<Integer>() {
+        viewModel.getRangLiveData().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                rangDisplay.setText(String.valueOf(viewModel.rang.getValue()));
+                rangDisplay.setText(String.valueOf(viewModel.getRangLiveData().getValue()));
             }
         });
         determinantCountButton.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +96,10 @@ public class MatrixActivity extends AppCompatActivity {
                 }
             }
         });
-        viewModel.determinant.observe(this, new Observer<Double>() {
+        viewModel.getDeterminantLiveData().observe(this, new Observer<Double>() {
             @Override
             public void onChanged(Double ints) {
-                determinantDisplay.setText(String.valueOf(viewModel.determinant.getValue()));
+                determinantDisplay.setText(String.valueOf(viewModel.getDeterminantLiveData().getValue()));
             }
         });
         multiplyByConstantMatrixButton.setOnClickListener(new View.OnClickListener() {
@@ -112,10 +114,10 @@ public class MatrixActivity extends AppCompatActivity {
 
             }
         });
-        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+        viewModel.getOutputMatrixLiveData().observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-                matrixParserFromArrayToTable(adapter,viewModel.outputMatrix.getValue());
+                matrixParserFromArrayToTable(adapter,viewModel.getOutputMatrixLiveData().getValue());
             }
         });
         raiseToDegreeMatrixButton.setOnClickListener(new View.OnClickListener() {
@@ -133,10 +135,10 @@ public class MatrixActivity extends AppCompatActivity {
                 }
             }
         });
-        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+        viewModel.getOutputMatrixLiveData().observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-                matrixParserFromArrayToTable(adapter,viewModel.outputMatrix.getValue());
+                matrixParserFromArrayToTable(adapter,viewModel.getOutputMatrixLiveData().getValue());
             }
         });
 
@@ -150,10 +152,10 @@ public class MatrixActivity extends AppCompatActivity {
                 }
             }
         });
-        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+        viewModel.getOutputMatrixLiveData().observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-                matrixParserFromArrayToTable(adapter, viewModel.outputMatrix.getValue());
+                matrixParserFromArrayToTable(adapter, viewModel.getOutputMatrixLiveData().getValue());
             }
         });
 
@@ -167,10 +169,10 @@ public class MatrixActivity extends AppCompatActivity {
                 }
             }
         });
-        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+        viewModel.getOutputMatrixLiveData().observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-                matrixParserFromArrayToTable(adapter, viewModel.outputMatrix.getValue());
+                matrixParserFromArrayToTable(adapter, viewModel.getOutputMatrixLiveData().getValue());
             }
         });
         subtractMatrixButton.setOnClickListener(new View.OnClickListener() {
@@ -183,10 +185,10 @@ public class MatrixActivity extends AppCompatActivity {
                 }
             }
         });
-        viewModel.outputMatrix.observe(this, new Observer<MatrixOperations>() {
+        viewModel.getOutputMatrixLiveData().observe(this, new Observer<MatrixOperations>() {
             @Override
             public void onChanged(MatrixOperations matrixOperations) {
-                matrixParserFromArrayToTable(adapter, viewModel.outputMatrix.getValue());
+                matrixParserFromArrayToTable(adapter, viewModel.getOutputMatrixLiveData().getValue());
             }
         });
         saveToMatrix_A_Button.setOnClickListener(new View.OnClickListener() {
@@ -213,7 +215,7 @@ public class MatrixActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.limit_menu) {
-                startActivity(new Intent(MatrixActivity.this, LimitActivity.class));
+                startActivity(LimitActivity.newIntentLimit(this));
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
@@ -243,20 +245,20 @@ public class MatrixActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.bottomNavigationViewMatrix);
     }
 
-    public static double[][] matrixParserFromTableToArray(MyTableViewAdapter myTableViewAdapter){
-        int rows = Objects.requireNonNull(myTableViewAdapter.getCellRowItems(0)).size();
-        int columns = myTableViewAdapter.getCellColumnItems(0).size();
+    public double[][] matrixParserFromTableToArray(MatrixAdapter matrixAdapter){
+        int rows = Objects.requireNonNull(matrixAdapter.getCellRowItems(0)).size();
+        int columns = matrixAdapter.getCellColumnItems(0).size();
         double[][] resultMatrix = new double[rows][columns];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                resultMatrix[i][j] = Double.parseDouble(Objects.requireNonNull(myTableViewAdapter.getCellItem(i, j)));
+                resultMatrix[i][j] = Double.parseDouble(Objects.requireNonNull(matrixAdapter.getCellItem(i, j)));
             }
         }
         return resultMatrix;
     }
 
-    public static void matrixParserFromArrayToTable(MyTableViewAdapter myTableViewAdapter, MatrixOperations matrixOperations){
+    public void matrixParserFromArrayToTable(MatrixAdapter matrixAdapter, MatrixOperations matrixOperations){
 
         List<List<String>> localOutput = new ArrayList<>();
 
@@ -268,10 +270,10 @@ public class MatrixActivity extends AppCompatActivity {
             localOutput.add(rowList);
         }
 
-        myTableViewAdapter.setCellItems(localOutput);
+        matrixAdapter.setCellItems(localOutput);
     }
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntentMatrix(Context context) {
         return new Intent(context, MatrixActivity.class);
     }
 }

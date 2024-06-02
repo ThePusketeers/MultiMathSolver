@@ -1,5 +1,6 @@
 package com.example.multimathsolver.presentation;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.multimathsolver.data.RepositoryImpl;
@@ -21,9 +22,10 @@ public class MatrixActivityViewModel {
     private final GetMultiplyOnNumberUseCase useCaseGetMultiplyOnNumber = new GetMultiplyOnNumberUseCase(repository);
     private final GetRaiseToDegreeUseCase useCaseGetRaiseToDegree = new GetRaiseToDegreeUseCase(repository);
     private final GetSearchRankUseCase useCaseGetSearchRank = new GetSearchRankUseCase(repository);
-    MutableLiveData<Double> determinant = new MutableLiveData<>();
-    MutableLiveData<Integer> rang = new MutableLiveData<>();
-    MutableLiveData<MatrixOperations> outputMatrix = new MutableLiveData<>();
+    private final MutableLiveData<Double> determinant = new MutableLiveData<>();
+    private final MutableLiveData<Integer> rang = new MutableLiveData<>();
+    private final MutableLiveData<MatrixOperations> outputMatrix = new MutableLiveData<>();
+    private final MutableLiveData<String> error = new MutableLiveData<>();
     double[][] matrixA;
     double[][] matrixB;
     double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
@@ -49,5 +51,17 @@ public class MatrixActivityViewModel {
     }
     public void solveSubtractMatrix(MatrixOperations matrixOperations, MatrixOperations matrixOperations2) throws IncorrectMatrixSize {
         outputMatrix.setValue( useCaseGetAddOrMinus.getAddOrMinus(matrixOperations,matrixOperations2,'-'));
+    }
+    public LiveData<Double> getDeterminantLiveData() {
+        return determinant;
+    }
+    public LiveData<Integer> getRangLiveData() {
+        return rang;
+    }
+    public LiveData<MatrixOperations> getOutputMatrixLiveData() {
+        return outputMatrix;
+    }
+    public LiveData<String> getError(){
+        return error;
     }
 }

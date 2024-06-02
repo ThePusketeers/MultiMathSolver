@@ -71,7 +71,7 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
-                startActivity(new Intent(BooleanAlgebraActivity.this, MatrixActivity.class)); // заменить MainActivity2 на класс для Матриц
+                startActivity(MatrixActivity.newIntentMatrix(this)); // заменить MainActivity2 на класс для Матриц
                 finish();
                 return true;
             }

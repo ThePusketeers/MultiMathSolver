@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         buttonToMatrix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  MatrixActivity.newIntent(MainActivity.this);
+                Intent intent =  MatrixActivity.newIntentMatrix(MainActivity.this);
                 startActivity(intent);
             }
         });
