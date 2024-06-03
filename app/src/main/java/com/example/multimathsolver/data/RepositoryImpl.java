@@ -419,7 +419,7 @@ public class RepositoryImpl implements Repository {
         return map;
     }
     public String getSolutionOfSLAY (SLAY coeffSLAY, SLAY additionalSLAY){
-        return solve(coeffSLAY, additionalSLAY).toString();
+        return Arrays.deepToString(solve(coeffSLAY, additionalSLAY));
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.example.multimathsolver.presentation;
 
+import static com.example.multimathsolver.presentation.BooleanAlgebraActivity.newIntentBooleanAlgera;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,11 +51,11 @@ public class LimitActivity extends AppCompatActivity {
             if (id == R.id.limit_menu) {
                 return true;
             } else if (id == R.id.slay_menu) {
-                startActivity(new Intent(LimitActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для СЛАУ
+                startActivity(SlayActivity.newIntent(this));
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
-                startActivity(new Intent(LimitActivity.this, BooleanAlgebraActivity.class)); // заменить MainActivity2 на класс для Дискры
+                startActivity(newIntentBooleanAlgera(this));
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
@@ -77,8 +79,7 @@ public class LimitActivity extends AppCompatActivity {
             output.setText(text);
         }) );
         viewModel.getError().observe(this, (string -> {
-            Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
-            toast.show();
+            Toast.makeText(this, string, Toast.LENGTH_LONG).show();
         }) );
         viewModel.getIsProgress().observe(this, (isProgress -> {
             if (isProgress)

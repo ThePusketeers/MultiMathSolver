@@ -1,11 +1,39 @@
 package com.example.multimathsolver.presentation;
 
+import com.example.multimathsolver.domain.SLAY;
+
 import java.util.*;
 import java.util.regex.Pattern;
 
 public class ListOfStringToSlay {
+    private SLAY coeffSLAY;
+    private SLAY additionalSLAY;
 
-    public static double[][] parse(List<String> SLAY_ROWS) {
+    public void doSLAY(List<String> SLAY_ROWS, int outputAccuracy) {
+        double[][] matrix = parse(SLAY_ROWS);
+        double[][] coeffMatrix = new double[matrix.length][matrix[0].length-1];
+        double[][] additionalMatrix = new double[matrix.length][1];
+        for (int i = 0; i < matrix.length; ++i) {
+            for (int j = 0; j < matrix[0].length; ++j) {
+                if (j != matrix[0].length-1)
+                    coeffMatrix[i][j] = matrix[i][j];
+                else
+                    additionalMatrix[i][0] = matrix[i][j];
+            }
+        }
+        coeffSLAY = new SLAY(coeffMatrix, outputAccuracy);
+        additionalSLAY = new SLAY(additionalMatrix, outputAccuracy);
+    }
+
+    public SLAY getCoeffSLAY() {
+        return coeffSLAY;
+    }
+
+    public SLAY getAdditionalSLAY() {
+        return additionalSLAY;
+    }
+
+    private double[][] parse(List<String> SLAY_ROWS) {
         List<Character> listOfArguments = new ArrayList<>();
         List<Map<Character, Double>> listOfMap = new ArrayList<>();
         for (String row : SLAY_ROWS) {
@@ -32,7 +60,7 @@ public class ListOfStringToSlay {
 
     }
 
-    private static Map<Character, Double> getRowMap(String row) {
+    private Map<Character, Double> getRowMap(String row) {
         Map<Character, Double> rowMap = new TreeMap<>();
         StringBuilder tempArgumentValue = new StringBuilder();
         for (int i = 0; i < row.length(); ++i) {
@@ -66,7 +94,7 @@ public class ListOfStringToSlay {
         return rowMap;
     }
 
-    private static boolean checkRow(String str) {
+    private boolean checkRow(String str) {
         Pattern pattern = Pattern.compile("^[a-z0-9+\\-*/=]+$", Pattern.CASE_INSENSITIVE);
         return pattern.matcher(str).matches();
     }
