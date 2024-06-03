@@ -90,7 +90,7 @@ public class SlayActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
-                startActivity(new Intent(SlayActivity.this, MainActivity2.class));
+                startActivity(MatrixActivity.newIntentMatrix(this));
                 finish();
                 return true;
             }

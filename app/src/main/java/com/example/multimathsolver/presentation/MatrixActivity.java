@@ -219,15 +219,15 @@ public class MatrixActivity extends AppCompatActivity {
             if (id == R.id.matrix_menu) {
                 return true;
             } else if (id == R.id.slay_menu) {
-                startActivity(new Intent(MatrixActivity.this, MainActivity2.class));
+                startActivity(SlayActivity.newIntent(MatrixActivity.this));
                 finish();
                 return true;
             } else if (id == R.id.limit_menu) {
-                startActivity(LimitActivity.newIntentLimit(this));
+                startActivity(LimitActivity.newIntentLimit(MatrixActivity.this));
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
-                startActivity(new Intent(MatrixActivity.this, BooleanAlgebraActivity.class));
+                startActivity(BooleanAlgebraActivity.newIntentBooleanAlgera(MatrixActivity.this));
                 finish();
                 return true;
             }
