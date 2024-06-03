@@ -45,11 +45,11 @@ public class MatrixAdapter extends AbstractTableAdapter<String, String, String> 
     }
     static class MyColumnHeaderViewHolder extends AbstractViewHolder {
         final LinearLayout column_header_container;
-        final TextView column_header_textView;
+
         public MyColumnHeaderViewHolder(View itemView) {
             super(itemView);
             column_header_container = itemView.findViewById(R.id.column_header_container);
-            column_header_textView = itemView.findViewById(R.id.column_header_textView);
+
         }
     }
     @NonNull
@@ -65,10 +65,9 @@ public class MatrixAdapter extends AbstractTableAdapter<String, String, String> 
             position) {
         String columnHeader = (String) columnHeaderItemModel;
         MyColumnHeaderViewHolder columnHeaderViewHolder = (MyColumnHeaderViewHolder) holder;
-        columnHeaderViewHolder.column_header_textView.setText(columnHeader);
         columnHeaderViewHolder.column_header_container.getLayoutParams().width = LinearLayout
                 .LayoutParams.WRAP_CONTENT;
-        columnHeaderViewHolder.column_header_textView.requestLayout();
+
     }
 
     static class MyRowHeaderViewHolder extends AbstractViewHolder {

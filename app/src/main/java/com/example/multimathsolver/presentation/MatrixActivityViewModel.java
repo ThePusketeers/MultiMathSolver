@@ -1,5 +1,7 @@
 package com.example.multimathsolver.presentation;
 
+import android.annotation.SuppressLint;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -29,10 +31,10 @@ public class MatrixActivityViewModel {
     double[][] matrixA;
     double[][] matrixB;
     double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
-    double[][] matrixAsArray2 = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
     MatrixOperations matrixOperations = new MatrixOperations(matrixAsArray);
+    @SuppressLint("DefaultLocale")
     public void solveDeterminant(MatrixOperations matrixOperations) throws IncorrectMatrixSize {
-        determinant.setValue( useCaseGetSearchDeterminant.getSearchDeterminant(matrixOperations) );
+        determinant.setValue(Double.valueOf(String.format("%.1f",useCaseGetSearchDeterminant.getSearchDeterminant(matrixOperations))));
     }
     public void solveRang(MatrixOperations matrixOperations){
         rang.setValue(useCaseGetSearchRank.getSearchRank(matrixOperations));
@@ -43,11 +45,21 @@ public class MatrixActivityViewModel {
     public void solveRaiseToDegree(MatrixOperations matrixOperations, int degree) throws IncorrectMatrixSize {
         outputMatrix.setValue( useCaseGetRaiseToDegree.getRaiseToDegree(matrixOperations,degree) );
     }
-    public void solveMultiplyMatrix(MatrixOperations matrixOperations, MatrixOperations matrixOperations2) throws IncorrectMatrixSize {
-        outputMatrix.setValue( useCaseGetMultiplication.getMultiplication(matrixOperations,matrixOperations2));
+    public void solveMultiplyMatrix(MatrixOperations matrixOperations, MatrixOperations matrixOperations2){
+        try {
+            outputMatrix.setValue( useCaseGetMultiplication.getMultiplication(matrixOperations,matrixOperations2));
+        } catch (IncorrectMatrixSize e) {
+            error.setValue("Неправильный ввод матриц");
+            throw new RuntimeException(e);
+        }
     }
-    public void solveSumMatrix(MatrixOperations matrixOperations, MatrixOperations matrixOperations2) throws IncorrectMatrixSize {
-        outputMatrix.setValue( useCaseGetAddOrMinus.getAddOrMinus(matrixOperations,matrixOperations2,'+'));
+    public void solveSumMatrix(MatrixOperations matrixOperations, MatrixOperations matrixOperations2)  {
+        try {
+            outputMatrix.setValue( useCaseGetAddOrMinus.getAddOrMinus(matrixOperations,matrixOperations2,'+'));
+        } catch (IncorrectMatrixSize e) {
+            error.setValue("Неправильный ввод матриц");
+            throw new RuntimeException(e);
+        }
     }
     public void solveSubtractMatrix(MatrixOperations matrixOperations, MatrixOperations matrixOperations2) throws IncorrectMatrixSize {
         outputMatrix.setValue( useCaseGetAddOrMinus.getAddOrMinus(matrixOperations,matrixOperations2,'-'));
@@ -63,5 +75,8 @@ public class MatrixActivityViewModel {
     }
     public LiveData<String> getError(){
         return error;
+    }
+    public void setError(String s){
+        error.setValue(s);
     }
 }

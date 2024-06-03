@@ -48,8 +48,6 @@ public class MatrixActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-//        viewModel = (MatrixActivityViewModel) getDefaultViewModelProviderFactory();
-//        adapter = new MyTableViewAdapter(viewModel.matrixAsArray);
         setContentView(R.layout.activity_matrix);
         initViews();
 
@@ -60,7 +58,7 @@ public class MatrixActivity extends AppCompatActivity {
         initTable();
     }
     private void initTable() {
-        double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7} };
+        double[][] matrixAsArray = new double[][] { {1, 2, 3, 4,8}, {4, 8, 3, 9,11},{5, 1, 8, 2,8}, {9, 22, 13, 7,8},{3,21,5,4,3} };
         for (int i = 0; i < matrixAsArray.length; i++) {
 
             List<String> temp = new ArrayList<>();
@@ -155,8 +153,8 @@ public class MatrixActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     viewModel.solveMultiplyMatrix(new MatrixOperations(viewModel.matrixA), new MatrixOperations(viewModel.matrixB));
-                } catch (IncorrectMatrixSize e) {
-                    throw new RuntimeException(e);
+                } catch (Exception e){
+                    viewModel.setError("Данные не сохранены в матрицу А или B");
                 }
             }
         });
@@ -166,14 +164,13 @@ public class MatrixActivity extends AppCompatActivity {
                 matrixParserFromArrayToTable(adapter, viewModel.getOutputMatrixLiveData().getValue());
             }
         });
-
         sumMatrixButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     viewModel.solveSumMatrix(new MatrixOperations(viewModel.matrixA), new MatrixOperations(viewModel.matrixB));
-                } catch (IncorrectMatrixSize e) {
-                    throw new RuntimeException(e);
+                } catch (Exception e){
+                    viewModel.setError("Данные не сохранены в матрицу А или B");
                 }
             }
         });
@@ -188,8 +185,8 @@ public class MatrixActivity extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     viewModel.solveSubtractMatrix(new MatrixOperations(viewModel.matrixA), new MatrixOperations(viewModel.matrixB));
-                } catch (IncorrectMatrixSize e) {
-                    throw new RuntimeException(e);
+                } catch (Exception e) {
+                    viewModel.setError("Данные не сохранены в матрицу А или B");
                 }
             }
         });
