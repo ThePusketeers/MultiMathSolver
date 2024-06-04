@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/column_header_container"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/default_column_header_height"
+    android:orientation="vertical">
+
+</LinearLayout>

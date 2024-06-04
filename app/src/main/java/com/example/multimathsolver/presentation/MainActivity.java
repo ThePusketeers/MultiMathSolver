@@ -18,13 +18,24 @@ public class MainActivity extends AppCompatActivity {
     private Button btn;
     private Button buttonActivity;
     private TextView textView;
+    private Button buttonToMatrix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        buttonToMatrix = findViewById(R.id.buttonToMatrix);
         initViews();
         MainViewModel viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        buttonToMatrix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  MatrixActivity.newIntentMatrix(MainActivity.this);
+                startActivity(intent);
+            }
+        });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        buttonToMatrix = findViewById(R.id.buttonToMatrix);
         btn = findViewById(R.id.button);
         textView = findViewById(R.id.tv);
         buttonActivity = findViewById(R.id.buttonActivity);

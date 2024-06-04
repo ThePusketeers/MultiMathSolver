@@ -19,6 +19,9 @@
             android:windowSoftInputMode="adjustPan"
             />
         <activity
+            android:name=".presentation.MatrixActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.MainActivity2"
             android:exported="false" />
         <activity
