@@ -9,6 +9,7 @@ import com.example.multimathsolver.domain.GetSLAYSolutionUseCase;
 import com.example.multimathsolver.domain.Repository;
 import com.example.multimathsolver.domain.SLAY;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,6 +31,7 @@ public class SlayActivityViewModel extends ViewModel {
 
     public void solve(List<String> rows) {
         try {
+            rows = replaceSpace(rows);
             ListOfStringToSlay parser = new ListOfStringToSlay();
             parser.doSLAY(rows, 0);
             coeffSLAY = parser.getCoeffSLAY();
@@ -50,5 +52,11 @@ public class SlayActivityViewModel extends ViewModel {
         return output;
     }
 
+    private List<String> replaceSpace(List<String> rows) {
+        List<String> newRows = new ArrayList<>();
+        for (String s : rows)
+            newRows.add(s.replace(" ", ""));
+        return newRows;
+    }
 
 }
