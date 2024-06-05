@@ -217,14 +217,17 @@ public class MatrixActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.slay_menu) {
                 startActivity(SlayActivity.newIntent(MatrixActivity.this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.limit_menu) {
                 startActivity(LimitActivity.newIntentLimit(MatrixActivity.this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
                 startActivity(BooleanAlgebraActivity.newIntentBooleanAlgera(MatrixActivity.this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             }

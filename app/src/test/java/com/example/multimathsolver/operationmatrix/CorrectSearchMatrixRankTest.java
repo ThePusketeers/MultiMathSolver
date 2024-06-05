@@ -35,7 +35,7 @@ public class CorrectSearchMatrixRankTest {
     }
 
     @Test
-    public void testMultiplyTwoMatrix() throws Exception {
+    public void testMultiplyTwoMatrix() {
         Assert.assertEquals(expectedRank, repository.searchRank(firstMatrix));
     }
 }

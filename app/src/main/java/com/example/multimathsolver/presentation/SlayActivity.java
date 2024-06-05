@@ -6,7 +6,6 @@ import static com.example.multimathsolver.presentation.LimitActivity.newIntentLi
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -33,8 +32,8 @@ public class SlayActivity extends AppCompatActivity {
     private EditText slayString;
     private TextView answerTextView;
     private RecyclerView recyclerView;
-    private List<String> rows = new ArrayList<>();
-    private SlayAdapter adapter = new SlayAdapter();
+    private final List<String> rows = new ArrayList<>();
+    private final SlayAdapter adapter = new SlayAdapter();
     private SlayActivityViewModel viewModel;
     private BottomNavigationView navigationView;
 
@@ -57,23 +56,15 @@ public class SlayActivity extends AppCompatActivity {
     }
 
     private void setUpOnClickListeners() {
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (slayString.getText() != null){
-                    rows.add(String.valueOf(slayString.getText()));
-                    slayString.setText("");
-                    adapter.submitList(new ArrayList<>(rows));
-                    recyclerView.smoothScrollToPosition(rows.size() - 1);
-                }
+        addButton.setOnClickListener(v -> {
+            if (slayString.getText() != null){
+                rows.add(String.valueOf(slayString.getText()));
+                slayString.setText("");
+                adapter.submitList(new ArrayList<>(rows));
+                recyclerView.smoothScrollToPosition(rows.size() - 1);
             }
         });
-        solveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.solve(rows);
-            }
-        });
+        solveButton.setOnClickListener(v -> viewModel.solve(rows));
     }
 
     private void setUpOnItemListeners() {
@@ -81,16 +72,19 @@ public class SlayActivity extends AppCompatActivity {
             final int id = item.getItemId();
             if (id == R.id.discra_menu) {
                 startActivity(newIntentBooleanAlgera(this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.slay_menu) {
                 return true;
             } else if (id == R.id.limit_menu) {
                 startActivity(newIntentLimit(this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
                 startActivity(MatrixActivity.newIntentMatrix(this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             }
@@ -111,8 +105,7 @@ public class SlayActivity extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, SlayActivity.class);
-        return intent;
+        return new Intent(context, SlayActivity.class);
     }
 
     private void initViews() {
