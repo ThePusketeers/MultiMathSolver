@@ -4,6 +4,7 @@ import static com.example.multimathsolver.presentation.BooleanAlgebraSolvedActiv
 import static com.example.multimathsolver.presentation.LimitActivity.newIntentLimit;
 import static com.example.multimathsolver.presentation.SlayActivity.newIntentSlay;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -72,7 +73,7 @@ public class BooleanAlgebraActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
-                startActivity(new Intent(BooleanAlgebraActivity.this, MainActivity2.class)); // заменить MainActivity2 на класс для Матриц
+                startActivity(new Intent(BooleanAlgebraActivity.this, MainActivity2.class));
                 finish();
                 return true;
             }
