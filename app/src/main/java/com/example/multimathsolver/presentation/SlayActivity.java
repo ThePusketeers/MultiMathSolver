@@ -60,8 +60,7 @@ public class SlayActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (slayString.getText() != null){
-                    rows.add(String.valueOf(slayString.getText()));
+                if (viewModel.add(String.valueOf(slayString.getText()), rows)) {
                     slayString.setText("");
                     adapter.submitList(new ArrayList<>(rows));
                     recyclerView.smoothScrollToPosition(rows.size() - 1);

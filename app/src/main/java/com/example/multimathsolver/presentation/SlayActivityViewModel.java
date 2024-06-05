@@ -11,6 +11,7 @@ import com.example.multimathsolver.domain.SLAY;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class SlayActivityViewModel extends ViewModel {
@@ -27,6 +28,18 @@ public class SlayActivityViewModel extends ViewModel {
 
     public LiveData<String> getError() {
         return error;
+    }
+
+    public boolean add(String row, List<String> list) {
+        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[0-9])[a-z0-9.+\\-]*=[0-9.+\\-]*$", Pattern.CASE_INSENSITIVE);
+        if (pattern.matcher(row).matches()) {
+            list.add(row);
+            return true;
+        }
+        else {
+            error.setValue("Неверный ввод строки");
+            return false;
+        }
     }
 
     public void solve(List<String> rows) {
