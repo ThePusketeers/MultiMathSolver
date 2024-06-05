@@ -6,7 +6,6 @@ public class MatrixOperations {
     private int columns;
     private double mainCoef;
 
-
     public int getColumns() {
         return columns;
     }
