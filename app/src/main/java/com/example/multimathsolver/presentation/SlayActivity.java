@@ -100,7 +100,7 @@ public class SlayActivity extends AppCompatActivity {
     }
     private void observeViewModel(SlayActivityViewModel viewModel) {
         viewModel.getOutput().observe(this, (string -> {
-            String text = "@string/answer" + viewModel.getOutput().getValue();
+            String text = "Ответ: " + viewModel.getOutput().getValue();
             answerTextView.setText(text);
         }));
         viewModel.getError().observe(this, (string -> {
