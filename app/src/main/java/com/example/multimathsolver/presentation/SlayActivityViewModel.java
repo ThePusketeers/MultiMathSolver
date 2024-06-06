@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class SlayActivityViewModel extends ViewModel {
     private final Repository repository = new RepositoryImpl();
     private final GetSLAYSolutionUseCase useCase = new GetSLAYSolutionUseCase(repository);
-    private final MutableLiveData<String> output = new MutableLiveData<>();
+    private MutableLiveData<String> output = new MutableLiveData<>();
     private final MutableLiveData<String> error = new MutableLiveData<>();
 
     public LiveData<String> getOutput() {
