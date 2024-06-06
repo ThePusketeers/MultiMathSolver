@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/cell_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/cell_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:padding="0dp"
+        android:minWidth="60sp"
+        android:maxWidth="50sp"
+        android:minHeight="60sp"
+        android:maxHeight="50sp"
+        android:inputType="number"
+        android:textSize="30sp"
+        android:maxLines="1"
+        tools:text="5"
+        android:background="@color/dark_gray_button_color"
+        android:backgroundTint="@color/dark_gray_button_color"
+        android:textColor="@color/dark_gray_button_text_color"/>
+
+</LinearLayout>
