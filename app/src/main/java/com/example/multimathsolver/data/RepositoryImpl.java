@@ -419,7 +419,8 @@ public class RepositoryImpl implements Repository {
         return map;
     }
     public String getSolutionOfSLAY (SLAY coeffSLAY, SLAY additionalSLAY){
-        return Arrays.deepToString(solve(coeffSLAY, additionalSLAY));
+        String result = Arrays.deepToString(solve(coeffSLAY, additionalSLAY));
+        return "("+result.replace("[", "").replace("]", "")+")";
     }
 
     /**

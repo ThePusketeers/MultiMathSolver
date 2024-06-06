@@ -37,14 +37,10 @@ public class ListOfStringToSlay {
         List<Character> listOfArguments = new ArrayList<>();
         List<Map<Character, Double>> listOfMap = new ArrayList<>();
         for (String row : SLAY_ROWS) {
-            if (!checkRow(row))
-                return null;
-            else {
-                listOfMap.add(getRowMap(row));
-                for (char c : getRowMap(row).keySet())
-                    if ((!listOfArguments.contains(c)) && (c != 'R'))
-                        listOfArguments.add(c);
-            }
+            listOfMap.add(getRowMap(row));
+            for (char c : getRowMap(row).keySet())
+                if ((!listOfArguments.contains(c)) && (c != 'R'))
+                    listOfArguments.add(c);
         }
         listOfArguments.add('R');
         double[][] matrix = new double[SLAY_ROWS.size()][listOfArguments.size()];
@@ -92,11 +88,6 @@ public class ListOfStringToSlay {
         }
         rowMap.put('R', Double.parseDouble(tempArgumentValue.toString()));
         return rowMap;
-    }
-
-    private boolean checkRow(String str) {
-        Pattern pattern = Pattern.compile("^[a-z0-9+\\-*/=]+$", Pattern.CASE_INSENSITIVE);
-        return pattern.matcher(str).matches();
     }
 }
 

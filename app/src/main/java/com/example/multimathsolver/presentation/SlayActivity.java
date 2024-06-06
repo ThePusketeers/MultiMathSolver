@@ -56,12 +56,20 @@ public class SlayActivity extends AppCompatActivity {
     }
 
     private void setUpOnClickListeners() {
-        addButton.setOnClickListener(v -> {
-            if (slayString.getText() != null){
-                rows.add(String.valueOf(slayString.getText()));
-                slayString.setText("");
-                adapter.submitList(new ArrayList<>(rows));
-                recyclerView.smoothScrollToPosition(rows.size() - 1);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewModel.add(String.valueOf(slayString.getText()), rows)) {
+                    slayString.setText("");
+                    adapter.submitList(new ArrayList<>(rows));
+                    recyclerView.smoothScrollToPosition(rows.size() - 1);
+                }
+            }
+        });
+        solveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.solve(rows);
             }
         });
         solveButton.setOnClickListener(v -> viewModel.solve(rows));
@@ -93,10 +101,9 @@ public class SlayActivity extends AppCompatActivity {
     }
     private void observeViewModel(SlayActivityViewModel viewModel) {
         viewModel.getOutput().observe(this, (string -> {
-            if (!string.isEmpty()) {
-                String text = "@string/answer" + string;
-                answerTextView.setText(text);
-            }
+            String text = "Ответ: " + viewModel.getOutput().getValue();
+            answerTextView.setText(text);
+
         }));
         viewModel.getError().observe(this, (string -> {
             Toast toast = Toast.makeText(this, string, Toast.LENGTH_LONG);
