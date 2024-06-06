@@ -58,7 +58,7 @@ public class MatrixActivity extends AppCompatActivity {
         initTable();
     }
     private void initTable() {
-        double[][] matrixAsArray = new double[][] { {1, 2, 3, 4,8}, {4, 8, 3, 9,11},{5, 1, 8, 2,8}, {9, 22, 13, 7,8},{3,21,5,4,3} };
+        double[][] matrixAsArray = new double[][] { {1, 2, 3, 4}, {4, 8, 3, 9},{5, 1, 8, 2}, {9, 22, 13, 7}};
         for (int i = 0; i < matrixAsArray.length; i++) {
 
             List<String> temp = new ArrayList<>();
