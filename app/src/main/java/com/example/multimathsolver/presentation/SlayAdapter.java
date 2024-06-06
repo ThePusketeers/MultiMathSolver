@@ -21,7 +21,7 @@ public class SlayAdapter extends ListAdapter<String, SlayAdapter.ViewHolder>
     private static final DiffUtil.ItemCallback<String> diffUtilCallback = new DiffUtil.ItemCallback<String>() {
         @Override
         public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
-            return oldItem == newItem;
+            return oldItem.equals(newItem);
         }
 
         @Override
@@ -42,7 +42,7 @@ public class SlayAdapter extends ListAdapter<String, SlayAdapter.ViewHolder>
         holder.rowTv.setText(getCurrentList().get(position));
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }

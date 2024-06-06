@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:label="@string/app_name"
@@ -20,10 +21,8 @@
             />
         <activity
             android:name=".presentation.MatrixActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.MainActivity2"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity
             android:name=".presentation.BooleanAlgebraSolvedActivity"
             android:exported="false" />

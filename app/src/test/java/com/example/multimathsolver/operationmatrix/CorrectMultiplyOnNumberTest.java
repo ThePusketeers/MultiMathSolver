@@ -34,7 +34,7 @@ public class CorrectMultiplyOnNumberTest {
     }
 
     @Test
-    public void testAddTwoMatrix() throws Exception {
+    public void testAddTwoMatrix() {
         Assert.assertArrayEquals(expectedMatrix.getMatrix(), repository.multiplyOnNumber(firstMatrix, number).getMatrix());
     }
 

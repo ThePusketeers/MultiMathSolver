@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.multimathsolver.data.RepositoryImpl;
-import com.example.multimathsolver.domain.BooleanFunction;
 import com.example.multimathsolver.domain.GetAbbreviatedDNFUseCase;
 import com.example.multimathsolver.domain.GetBelongingToPostClassesUseCase;
 import com.example.multimathsolver.domain.GetDeadLockedDNFUseCase;
@@ -81,10 +80,6 @@ public class BooleanAlgebraViewModel extends ViewModel {
 
     public LiveData<String> getError() {
         return error;
-    }
-
-    public LiveData<Boolean> getIsProgress() {
-        return isProgress;
     }
 
     @Override

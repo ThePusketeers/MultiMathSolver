@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.multimathsolver.R;
 
-import java.util.List;
-
 public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageButton buttonBack;
@@ -46,7 +44,6 @@ public class BooleanAlgebraSolvedActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void observeViewModel(BooleanAlgebraViewModel viewModel) {
         viewModel.getOutput().observe(this, (string -> {
-            List<String> a = viewModel.getOutput().getValue();
             BooleanAlgebraAdapter adapter = new BooleanAlgebraAdapter(viewModel.getOutput().getValue(), mathAlgebraBooleanFunctions);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();

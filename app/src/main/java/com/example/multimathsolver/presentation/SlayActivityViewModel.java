@@ -17,10 +17,8 @@ import java.util.regex.Pattern;
 public class SlayActivityViewModel extends ViewModel {
     private final Repository repository = new RepositoryImpl();
     private final GetSLAYSolutionUseCase useCase = new GetSLAYSolutionUseCase(repository);
-    private MutableLiveData<String> output = new MutableLiveData<>();
+    private final MutableLiveData<String> output = new MutableLiveData<>();
     private final MutableLiveData<String> error = new MutableLiveData<>();
-    private SLAY coeffSLAY;
-    private SLAY additionalSLAY;
 
     public LiveData<String> getOutput() {
         return output;
@@ -47,8 +45,8 @@ public class SlayActivityViewModel extends ViewModel {
             rows = replaceSpace(rows);
             ListOfStringToSlay parser = new ListOfStringToSlay();
             parser.doSLAY(rows, 0);
-            coeffSLAY = parser.getCoeffSLAY();
-            additionalSLAY = parser.getAdditionalSLAY();
+            SLAY coeffSLAY = parser.getCoeffSLAY();
+            SLAY additionalSLAY = parser.getAdditionalSLAY();
             output.setValue(useCase.getSLAYSolutionUseCase(coeffSLAY, additionalSLAY));
         } catch (RuntimeException e) {
             error.setValue("Неверный ввод СЛАУ");
@@ -59,6 +57,7 @@ public class SlayActivityViewModel extends ViewModel {
     public void delete(List<String> rows, int position) {
         rows.remove(position);
     }
+
     public LiveData<String> getSolution() {
         if (output == null)
             return output = new MutableLiveData<>("Нет решения");

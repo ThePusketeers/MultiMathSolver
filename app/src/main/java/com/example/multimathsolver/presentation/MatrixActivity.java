@@ -130,11 +130,12 @@ public class MatrixActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if ( String.valueOf(degreeInputField.getText()).equals("") ){
+                    String degree = degreeInputField.getText().toString().trim();
+                    if (degree.isEmpty()){
                         viewModel.solveRaiseToDegree(viewModel.matrixOperations,1);
                     }
                     else{
-                        viewModel.solveRaiseToDegree(viewModel.matrixOperations,Integer.parseInt(String.valueOf(degreeInputField.getText())));
+                        viewModel.solveRaiseToDegree(viewModel.matrixOperations,Integer.parseInt(degree));
                     }
                 } catch (IncorrectMatrixSize e) {
                     throw new RuntimeException(e);
@@ -217,14 +218,17 @@ public class MatrixActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.slay_menu) {
                 startActivity(SlayActivity.newIntent(MatrixActivity.this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.limit_menu) {
                 startActivity(LimitActivity.newIntentLimit(MatrixActivity.this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
                 startActivity(BooleanAlgebraActivity.newIntentBooleanAlgera(MatrixActivity.this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             }

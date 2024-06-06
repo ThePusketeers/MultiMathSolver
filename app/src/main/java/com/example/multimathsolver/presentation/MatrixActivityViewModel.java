@@ -43,6 +43,7 @@ public class MatrixActivityViewModel {
         outputMatrix.setValue( useCaseGetMultiplyOnNumber.getMultiplyOnNumber(matrixOperations, constantForMultiply) );
     }
     public void solveRaiseToDegree(MatrixOperations matrixOperations, int degree) throws IncorrectMatrixSize {
+        if (degree == 1) return;
         outputMatrix.setValue( useCaseGetRaiseToDegree.getRaiseToDegree(matrixOperations,degree) );
     }
     public void solveMultiplyMatrix(MatrixOperations matrixOperations, MatrixOperations matrixOperations2){

@@ -52,14 +52,17 @@ public class LimitActivity extends AppCompatActivity {
                 return true;
             } else if (id == R.id.slay_menu) {
                 startActivity(SlayActivity.newIntent(this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.discra_menu) {
                 startActivity(newIntentBooleanAlgera(this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             } else if (id == R.id.matrix_menu) {
                 startActivity(MatrixActivity.newIntentMatrix(this));
+                overridePendingTransition(0, 0);
                 finish();
                 return true;
             }
@@ -78,9 +81,7 @@ public class LimitActivity extends AppCompatActivity {
             String text = "Вычисленное решение: \n" + viewModel.getOutput().getValue();
             output.setText(text);
         }) );
-        viewModel.getError().observe(this, (string -> {
-            Toast.makeText(this, string, Toast.LENGTH_LONG).show();
-        }) );
+        viewModel.getError().observe(this, (string -> Toast.makeText(this, string, Toast.LENGTH_LONG).show()) );
         viewModel.getIsProgress().observe(this, (isProgress -> {
             if (isProgress)
                 progressBar.setVisibility(View.VISIBLE);
