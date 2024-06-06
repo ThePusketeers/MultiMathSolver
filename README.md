@@ -53,13 +53,20 @@ apiKey="9Z7ZKJ-ERR0RK1NG7"
 
 ## Usage
 1. Работа с булевыми операциями (нахождение минимальной ДНФ, сокращённой ДНФ, тупиковой ДНФ; СКНФ/СДНФ; таблица истинности; полином Жегалкина).
-   ![alt text](https://i.yapx.ru/XgwD1.jpg)
+   
+![alt text](https://i.ibb.co/3YNgmrT/1edited.jpg)
+  
 2. Операции с матрицами (сложение, вычитание, умножение на число и на матрицу, нахождение обратной, возведение в степень, нахождение ранга, вычисление определителя).
-   ![alt text](https://i.yapx.ru/XgwHu.jpg)
+
+![alt text](https://i.ibb.co/SJ9dyPp/2editted.jpg)
+
 3. Решение СЛАУ.
-   ![alt text](https://i.yapx.ru/XgwHv.jpg)
+
+![alt text](https://i.ibb.co/bb4zxHw/3editted.jpg)
+
 4. Операции с матрицами (сложение, вычитание, умножение на число и на матрицу, нахождение обратной, возведение в степень, нахождение ранга, вычисление определителя).
-   ![alt text](https://i.yapx.ru/XgwHw.jpg)
+
+![alt text](https://i.ibb.co/VTkP42T/4editted.jpg)
 
 ## License
 
