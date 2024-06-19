@@ -14,6 +14,7 @@ import static org.junit.Assert.*;
  * Instrumented test, which will execute on an Android device.
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * Something wrong goes here, please, connect with Pavel Snusjoedovich to fix dat  
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
